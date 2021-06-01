@@ -1,24 +1,18 @@
 <template>
 
   <section class="src-components-access">
-     <div class="login-box">
+     <div class="access-box">
         <!-- banner y opciones -->
         <img class="banner" src="../assets/banner.png" alt="banner">
-        <div class="options">
-            <button class="option">Login</button>
-            <button class="option">Register</button>
-        </div>
-        <form method="post">
-            <h1>Login</h1>
-            <!-- user -->
-            <label for="user">User</label>
-            <input name="contra" class="form-control" id="user" type="text" placeholder="Enter user" required>        
-            <!-- password -->
-            <label for="password">Password</label>
-            <input name="contra" class="form-control" id="password" type="password" placeholder="Enter password" required>
-            <!-- btn ingresar -->
-            <button type="submit">login</button>
-        </form>
+        <div class="row" id="options">
+            <router-link class="col-md-6" to="/Login">
+                <a>Login</a>
+            </router-link>
+            <router-link class="col-md-6" to="/Register">
+                <a>Register</a>
+            </router-link>
+        </div>      
+         <router-view></router-view>
       </div>  
   </section>
 
@@ -26,11 +20,13 @@
 
 <script lang="js">
 
+import Login from './Login.vue'
+
   export default  {
     name: 'src-components-access',
     props: [],
     mounted () {
-
+        Login
     },
     data () {
       return {
@@ -50,9 +46,9 @@
 
 <style scoped lang="css">
 
- .login-box {
+ .access-box {
     width: 320px;
-    height: 360px;
+    height: 400px;
     background: #000000AA;
     color: #fff;
     top: 50%;
@@ -63,8 +59,16 @@
     padding: 70px 30px;
 }
 
-.options{
+#options a{
+    text-decoration: none;
+    color: white;
+    padding: 10px;
+}
+
+#options {
     display: flex;
+    text-align: center;
+    
 }
 
 .banner {
@@ -76,41 +80,5 @@
     left: calc(50% - 50px);
 }
 
-.option{
-    border-radius: 0% !important;
-}
-
-.login-box label {
-    padding: 0px;
-    margin: 0px;
-    display: block;
-    margin-top: 20px;
-    font-size: 17px;
-}
-
-.login-box h1 {
-    padding: 0px;
-    margin: 0px;
-    display: block;
-    text-align: center;
-}
-
-.login-box input {
-    width: 100%;
-    margin-bottom: 10px;
-    margin-top: 10px;
-    border: none;
-    border-bottom: 1px solid #fff;
-    background: transparent;
-    outline: none;
-    color: #fff;
-}
-
-.login-box button {
-    display: block;
-    width: 100%;
-    margin-top: 15px;
-    border-radius: 20px;
-}
 
 </style>
