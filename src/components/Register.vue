@@ -6,21 +6,24 @@
       <h1>Register</h1>
       <!-- firstname -->
       <label for="firstname">First name</label>
-      <input name="firstname" class="form-control" id="firstname" type="text" placeholder="Enter first name" required>        
+      <input name="firstname" id="firstname" type="text" placeholder="Enter first name" required>        
       <!-- lastname -->
       <label for="lastname">Last name</label>
-      <input name="lastname" class="form-control" id="lastname" type="text" placeholder="Enter last name" required> 
+      <input name="lastname" id="lastname" type="text" placeholder="Enter last name" required> 
       <!-- email -->
       <label for="email">Email</label>
-      <input name="email" class="form-control" id="email" type="email" placeholder="Enter email" required> 
+      <input name="email" id="email" type="email" placeholder="Enter email" required> 
+      <!-- user -->
+      <label for="user">User</label>
+      <input name="user" id="user" type="text" placeholder="Enter user" required> 
       <!-- password -->
       <label for="password">Password</label>
-      <input name="password" class="form-control" id="password" type="password" placeholder="Enter password" required>
+      <input name="password" id="password" type="password" placeholder="Enter password" required>
       <!-- confirm password -->
       <label for="confirmpassword">Confirm password</label>
-      <input name="confirmpassword" class="form-control" id="confirmpassword" type="password" placeholder="Enter confirm password" required>
+      <input name="confirmpassword" id="confirmpassword" type="password" placeholder="Enter confirm password" required>
       <!-- btn ingresar -->
-      <button type="submit">Register</button>
+      <button class="btn btn-light" type="submit">Register</button>
     </form>
     </div>
   </section>

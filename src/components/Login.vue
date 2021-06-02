@@ -2,17 +2,42 @@
 
   <section class="src-components-login">
     <div class="container">
-    <form method="post">
+    <vue-form :state="formState" @submit.prevent="enviar()">
       <h1>Login</h1>
       <!-- user -->
-      <label for="user">User</label>
-      <input name="contra" class="form-control" id="user" type="text" placeholder="Enter user" required>        
+      <validate tag="div">
+        <label for="user">User</label>
+        <input
+          name="user"
+          id="user"
+          type="text"
+          placeholder="Enter user"
+          v-model.trim="formData.user"
+          required
+        >      
+        <field-messages name="user" show="$dirty">
+          <div slot="required" class="alert alert-danger mt-1">Debe ingresar su usuario</div>
+        </field-messages>
+      </validate>   
+
       <!-- password -->
-      <label for="password">Password</label>
-      <input name="contra" class="form-control" id="password" type="password" placeholder="Enter password" required>
+      <validate tag="div">
+        <label for="password">Password</label>
+        <input
+          name="password"
+          id="password"
+          type="password"
+          placeholder="Enter password"
+          v-model.trim="formData.password"
+          required
+        >
+        <field-messages name="password" show="$dirty">
+          <div slot="required" class="alert alert-danger mt-1">Debe ingresar su contraseña</div>
+        </field-messages>
+      </validate> 
       <!-- btn ingresar -->
-      <button type="submit">login</button>
-    </form>
+      <button type="submit" :disabled="formState.$invalid" class="btn btn-light">login</button>
+     </vue-form>
     </div>
   </section>
 
@@ -28,11 +53,22 @@
     },
     data () {
       return {
-
+        formData: this.getInicialData(),
+        formState: {},
       }
     },
     methods: {
-
+       getInicialData(){
+        return{
+          user: '',
+          password: ''
+        }
+      },
+       enviar(){
+        console.log({...this.formData})
+        this.formData = this.getInicialData()
+        this.formState._reset()
+      }
     },
     computed: {
 

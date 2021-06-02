@@ -2,16 +2,16 @@
 
   <section class="src-components-access">
      <div class="access-box">
-        <!-- banner y opciones -->
         <img class="banner" src="../assets/banner.png" alt="banner">
         <div class="row" id="options">
-            <router-link class="col-md-6" to="/Login">
-                <a>Login</a>
+            <router-link class="col-6" to="/Login">
+                <button class="btn btn-light">Login</button>
             </router-link>
-            <router-link class="col-md-6" to="/Register">
-                <a>Register</a>
+            <router-link class="col-6" to="/Register">
+                <button class="btn btn-light">Register</button>
             </router-link>
-        </div>      
+        </div>
+        <!--Aca se insertan los componentes login y register -->      
          <router-view></router-view>
       </div>  
   </section>
@@ -48,7 +48,6 @@ import Login from './Login.vue'
 
  .access-box {
     width: 320px;
-    height: 400px;
     background: #000000AA;
     color: #fff;
     top: 50%;
@@ -57,6 +56,7 @@ import Login from './Login.vue'
     transform: translate(-50%, -50%);
     box-sizing: border-box;
     padding: 70px 30px;
+    display: inline-block;
 }
 
 #options a{
