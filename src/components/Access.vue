@@ -5,10 +5,10 @@
             <img class="banner" src="../assets/banner-3.jpg" alt="banner">
             <div class="row" id="options">
                 <router-link class="col-6" to="/Login">
-                    <button class="btn btn-light"><b>Log in</b></button>
+                    <button id="login" @click="clickLogin" class="btn btn-light"><b>Log in</b></button>
                 </router-link>
                 <router-link class="col-6" to="/Register">
-                    <button class="btn btn-light"><b>Sing up</b></button>
+                    <button id="singup" @click="clickSingup" class="btn btn-light"><b>Sing up</b></button>
                 </router-link>
             </div>
             <!--Aca se insertan los componentes login y register -->     
@@ -34,13 +34,18 @@ import Login from './Login.vue'
       }
     },
     methods: {
+        clickLogin(){
+            document.querySelector('.banner').style.top = '-9%'  
+        },
+        clickSingup(){
+            document.querySelector('.banner').style.top = '-5.5%'           
+        }
 
     },
     computed: {
 
     }
 }
-
 
 </script>
 
@@ -69,6 +74,7 @@ import Login from './Login.vue'
     display: inline-block;
     transform: translate(-50%, -50%);
     box-sizing: border-box;
+    
 }
 
 #options {
@@ -83,6 +89,11 @@ import Login from './Login.vue'
     width: 120px;
     padding: 7px;
 }
+
+#options button:hover {
+  background-color: rgb(189, 200, 200);
+}
+
 .banner {
     height: 85px;
     width: 87px;
@@ -91,6 +102,13 @@ import Login from './Login.vue'
     top: -9%;
     left: calc(50% - 50px);
 }
+
+@media screen and (max-width: 1024px){
+
+
+
+}
+
 
 
 

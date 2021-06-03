@@ -14,6 +14,7 @@
             placeholder="Enter first name"
             v-model.trim="formData.firstname"
             required
+            autocomplete="off"
           >
           <field-messages name="firstname" show="$dirty">
             <div slot="required" class="alert alert-danger mt-1">Enter your first name</div>
@@ -189,5 +190,9 @@
     width: 100%;
     margin-top: 15px;
     border-radius: 20px;
+}
+
+.container button:hover {
+    background-color: rgb(189, 200, 200);
 }
 </style>
