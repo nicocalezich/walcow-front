@@ -3,7 +3,7 @@
   <section class="src-components-register">
     <div class="container">
       <vue-form :state="formState" @submit.prevent="enviar()">
-        <h1>Register</h1>
+        <h1>Sing up</h1>
         <!-- firstname -->
         <validate tag="div">
           <label for="firstname">First name</label>
@@ -107,7 +107,7 @@
         </field-messages> 
         </validate>
         <!-- btn ingresar -->
-        <button type="submit" :disabled="formState.$invalid || !equalPasswords()" class="btn btn-light">Register</button>
+        <button type="submit" :disabled="formState.$invalid || !equalPasswords()" class="btn btn-light"><b>Sing up</b></button>
       </vue-form>
     </div>
   </section>

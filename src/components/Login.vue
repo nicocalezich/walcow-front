@@ -3,7 +3,7 @@
   <section class="src-components-login">
     <div class="container">
     <vue-form :state="formState" @submit.prevent="enviar()">
-      <h1>Login</h1>
+      <h1>Log in</h1>
       <!-- user -->
       <validate tag="div">
         <label for="user">Username</label>
@@ -36,7 +36,7 @@
         </field-messages>
       </validate> 
       <!-- btn ingresar -->
-      <button type="submit" :disabled="formState.$invalid" class="btn btn-light">login</button>
+      <button type="submit" :disabled="formState.$invalid" class="btn btn-light"><b>log in</b></button>
      </vue-form>
     </div>
   </section>
