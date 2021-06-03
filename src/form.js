@@ -7,7 +7,14 @@ let options = {
             return !value.includes(' ')
         },
         'have-letter': function(value){
-            return !value.test(/^[A-Za-z]+$/)             
+            const regExp = /[a-zA-Z]/g
+            let hasLetter = regExp.test(value)? true : false
+            return hasLetter            
+        },
+        'have-number': function(value){
+            const regex = /\d/; 
+            let hasNumber = regex.test(value)? true : false
+            return hasNumber
         }
     }
 

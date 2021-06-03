@@ -80,11 +80,14 @@
             required
             minlength="8"
             have-letter
+            have-number
           >
         <field-messages name="password" show="$dirty">
           <div slot="required" class="alert alert-danger mt-1">Enter a password</div>
           <div v-if="!equalPasswords()" class="alert alert-danger mt-1">Passwords must match</div>
-          <div slot="have-letter" class="alert alert-danger mt-1">Passwords must contain 1 letter</div>
+          <div slot="minlength" class="alert alert-danger mt-1">Password must have at least 8 characteres</div>
+          <div slot="have-letter" class="alert alert-danger mt-1">Password must have at least 1 letter</div>
+          <div slot="have-number" class="alert alert-danger mt-1">Password must have at least 1 number</div>
         </field-messages>
         </validate>  
         <!-- confirm password -->
@@ -97,7 +100,6 @@
             placeholder="Confirm password"
             v-model.trim="formData.confirmpassword"
             required
-            minlength="8"
           >
         <field-messages name="confirmpassword" show="$dirty">
           <div slot="required" class="alert alert-danger mt-1">Confirm the password</div>
