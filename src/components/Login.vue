@@ -6,17 +6,17 @@
       <h1>Login</h1>
       <!-- user -->
       <validate tag="div">
-        <label for="user">User</label>
+        <label for="user">Username</label>
         <input
-          name="user"
-          id="user"
+          name="username"
+          id="username"
           type="text"
-          placeholder="Enter user"
-          v-model.trim="formData.user"
+          placeholder="Enter username"
+          v-model.trim="formData.username"
           required
         >      
-        <field-messages name="user" show="$dirty">
-          <div slot="required" class="alert alert-danger mt-1">Debe ingresar su usuario</div>
+        <field-messages name="username" show="$dirty">
+          <div slot="required" class="alert alert-danger mt-1">Enter your username</div>
         </field-messages>
       </validate>   
 
@@ -32,7 +32,7 @@
           required
         >
         <field-messages name="password" show="$dirty">
-          <div slot="required" class="alert alert-danger mt-1">Debe ingresar su contraseña</div>
+          <div slot="required" class="alert alert-danger mt-1">Enter your password</div>
         </field-messages>
       </validate> 
       <!-- btn ingresar -->
@@ -60,7 +60,7 @@
     methods: {
        getInicialData(){
         return{
-          user: '',
+          username: '',
           password: ''
         }
       },
