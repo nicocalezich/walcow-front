@@ -16,7 +16,7 @@
           required
         >      
         <field-messages name="username" show="$dirty">
-          <div slot="required" class="alert alert-danger mt-1">Enter your username</div>
+          <div slot="required" class="alert alert-danger error">Enter your username</div>
         </field-messages>
       </validate>   
 
@@ -32,7 +32,7 @@
           required
         >
         <field-messages name="password" show="$dirty">
-          <div slot="required" class="alert alert-danger mt-1">Enter your password</div>
+          <div slot="required" class="alert alert-danger error">Enter your password</div>
         </field-messages>
       </validate> 
       <!-- btn ingresar -->
@@ -115,6 +115,14 @@
 
 .container button:hover {
     background-color: rgb(189, 200, 200);
+}
+
+.error{
+  text-align: center;
+  color: red;
+  background-color: transparent;
+  border: none;
+  padding: 0px;
 }
 
 </style>

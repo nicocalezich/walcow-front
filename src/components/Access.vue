@@ -5,10 +5,10 @@
             <img class="banner" src="../assets/banner-3.jpg" alt="banner">
             <div class="row" id="options">
                 <router-link class="col-6" to="/Login">
-                    <button id="login" @click="clickLogin" class="btn btn-light"><b>Log in</b></button>
+                    <button id="login"  class="btn btn-light"><b>Log in</b></button>
                 </router-link>
                 <router-link class="col-6" to="/Register">
-                    <button id="singup" @click="clickSingup" class="btn btn-light"><b>Sing up</b></button>
+                    <button id="singup" class="btn btn-light"><b>Sing up</b></button>
                 </router-link>
             </div>
             <!--Aca se insertan los componentes login y register -->     
@@ -33,15 +33,7 @@ import Login from './Login.vue'
         
       }
     },
-    methods: {
-        clickLogin(){
-            document.querySelector('.banner').style.top = '-9%'  
-        },
-        clickSingup(){
-            document.querySelector('.banner').style.top = '-5.5%'           
-        }
-
-    },
+   
     computed: {
 
     }
@@ -99,8 +91,12 @@ import Login from './Login.vue'
     width: 87px;
     border-radius: 50%;
     position: absolute;
-    top: -9%;
-    left: calc(50% - 50px);
+    margin: auto;
+    left: 0;
+    right: 0;
+    text-align: center;
+    z-index: 1;
+    top: -3rem;
 }
 
 @media screen and (max-width: 1024px){

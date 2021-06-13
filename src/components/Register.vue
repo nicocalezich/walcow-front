@@ -17,7 +17,7 @@
             autocomplete="off"
           >
           <field-messages name="firstname" show="$dirty">
-            <div slot="required" class="alert alert-danger mt-1">Enter your first name</div>
+            <div slot="required" class="alert alert-danger error">Enter your first name</div>
           </field-messages>   
         </validate>        
         <!-- lastname -->
@@ -32,7 +32,7 @@
             required
           >
         <field-messages name="lastname" show="$dirty">
-          <div slot="required" class="alert alert-danger mt-1">Enter your last name</div>
+          <div slot="required" class="alert alert-danger error">Enter your last name</div>
         </field-messages> 
         </validate>    
         <!-- email -->
@@ -47,8 +47,8 @@
           required
         >
         <field-messages name="email" show="$dirty">
-          <div slot="required" class="alert alert-danger mt-1">Enter your mail</div>
-          <div slot="email" class="alert alert-danger mt-1">Enter a valid email</div>
+          <div slot="required" class="alert alert-danger error">Enter your mail</div>
+          <div slot="email" class="alert alert-danger error">Enter a valid email</div>
         </field-messages> 
         </validate>     
         <!-- user -->
@@ -64,8 +64,8 @@
             in-between-spaces
           >
         <field-messages name="username" show="$dirty">
-          <div slot="required" class="alert alert-danger mt-1">Enter a username</div>
-          <div slot="in-between-spaces" class="alert alert-danger mt-1">Username cannot have in-between spaces</div>
+          <div slot="required" class="alert alert-danger error">Enter a username</div>
+          <div slot="in-between-spaces" class="alert alert-danger error">Username cannot have in-between spaces</div>
 
         </field-messages> 
         </validate>  
@@ -84,11 +84,11 @@
             have-number
           >
         <field-messages name="password" show="$dirty">
-          <div slot="required" class="alert alert-danger mt-1">Enter a password</div>
-          <div v-if="!equalPasswords()" class="alert alert-danger mt-1">Passwords must match</div>
-          <div slot="minlength" class="alert alert-danger mt-1">Password must have at least 8 characteres</div>
-          <div slot="have-letter" class="alert alert-danger mt-1">Password must have at least 1 letter</div>
-          <div slot="have-number" class="alert alert-danger mt-1">Password must have at least 1 number</div>
+          <div slot="required" class="alert alert-danger error">Enter a password</div>
+          <div v-if="!equalPasswords()" class="alert alert-danger error">Passwords must match</div>
+          <div slot="minlength" class="alert alert-danger error">Password must have at least 8 characteres</div>
+          <div slot="have-letter" class="alert alert-danger error">Password must have at least 1 letter</div>
+          <div slot="have-number" class="alert alert-danger error">Password must have at least 1 number</div>
         </field-messages>
         </validate>  
         <!-- confirm password -->
@@ -103,8 +103,8 @@
             required
           >
         <field-messages name="confirmpassword" show="$dirty">
-          <div slot="required" class="alert alert-danger mt-1">Confirm the password</div>
-          <div v-if="!equalPasswords()" class="alert alert-danger mt-1">Passwords must match</div>
+          <div slot="required" class="alert alert-danger error">Confirm the password</div>
+          <div v-if="!equalPasswords()" class="alert alert-danger error">Passwords must match</div>
         </field-messages> 
         </validate>
         <!-- btn ingresar -->
@@ -194,5 +194,13 @@
 
 .container button:hover {
     background-color: rgb(189, 200, 200);
+}
+
+.error{
+  text-align: center;
+  color: red;
+  background-color: transparent;
+  border: none;
+  padding: 0px;
 }
 </style>
