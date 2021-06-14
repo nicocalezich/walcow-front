@@ -8,7 +8,7 @@ Vue.use(VueRouter)
 export const router = new VueRouter({
     mode: 'history',
     routes: [
-        {path: "/", component: Login},
+        {path: "/", redirect: "/login"},
         {path: "/login", component: Login},
         {path: "/register", component: Register}
     ]

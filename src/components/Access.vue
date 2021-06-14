@@ -20,17 +20,14 @@
 
 <script lang="js">
 
-import Login from './Login.vue'
-
   export default  {
     name: 'src-components-access',
     props: [],
-    mounted () {
-        Login
+    mounted () {   
     },
     data () {
       return {
-        
+
       }
     },
    
