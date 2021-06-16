@@ -1,5 +1,4 @@
 <template>
-
   <section class="src-components-register">
     <div class="container">
       <vue-form :state="formState" @submit.prevent="enviar()">
@@ -15,46 +14,54 @@
             v-model.trim="formData.firstname"
             required
             autocomplete="off"
-          >
+          />
           <field-messages name="firstname" show="$dirty">
-            <div slot="required" class="alert alert-danger error">Enter your first name</div>
-          </field-messages>   
-        </validate>        
+            <div slot="required" class="alert alert-danger error">
+              Enter your first name
+            </div>
+          </field-messages>
+        </validate>
         <!-- lastname -->
         <validate tag="div">
           <label for="lastname">Last name</label>
           <input
-            name="lastname" 
-            id="lastname" 
-            type="text" 
+            name="lastname"
+            id="lastname"
+            type="text"
             placeholder="Enter last name"
-            v-model.trim="formData.lastname" 
+            v-model.trim="formData.lastname"
             required
-          >
-        <field-messages name="lastname" show="$dirty">
-          <div slot="required" class="alert alert-danger error">Enter your last name</div>
-        </field-messages> 
-        </validate>    
+          />
+          <field-messages name="lastname" show="$dirty">
+            <div slot="required" class="alert alert-danger error">
+              Enter your last name
+            </div>
+          </field-messages>
+        </validate>
         <!-- email -->
         <validate tag="div">
           <label for="email">Email</label>
           <input
-          name="email"
-          id="email"
-          type="email"
-          placeholder="Enter email"
-          v-model.trim="formData.email" 
-          required
-        >
-        <field-messages name="email" show="$dirty">
-          <div slot="required" class="alert alert-danger error">Enter your mail</div>
-          <div slot="email" class="alert alert-danger error">Enter a valid email</div>
-        </field-messages> 
-        </validate>     
+            name="email"
+            id="email"
+            type="email"
+            placeholder="Enter email"
+            v-model.trim="formData.email"
+            required
+          />
+          <field-messages name="email" show="$dirty">
+            <div slot="required" class="alert alert-danger error">
+              Enter your mail
+            </div>
+            <div slot="email" class="alert alert-danger error">
+              Enter a valid email
+            </div>
+          </field-messages>
+        </validate>
         <!-- user -->
         <validate tag="div">
           <label for="username">Username</label>
-          <input 
+          <input
             name="username"
             id="username"
             type="text"
@@ -62,17 +69,20 @@
             v-model.trim="formData.username"
             required
             in-between-spaces
-          >
-        <field-messages name="username" show="$dirty">
-          <div slot="required" class="alert alert-danger error">Enter a username</div>
-          <div slot="in-between-spaces" class="alert alert-danger error">Username cannot have in-between spaces</div>
-
-        </field-messages> 
-        </validate>  
+          />
+          <field-messages name="username" show="$dirty">
+            <div slot="required" class="alert alert-danger error">
+              Enter a username
+            </div>
+            <div slot="in-between-spaces" class="alert alert-danger error">
+              Username cannot have in-between spaces
+            </div>
+          </field-messages>
+        </validate>
         <!-- password -->
         <validate tag="div">
           <label for="password">Password</label>
-          <input 
+          <input
             name="password"
             id="password"
             type="password"
@@ -82,15 +92,25 @@
             minlength="8"
             have-letter
             have-number
-          >
-        <field-messages name="password" show="$dirty">
-          <div slot="required" class="alert alert-danger error">Enter a password</div>
-          <div v-if="!equalPasswords()" class="alert alert-danger error">Passwords must match</div>
-          <div slot="minlength" class="alert alert-danger error">Password must have at least 8 characteres</div>
-          <div slot="have-letter" class="alert alert-danger error">Password must have at least 1 letter</div>
-          <div slot="have-number" class="alert alert-danger error">Password must have at least 1 number</div>
-        </field-messages>
-        </validate>  
+          />
+          <field-messages name="password" show="$dirty">
+            <div slot="required" class="alert alert-danger error">
+              Enter a password
+            </div>
+            <div v-if="!equalPasswords()" class="alert alert-danger error">
+              Passwords must match
+            </div>
+            <div slot="minlength" class="alert alert-danger error">
+              Password must have at least 8 characteres
+            </div>
+            <div slot="have-letter" class="alert alert-danger error">
+              Password must have at least 1 letter
+            </div>
+            <div slot="have-number" class="alert alert-danger error">
+              Password must have at least 1 number
+            </div>
+          </field-messages>
+        </validate>
         <!-- confirm password -->
         <validate tag="div">
           <label for="confirmpassword">Confirm password</label>
@@ -101,22 +121,31 @@
             placeholder="Confirm password"
             v-model.trim="formData.confirmpassword"
             required
-          >
-        <field-messages name="confirmpassword" show="$dirty">
-          <div slot="required" class="alert alert-danger error">Confirm the password</div>
-          <div v-if="!equalPasswords()" class="alert alert-danger error">Passwords must match</div>
-        </field-messages> 
+          />
+          <field-messages name="confirmpassword" show="$dirty">
+            <div slot="required" class="alert alert-danger error">
+              Confirm the password
+            </div>
+            <div v-if="!equalPasswords()" class="alert alert-danger error">
+              Passwords must match
+            </div>
+          </field-messages>
         </validate>
         <!-- btn ingresar -->
-        <button type="submit" :disabled="formState.$invalid || !equalPasswords()" class="btn btn-light"><b>Sing up</b></button>
+        <button
+          type="submit"
+          :disabled="formState.$invalid || !equalPasswords()"
+          class="btn btn-light"
+        >
+          <b>Sing up</b>
+        </button>
       </vue-form>
     </div>
   </section>
-
 </template>
 
 <script lang="js">
-
+import axios from "axios";
   export default  {
     name: 'src-components-register',
     props: [],
@@ -145,6 +174,19 @@
       },
        enviar(){
         console.log({...this.formData})
+        let credentials = {
+          username: this.formData.username,
+          password: this.formData.password,
+          email: this.formData.email,
+          firstname: this.formData.firstname,
+          lastname: this.formData.lastname,
+        }
+        try {
+          axios.post("http://localhost:4000/api/users/register", credentials)
+          .then(res => console.log(res))
+        } catch (error) {
+          console.log(error)
+        }
         this.formData = this.getInicialData()
         this.formState._reset()
       }
@@ -153,50 +195,47 @@
 
     }
 }
-
-
 </script>
 
 <style scoped lang="css">
-
 .container label {
-    padding: 0px;
-    margin: 0px;
-    display: block;
-    margin-top: 20px;
-    font-size: 17px;
+  padding: 0px;
+  margin: 0px;
+  display: block;
+  margin-top: 20px;
+  font-size: 17px;
 }
 
 .container h1 {
-    padding: 0px;
-    margin: 0px;
-    display: block;
-    text-align: center;
+  padding: 0px;
+  margin: 0px;
+  display: block;
+  text-align: center;
 }
 
 .container input {
-    width: 100%;
-    margin-bottom: 10px;
-    margin-top: 10px;
-    border: none;
-    border-bottom: 1px solid #fff;
-    background: transparent;
-    outline: none;
-    color: #fff;
+  width: 100%;
+  margin-bottom: 10px;
+  margin-top: 10px;
+  border: none;
+  border-bottom: 1px solid #fff;
+  background: transparent;
+  outline: none;
+  color: #fff;
 }
 
 .container button {
-    display: block;
-    width: 100%;
-    margin-top: 15px;
-    border-radius: 20px;
+  display: block;
+  width: 100%;
+  margin-top: 15px;
+  border-radius: 20px;
 }
 
 .container button:hover {
-    background-color: rgb(189, 200, 200);
+  background-color: rgb(189, 200, 200);
 }
 
-.error{
+.error {
   text-align: center;
   color: red;
   background-color: transparent;
