@@ -2,7 +2,7 @@
   <section class="src-components-register">
     <div class="container">
       <vue-form :state="formState" @submit.prevent="enviar()">
-        <h1>Sing up</h1>
+        <h1>Sign up</h1>
         <!-- firstname -->
         <validate tag="div">
           <label for="firstname">First name</label>
@@ -137,7 +137,7 @@
           :disabled="formState.$invalid || !equalPasswords()"
           class="btn btn-light"
         >
-          <b>Sing up</b>
+          <b>Sign up</b>
         </button>
       </vue-form>
     </div>

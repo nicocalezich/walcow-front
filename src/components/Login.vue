@@ -46,6 +46,11 @@
         >
           <b>log in</b>
         </button>
+
+        <div class="alert alert-danger error mt-3" v-if="invalidCredentials">
+          {{this.errorMessage}}
+        </div>
+        
       </vue-form>
     </div>
   </section>
@@ -63,27 +68,34 @@
       return {
         formData: this.getInicialData(),
         formState: {},
+        invalidCredentials: false,
+        errorMessage: ''
       }
     },
     methods: {
        getInicialData(){
         return{
           username: '',
-          password: ''
+          password: '', 
         }
       },
        enviar(){
-        console.log({...this.formData})
+        //this.$store.state.success
+        //console.log({...this.formData})
         let credentials = {
           username: this.formData.username,
           password: this.formData.password
         }
         try {
           axios.post("http://localhost:4000/api/users/login", credentials)
-          .then(res => console.log(res))
+          .then(res =>{
+            this.invalidCredentials = !res.data.canLogin;
+            this.errorMessage = res.data.message
+          })
         } catch (error) {
           console.log(error)
         }
+        
         this.formData = this.getInicialData()
         this.formState._reset()
       }

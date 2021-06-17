@@ -4,16 +4,17 @@
         <div class="access-box">
             <img class="banner" src="../assets/banner-3.jpg" alt="banner">
             <div class="row" id="options">
-                <router-link class="col-6" to="/Login">
-                    <button id="login"  class="btn btn-light"><b>Log in</b></button>
-                </router-link>
-                <router-link class="col-6" to="/Register">
-                    <button id="singup" class="btn btn-light"><b>Sing up</b></button>
-                </router-link>
+                <div class="col-6">
+                    <button @click="setLogin()" id="login"  class="btn btn-light"><b>Log in</b></button>
+                </div>
+                <div class="col-6">
+                    <button @click="setSignup()" id="singup" class="btn btn-light"><b>Sign up</b></button>
+                </div>
             </div>
             <!--Aca se insertan los componentes login y register -->     
-            <router-view></router-view>
-        </div>  
+            <router-view :name="selectedComponent"></router-view>      
+        
+        </div>
     </div>    
   </section>
 </template>
@@ -27,10 +28,20 @@
     },
     data () {
       return {
-
+          selectedComponent: 'login'
       }
     },
-   
+
+    methods:{
+        setLogin(){
+            this.selectedComponent= 'login'
+        },
+
+        setSignup(){
+            this.selectedComponent= 'register'
+        }
+
+     },
     computed: {
 
     }

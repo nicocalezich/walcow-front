@@ -8,10 +8,12 @@ import 'bootstrap/dist/css/bootstrap.min.css'
 
 import { router } from './router'
 import './form'
+import store from './vuex'
 
 Vue.config.productionTip = false
 
 new Vue({
+  store,
   router,
   render: h => h(App),
 }).$mount('#app')
