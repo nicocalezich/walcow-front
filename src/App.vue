@@ -1,17 +1,16 @@
 <template>
   <div id="app">
-    <Access />
+    <router-view></router-view>
   </div>
 </template>
 
 <script>
 
-import Access from './components/Access.vue'
 
 export default {
   name: 'App',
   components: {
-    Access
+  
   }
 }
 </script>

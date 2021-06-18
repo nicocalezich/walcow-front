@@ -1,7 +1,7 @@
 <template>
 
   <section class="src-components-home">
-    <h1>sadsadasdas</h1>
+    <h1>test</h1>
   </section>
 
 </template>
@@ -12,7 +12,9 @@
     name: 'src-components-home',
     props: [],
     mounted () {
-
+      if(!this.$store.state.success){
+        this.$router.push('/access')
+      }
     },
     data () {
       return {
