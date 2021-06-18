@@ -91,6 +91,10 @@
           .then(res =>{
             this.invalidCredentials = !res.data.canLogin;
             this.errorMessage = res.data.message
+            if(res.data.canLogin){
+             this.$store.dispatch('access', res.data.canLogin)
+             this.$router.push('/home')
+            }
           })
         } catch (error) {
           console.log(error)

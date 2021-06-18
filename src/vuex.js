@@ -14,9 +14,13 @@ export default new Vuex.Store({
         }
     },
     actions : {
-          
+        access({commit},canLogin) {
+            commit('changeState',canLogin)
+        } 
     },
     mutations : {
-              
+        changeState(state,canLogin) {
+            state.success = canLogin                
+        }
     }
 })
