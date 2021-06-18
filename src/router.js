@@ -2,6 +2,7 @@ import Vue from 'vue'
 import VueRouter from 'vue-router'
 
 import Login from './components/Login.vue'
+import Access from './components/Access.vue'
 import Register from './components/Register.vue'
 import Home from './components/Home.vue'
 
@@ -11,12 +12,25 @@ export const router = new VueRouter({
     routes: [
         {path: "/", redirect: "/access"},
         {path: "/access",
-        components: {
-            default: Login,
-            login: Login,
-            register: Register
-          }},
-        {path: "/register", component: Register},
+        component: Access,
+        children: [
+            {
+                path: "",
+                name: 'login',
+                component: Login                
+            },            
+            {
+                path: "login",
+                name: 'login',
+                component: Login                
+            },
+            {
+                path: "register",
+                name: "register",
+                component: Register
+            }
+        ]
+        },
         {path: "/home", component: Home}
     ]
 })
