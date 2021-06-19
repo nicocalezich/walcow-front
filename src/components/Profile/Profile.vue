@@ -40,12 +40,21 @@
       </div>
     </nav>
     <div class="container-fluid general">
-
       <h1 class="my-3">Visión general</h1>
-      <button class="btn btn-warning transactions">Depositar</button>
-      <button class="btn btn-light transactions">Transferir</button>
-      <button class="btn btn-light transactions">Retirar</button>
-      <a href="#" class="actions">Historial de transacciones</a>
+      <ul class="transactions">
+        <li class="tr_li">
+          <button class="btn btn-warning">Depositar</button>
+        </li>
+        <li class="tr_li">
+          <button class="btn btn-light">Transferir</button>
+        </li>
+        <li class="tr_li">
+          <button class="btn btn-light">Retirar</button>
+        </li>
+        <li class="tr_li">
+          <a href="#" class="actions">Historial de transacciones</a>
+        </li>
+      </ul>
     </div>
     <div class="container-fluid general balance">
       <p class="text-black-50">Balance aproximado</p>
@@ -129,9 +138,8 @@ section {
   padding: 24px;
 }
 
-.transactions {
+.tr_li {
   margin-right: 1.5rem;
-  margin-bottom: 1rem;
   box-shadow: rgb(234 236 239) 0 0 0 1px inset;
 }
 
@@ -167,6 +175,15 @@ td {
 
 .cripto-link {
   font-size: 12px !important;
+}
+
+.transactions {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: nowrap;
+  align-items: center;
+  list-style: none;
+  padding: 5px;
 }
 
 </style>
