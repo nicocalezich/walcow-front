@@ -282,4 +282,12 @@ import axios from "axios";
   color: rgb(255, 255, 255);
 }
 
+.src-components-register .container form {
+  padding: 15px 80px;
+}
+
+.container {
+  margin-top: -2.5rem;
+}
+
 </style>

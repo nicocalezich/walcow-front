@@ -44,7 +44,7 @@
           :disabled="formState.$invalid"
           class="btn btn-light"
         >
-          <b>log in</b>
+          <b>Log in</b>
         </button>
         <br>
           <div class="redirect">     
@@ -171,6 +171,10 @@
 
 .invalid-credentials{
   font-size: 21px;
+}
+
+.src-components-login .container form {
+  padding: 15px 80px;
 }
 
 </style>

@@ -66,21 +66,12 @@
 .access-box {
   background: #000000aa;
   color: #fff;
-  padding: 10px 100px 70px 100px;
 }
 
 .access-box form {
   display: flex;
   flex-direction: column;
   flex-wrap: wrap;
-}
-
-#options {
-  display: flex;
-  text-align: center;
-  padding: 12px 5px;
-  margin-top: -15px;
-  margin-bottom: 10px;
 }
 
 #options button {
@@ -98,9 +89,8 @@
   border-radius: 50%;
   text-align: center;
   z-index: 1;
-  top: 0;
   position: relative;
-  top: -3.5rem;
+  top: -2rem;
   left: 47%;
 }
 
