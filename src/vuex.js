@@ -1,5 +1,6 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
+import { router } from './router'
 
 Vue.use(Vuex)
 
@@ -16,11 +17,19 @@ export default new Vuex.Store({
     actions : {
         access({commit},canLogin) {
             commit('changeState',canLogin)
+        },
+        checkAccess({commit}) {
+            commit('redirect')
         } 
     },
     mutations : {
         changeState(state,canLogin) {
             state.success = canLogin                
+        },
+        redirect(state) {
+            if(!state.success){
+                router.push('/access')
+            }             
         }
     }
 })

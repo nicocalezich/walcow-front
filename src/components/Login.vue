@@ -46,8 +46,11 @@
         >
           <b>log in</b>
         </button>
-
-        <div class="alert alert-danger error mt-3" v-if="invalidCredentials">
+        <br>
+          <div class="redirect">     
+            <router-link to="/access/register"><a href="#">Don't have an account? Sign up here</a></router-link>                          
+          </div>
+        <div class="alert alert-danger error mt-3 invalid-credentials" v-if="invalidCredentials">
           {{this.errorMessage}}
         </div>
         
@@ -80,8 +83,6 @@
         }
       },
        enviar(){
-        //this.$store.state.success
-        //console.log({...this.formData})
         let credentials = {
           username: this.formData.username,
           password: this.formData.password
@@ -99,7 +100,6 @@
         } catch (error) {
           console.log(error)
         }
-        
         this.formData = this.getInicialData()
         this.formState._reset()
       }
@@ -155,4 +155,23 @@
   border: none;
   padding: 0px;
 }
+
+.redirect{
+  text-align: center;
+}
+
+.redirect :hover{
+  border-bottom: 1px solid;
+}
+
+.redirect a{
+  text-decoration: none;
+  color: rgb(255, 255, 255);
+}
+
+.invalid-credentials{
+  font-size: 21px;
+}
+
 </style>
+

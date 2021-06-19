@@ -1,20 +1,23 @@
 <template>
 
   <section class="src-components-home">
-    <h1>test</h1>
+    <Navbar/>
   </section>
 
 </template>
 
 <script lang="js">
 
+  import Navbar from './Navbar.vue'
+
   export default  {
     name: 'src-components-home',
     props: [],
+    components:{
+      Navbar
+    },
     mounted () {
-      if(!this.$store.state.success){
-        this.$router.push('/access')
-      }
+      this.$store.dispatch('checkAccess')
     },
     data () {
       return {
