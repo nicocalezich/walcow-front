@@ -1,9 +1,8 @@
 <template>
-  <section class="src-components-access">    
+  <section class="src-components-access">
     <div class="container">
         <div class="access-box">
             <img class="banner" src="../assets/banner-3.jpg" alt="banner">
-            <!--
             <div class="row" id="options">
                 <div class="col-6">
                     <router-link to="/access/login">
@@ -16,12 +15,11 @@
                     </router-link>
                 </div>
             </div>
-            -->
-            <!-- Aca se insertan los componentes login y register -->     
-            <router-view></router-view>      
+            <!--Aca se insertan los componentes login y register -->
+            <router-view></router-view>
+
         </div>
-       
-    </div>    
+    </div>
   </section>
 </template>
 
@@ -30,7 +28,7 @@
   export default  {
     name: 'src-components-access',
     props: [],
-    mounted () {   
+    mounted () {
     },
     data () {
       return {
@@ -47,45 +45,44 @@
 </script>
 
 <style scoped lang="css">
-* {
-  margin: 0;
+
+*{
+    margin: 0%;
 }
 
-.src-components-access {
-  width: 100vw;
-  height: 100vh;
-  background-image: url("../assets/access-background-2.jpg");
-  background-size: cover;
-  font-family: "Montserrat", sans-serif;
-  display: flex;
-  align-items: center;
+.src-components-access{
+    width: 100vw;
+    height: 100vh;
+    background-image: url("../assets/access-background-2.jpg");
+    background-size: cover;
+    font-family: 'Montserrat', sans-serif;
 }
-.src-components-access .container {
-  margin: 0 auto;
-}
+
 .access-box {
-  background: #000000aa;
-  color: #fff;
-  padding: 10px 100px 70px 100px;
-}
+    width: 320px;
+    background: #000000AA;
+    color: #fff;
+    padding: 70px 30px;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    display: inline-block;
+    transform: translate(-50%, -50%);
+    box-sizing: border-box;
 
-.access-box form {
-  display: flex;
-  flex-direction: column;
-  flex-wrap: wrap;
 }
 
 #options {
-  display: flex;
-  text-align: center;
-  padding: 12px 5px;
-  margin-top: -15px;
-  margin-bottom: 10px;
+    display: flex;
+    text-align: center;
+    padding: 12px 5px;
+    margin-top: -15px;
+    margin-bottom: 10px;
 }
 
 #options button {
-  width: 160px;
-  padding: 7px;
+    width: 120px;
+    padding: 7px;
 }
 
 #options button:hover {
@@ -93,21 +90,25 @@
 }
 
 .banner {
-  height: 85px;
-  width: 87px;
-  border-radius: 50%;
-  text-align: center;
-  z-index: 1;
-  top: 0;
-  position: relative;
-  top: -3.5rem;
-  left: 47%;
+    height: 85px;
+    width: 87px;
+    border-radius: 50%;
+    position: absolute;
+    margin: auto;
+    left: 0;
+    right: 0;
+    text-align: center;
+    z-index: 1;
+    top: -3rem;
 }
 
-@media (max-width: 768px) {
-  .access-box {
-    padding: 10px;
-  }
+@media screen and (max-width: 1024px){
+
+
 
 }
+
+
+
+
 </style>

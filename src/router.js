@@ -5,6 +5,7 @@ import Login from './components/Login.vue'
 import Access from './components/Access.vue'
 import Register from './components/Register.vue'
 import Home from './components/Home.vue'
+import Profile from "./components/Profile/Profile";
 
 Vue.use(VueRouter)
 export const router = new VueRouter({
@@ -31,6 +32,7 @@ export const router = new VueRouter({
             }
         ]
         },
-        {path: "/home", component: Home}
+        {path: "/home", component: Home},
+        {path: "/profile", component: Profile}
     ]
 })
