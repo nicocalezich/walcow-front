@@ -29,6 +29,7 @@ export default new Vuex.Store({
         redirect(state) {
             if(!state.success){
                 router.push('/access')
+                alert('You must login to continue')
             }             
         }
     }
