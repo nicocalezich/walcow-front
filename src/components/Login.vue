@@ -149,11 +149,11 @@
 }
 
 .error {
-  text-align: center;
+  text-align: left;
   color: red;
   background-color: transparent;
   border: none;
-  padding: 0px;
+  padding: 0px 20px;
 }
 
 .redirect{
@@ -175,6 +175,10 @@
 
 .src-components-login .container form {
   padding: 15px 80px;
+}
+
+.container {
+  margin-top: -2.5rem;
 }
 
 </style>

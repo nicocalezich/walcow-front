@@ -2,11 +2,6 @@
   <section class="src-components-register">
     <div class="container">
       <vue-form :state="formState" @submit.prevent="enviar()">
-           <div class="redirect">     
-            <router-link to="/access/login"><a href="#"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-arrow-left-short" viewBox="0 0 16 16">
-  <path fill-rule="evenodd" d="M12 8a.5.5 0 0 1-.5.5H5.707l2.147 2.146a.5.5 0 0 1-.708.708l-3-3a.5.5 0 0 1 0-.708l3-3a.5.5 0 1 1 .708.708L5.707 7.5H11.5a.5.5 0 0 1 .5.5z"/>
-</svg> Back to log in</a></router-link>                          
-          </div>
         <h1>Sign up</h1>
         <!-- firstname -->
         <div class="formRow">
@@ -151,6 +146,9 @@
           <b>Sign up</b>
         </button>
         <br>
+          <div class="redirect">     
+            <router-link to="/access/login"><a href="#">Already registered? back to log in</a></router-link>                          
+          </div>
       
       </vue-form>
     </div>
@@ -254,23 +252,25 @@ import axios from "axios";
 }
 
 .error {
-  text-align: center;
+  text-align: left;
   color: red;
   background-color: transparent;
   border: none;
   padding: 0px;
+  margin: 0px !important;
 }
+
 .formRow {
   width: 100%;
   display: flex;
 }
 .formRow div {
-  width: 50%;
+  width: 100%;
   margin: 5px 20px;
 }
 
 .redirect{
-  text-align: left;
+  text-align: center;
 }
 
 .redirect :hover{
