@@ -37,6 +37,11 @@
               Órdenes
             </a>
           </li>
+          <li class="nav-item">
+            <a @click="logout()" class="nav-link" href="#">
+              Log out
+            </a>
+          </li>
         </ul>
       </div>
     </nav>
@@ -59,6 +64,11 @@
     },
     methods: {
 
+      logout(){
+        this.$store.dispatch('access', false)
+        this.$router.push('/access')
+      }
+
     },
     computed: {
 
@@ -72,4 +82,5 @@
   nav{
     padding: 10px;
   }
+
 </style>
