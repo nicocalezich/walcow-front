@@ -50,9 +50,7 @@
         if (this.numeritoInput.length > 1) {
           this.numeritoInput = this.numeritoInput.slice(0,1);
         }
-
         console.log('Emit on-change');
-
         return this.$emit('on-change', this.numeritoInput);
       },
 

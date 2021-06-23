@@ -87,7 +87,6 @@
         this.checkOTP();
       },
       sendEmail(){
-        console.log('EMAIL SENDED!', this.email);
         try {
           axios.post("http://localhost:4000/api/users/otp", this.email)
           .then(res => {
@@ -96,6 +95,7 @@
         } catch (error) {
           console.log(error)
         }
+        alert('Email has been sent')
 
 
       },
@@ -150,10 +150,13 @@
 .otp-row {
   display: flex; 
   flex-direction: row;
-  border-bottom: 1px solid #fff;
   background: transparent;
   outline: none;
   color: #fff;
+}
+
+.otp-row button {
+ margin: 5px;
 }
 
 

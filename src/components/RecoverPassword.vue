@@ -2,7 +2,7 @@
 
   <section class="src-components-recover-password">
     <div class="container">
-      <vue-form :state="formState" @submit.prevent="enviar()">
+      <vue-form :state="formState" @submit.prevent="send()">
         <h1>Set new password</h1>
         <!-- password -->
         <div class="formRow">
@@ -67,10 +67,13 @@
           <b>Set password</b>
         </button>
         <br>
-          <div class="redirect">     
-            <router-link to="/access/login"><a href="#">Already registered? back to log in</a></router-link>                          
+          <div v-show="changedSuccess" class="password-success">
+            <p>password changed successfully</p>
           </div>
-      
+          <div class="redirect">     
+            <router-link to="/access/login"><a href="#">back to log in</a></router-link>                          
+          </div>
+          <br>
       </vue-form>
     </div>  
   </section>
@@ -93,7 +96,8 @@ import axios from "axios";
     data () {
       return {
         formData: this.getInicialData(),
-        formState: {}
+        formState: {},
+        changedSuccess: false
       }
     },
     methods: {
@@ -106,22 +110,23 @@ import axios from "axios";
       equalPasswords(){
         return this.formData.password === this.formData.confirmpassword
       },
-       enviar(){
+       send(){
         console.log({...this.formData})
-        let credentials = {
+     
+        let newPassword = {
           password: this.formData.password,
-          email: this.email,
         }
+        
         try {
-          axios.post("http://localhost:4000/api/users/recover", credentials)
+          axios.post("http://localhost:4000/api/users/recover", newPassword)
           .then(res => {
-            if(res.data.canRegister){
-             this.$router.push('/access')
-            }
+           console.log(res)
           })
         } catch (error) {
           console.log(error)
         }
+        
+        this.changedSuccess = true
         this.formData = this.getInicialData()
         this.formState._reset()
       }
@@ -130,7 +135,6 @@ import axios from "axios";
 
     }
 }
-
 
 </script>
 
@@ -207,7 +211,10 @@ import axios from "axios";
   padding: 15px 80px;
 }
 
-.container {
-  margin-top: -2.5rem;
+.password-success{
+  text-align: center;
+  color: rgb(93, 233, 93);
+  font-size: 20px;
+  
 }
 </style>

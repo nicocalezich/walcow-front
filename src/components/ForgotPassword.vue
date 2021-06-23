@@ -3,8 +3,8 @@
   <section class="src-components-forgot-password">
     <div class="container">
       <vue-form :state="formState" @submit.prevent="enviar()">
+        <br>
         <h1>Recover password</h1>
-
         <div class="formRow">
           <validate tag="div">
             <label for="email">Email</label>
