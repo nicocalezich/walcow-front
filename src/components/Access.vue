@@ -2,22 +2,7 @@
   <section class="src-components-access">    
     <div class="container">
         <div class="access-box">
-            <img class="banner" src="../assets/banner-3.jpg" alt="banner">
-            <!--
-            <div class="row" id="options">
-                <div class="col-6">
-                    <router-link to="/access/login">
-                    <button @click="setLogin()" id="login"  class="btn btn-light"><b>Log in</b></button>
-                    </router-link>
-                </div>
-                <div class="col-6">
-                    <router-link to="/access/register">
-                    <button @click="setSignup()" id="singup" class="btn btn-light"><b>Sign up</b></button>
-                    </router-link>
-                </div>
-            </div>
-            -->
-            <!-- Aca se insertan los componentes login y register -->     
+            <img class="banner" src="../assets/banner-3.jpg" alt="banner"> 
             <router-view></router-view>      
         </div>
        

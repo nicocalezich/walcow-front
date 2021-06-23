@@ -12,7 +12,7 @@
               name="email"
               id="email"
               type="email"
-              placeholder="Enter email"
+              placeholder="Enter your email"
               v-model.trim="formData.email"
               required
             />

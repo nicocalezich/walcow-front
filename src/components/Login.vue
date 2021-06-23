@@ -51,7 +51,7 @@
             <router-link to="/access/register"><a href="#">Don't have an account? Sign up here</a></router-link>                          
           </div>
           <div class="redirect">     
-            <router-link to="/access/forgot"><a href="#">Forgot password? Recover it here</a></router-link>                          
+            <router-link to="/access/forgot"><a href="#">I forgot my password</a></router-link>                          
           </div>
         <div class="alert alert-danger error mt-3 invalid-credentials" v-if="invalidCredentials">
           {{this.errorMessage}}

@@ -83,7 +83,6 @@
 <script lang="js">
 import axios from "axios";
 
-
   export default  {
     name: 'src-components-recover-password',
    props: ['email'],
