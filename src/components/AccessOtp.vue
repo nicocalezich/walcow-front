@@ -88,7 +88,7 @@
       },
       sendEmail(){
         try {
-          axios.post("http://localhost:4000/api/users/otp", this.email)
+          axios.post(process.env.url + "/api/users/otp", this.email)
           .then(res => {
             console.log('Sended', res);
           })
