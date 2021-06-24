@@ -1,11 +1,10 @@
 <template>
-  <section class="src-components-access">    
+  <section class="src-components-access">
     <div class="container">
         <div class="access-box">
-            <img class="banner" src="../assets/banner-3.jpg" alt="banner"> 
+            <img class="banner" src="../assets/banner-3.jpg" alt="banner">
             <router-view></router-view>      
         </div>
-       
     </div>    
   </section>
 </template>
@@ -15,7 +14,7 @@
   export default  {
     name: 'src-components-access',
     props: [],
-    mounted () {   
+    mounted () {
     },
     data () {
       return {

@@ -5,6 +5,7 @@ import Login from './components/Login.vue'
 import Access from './components/Access.vue'
 import Register from './components/Register.vue'
 import Home from './components/Home.vue'
+import Profile from "./components/Profile/Profile";
 import Forgot from './components/ForgotPassword.vue'
 import AccessOtp from './components/AccessOtp.vue'
 import RecoverPassword from './components/RecoverPassword.vue'
@@ -25,7 +26,7 @@ export const router = new VueRouter({
             {
                 path: "login",
                 name: 'login',
-                component: Login            
+                component: Login
             },
             {
                 path: "register",
@@ -51,6 +52,7 @@ export const router = new VueRouter({
             }
         ]
         },
-        {path: "/home", component: Home}
+        {path: "/home", component: Home},
+        {path: "/profile", component: Profile}
     ]
 })
