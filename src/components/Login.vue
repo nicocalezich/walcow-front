@@ -51,12 +51,11 @@
             <router-link to="/access/register"><a href="#">Don't have an account? Sign up here</a></router-link>                          
           </div>
           <div class="redirect">     
-            <router-link to="/access/forgot"><a href="#">I forgot my password</a></router-link>                          
+            <router-link class="forgot-pass" to="/access/forgot"><a href="#"><i>I forgot my password</i></a></router-link>                          
           </div>
         <div class="alert alert-danger error mt-3 invalid-credentials" v-if="invalidCredentials">
           {{this.errorMessage}}
         </div>
-        
       </vue-form>
     </div>
   </section>
@@ -174,6 +173,7 @@
 
 .invalid-credentials{
   font-size: 21px;
+  text-align: center;
 }
 
 .src-components-login .container form {
@@ -182,6 +182,10 @@
 
 .container {
   margin-top: -2.5rem;
+}
+
+.forgot-pass{
+  font-size: 13px;
 }
 
 </style>
