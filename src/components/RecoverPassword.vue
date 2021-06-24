@@ -117,7 +117,7 @@ import axios from "axios";
         }
         
         try {
-          axios.post("http://localhost:4000/api/users/recover", newPassword)
+          axios.post(process.env.url + "/api/users/recover", newPassword)
           .then(res => {
            console.log(res)
           })
