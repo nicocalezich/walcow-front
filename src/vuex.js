@@ -26,11 +26,11 @@ export default new Vuex.Store({
         changeState(state,canLogin) {
             state.success = canLogin                
         },
-        redirect(state) {
-            if(!state.success){
+        redirect() {
+            if (!window.localStorage.getItem('token')) {
                 router.push('/access')
                 alert('You must login to continue')
-            }             
+            }
         }
     }
 })
