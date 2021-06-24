@@ -1,13 +1,11 @@
 <template>
 
   <section class="src-components-transaction">
-       <div class="container">
         <div class="transaction-box">
            <router-link to="/transaction/buy"><button>Buy</button></router-link>
            <router-link to="/transaction/sell"><button>Sell</button></router-link>
           <router-view></router-view>      
         </div>
-    </div>    
   </section>
 
 </template>
@@ -44,6 +42,9 @@
   font-family: "Montserrat", sans-serif;
   display: flex;
   align-items: center;
+  place-content: center;
+  justify-content: center;
+  align-self: center;
 }
 .src-components-access .container {
   margin: 0 auto;
