@@ -2,8 +2,10 @@
 
   <section class="src-components-transaction">
         <div class="transaction-box">
-           <router-link to="/transaction/buy"><button>Buy</button></router-link>
-           <router-link to="/transaction/sell"><button>Sell</button></router-link>
+          <div class="transaction-box-buttons">
+            <router-link to="/transaction/buy"><button>Buy</button></router-link>
+            <router-link to="/transaction/sell"><button>Sell</button></router-link>
+           </div>
           <router-view></router-view>      
         </div>
   </section>
@@ -46,23 +48,35 @@
   justify-content: center;
   align-self: center;
 }
-.src-components-access .container {
-  margin: 0 auto;
-}
+
 .transaction-box {
   background: #000000aa;
   color: #fff;
   text-align: center;
+  width: 40vw;
+  height: 35vh;
+  
 }
 
-.transaction-box button{ 
-  width: 200px;
+.transaction-box-buttons{ 
+  width: 100%;
+  display: flex;
+  flex-wrap: nowrap;
+  flex-direction: row;
 }
 
 .transaction-box form {
   display: flex;
   flex-direction: column;
   flex-wrap: wrap;
+}
+
+.transaction-box-buttons a{
+  width: 50% 
+}
+
+.transaction-box-buttons a button{
+  width: 100% 
 }
 
 </style>
