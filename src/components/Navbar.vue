@@ -65,6 +65,7 @@
     methods: {
 
       logout(){
+        window.localStorage.removeItem('token')
         this.$store.dispatch('access', false)
         this.$router.push('/access')
       }

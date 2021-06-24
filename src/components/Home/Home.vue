@@ -72,7 +72,7 @@ export default {
     Navbar
   },
   mounted() {
-    //this.$store.dispatch('checkAccess')
+    this.$store.dispatch('checkAccess')
     this.setBitcoinPrice()
     this.calculateTotal()
   },
