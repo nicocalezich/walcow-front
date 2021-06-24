@@ -88,9 +88,9 @@ export default {
   components: {
     Navbar
   },
-  mounted() {
-    this.$store.dispatch('checkAccess')
-  },
+  mounted () {
+      this.$store.dispatch('checkAccess')
+    },
 }
 </script>
 
