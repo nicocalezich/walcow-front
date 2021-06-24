@@ -1,88 +1,9 @@
 <template>
-  <section class="src-components-register">
+
+  <section class="src-components-recover-password">
     <div class="container">
-      <vue-form :state="formState" @submit.prevent="enviar()">
-        <h1>Sign up</h1>
-        <!-- firstname -->
-        <div class="formRow">
-          <validate tag="div">
-            <label for="firstname">First name</label>
-            <input
-              name="firstname"
-              id="firstname"
-              type="text"
-              placeholder="Enter first name"
-              v-model.trim="formData.firstname"
-              required
-              autocomplete="off"
-            />
-            <field-messages name="firstname" show="$dirty">
-              <div slot="required" class="alert alert-danger error">
-                Enter your first name
-              </div>
-            </field-messages>
-          </validate>
-          <!-- lastname -->
-          <validate tag="div">
-            <label for="lastname">Last name</label>
-            <input
-              name="lastname"
-              id="lastname"
-              type="text"
-              placeholder="Enter last name"
-              v-model.trim="formData.lastname"
-              required
-            />
-            <field-messages name="lastname" show="$dirty">
-              <div slot="required" class="alert alert-danger error">
-                Enter your last name
-              </div>
-            </field-messages>
-          </validate>
-        </div>
-        <!-- email -->
-        <div class="formRow">
-          <validate tag="div">
-            <label for="email">Email</label>
-            <input
-              name="email"
-              id="email"
-              type="email"
-              placeholder="Enter email"
-              v-model.trim="formData.email"
-              required
-            />
-            <field-messages name="email" show="$dirty">
-              <div slot="required" class="alert alert-danger error">
-                Enter your mail
-              </div>
-              <div slot="email" class="alert alert-danger error">
-                Enter a valid email
-              </div>
-            </field-messages>
-          </validate>
-          <!-- user -->
-          <validate tag="div">
-            <label for="username">Username</label>
-            <input
-              name="username"
-              id="username"
-              type="text"
-              placeholder="Enter username"
-              v-model.trim="formData.username"
-              required
-              in-between-spaces
-            />
-            <field-messages name="username" show="$dirty">
-              <div slot="required" class="alert alert-danger error">
-                Enter a username
-              </div>
-              <div slot="in-between-spaces" class="alert alert-danger error">
-                Username cannot have in-between spaces
-              </div>
-            </field-messages>
-          </validate>
-        </div>
+      <vue-form :state="formState" @submit.prevent="send()">
+        <h1>Set new password</h1>
         <!-- password -->
         <div class="formRow">
           <validate tag="div">
@@ -143,39 +64,44 @@
           :disabled="formState.$invalid || !equalPasswords()"
           class="btn btn-light"
         >
-          <b>Sign up</b>
+          <b>Set password</b>
         </button>
         <br>
-          <div class="redirect">     
-            <router-link to="/access/login"><a href="#">Already registered? back to log in</a></router-link>                          
+          <div v-show="changedSuccess" class="password-success">
+            <p>password changed successfully</p>
           </div>
-      
+          <div class="redirect">     
+            <router-link to="/access/login"><a href="#">back to log in</a></router-link>                          
+          </div>
+          <br>
       </vue-form>
-    </div>
+    </div>  
   </section>
+
 </template>
 
 <script lang="js">
 import axios from "axios";
-  export default  {
-    name: 'src-components-register',
-    props: [],
-    mounted () {
 
+  export default  {
+    name: 'src-components-recover-password',
+   props: ['email'],
+    mounted () {
+      if (this.email == undefined){
+        console.log('email undefined', this.email);
+        this.$router.push('/access/forgot');
+      }
     },
     data () {
       return {
         formData: this.getInicialData(),
-        formState: {}
+        formState: {},
+        changedSuccess: false
       }
     },
     methods: {
       getInicialData(){
         return{
-          firstname: '',
-          lastname: '',
-          email: '',
-          username: '',
           password: '',
           confirmpassword: ''
         }
@@ -183,26 +109,23 @@ import axios from "axios";
       equalPasswords(){
         return this.formData.password === this.formData.confirmpassword
       },
-       enviar(){
+       send(){
         console.log({...this.formData})
-        let credentials = {
-          username: this.formData.username,
+     
+        let newPassword = {
           password: this.formData.password,
-          email: this.formData.email,
-          firstname: this.formData.firstname,
-          lastname: this.formData.lastname,
         }
+        
         try {
-          axios.post("http://localhost:4000/api/users/register", credentials)
+          axios.post("http://localhost:4000/api/users/recover", newPassword)
           .then(res => {
-            if(res.data.canRegister){
-             this.$store.dispatch('access', res.data.canRegister)
-             this.$router.push('/home')
-            }
+           console.log(res)
           })
         } catch (error) {
           console.log(error)
         }
+        
+        this.changedSuccess = true
         this.formData = this.getInicialData()
         this.formState._reset()
       }
@@ -211,6 +134,7 @@ import axios from "axios";
 
     }
 }
+
 </script>
 
 <style scoped lang="css">
@@ -286,8 +210,10 @@ import axios from "axios";
   padding: 15px 80px;
 }
 
-.container {
-  margin-top: -2.5rem;
+.password-success{
+  text-align: center;
+  color: rgb(93, 233, 93);
+  font-size: 20px;
+  
 }
-
 </style>

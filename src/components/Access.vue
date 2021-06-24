@@ -3,23 +3,9 @@
     <div class="container">
         <div class="access-box">
             <img class="banner" src="../assets/banner-3.jpg" alt="banner">
-            <div class="row" id="options">
-                <div class="col-6">
-                    <router-link to="/access/login">
-                    <button @click="setLogin()" id="login"  class="btn btn-light"><b>Log in</b></button>
-                    </router-link>
-                </div>
-                <div class="col-6">
-                    <router-link to="/access/register">
-                    <button @click="setSignup()" id="singup" class="btn btn-light"><b>Sign up</b></button>
-                    </router-link>
-                </div>
-            </div>
-            <!--Aca se insertan los componentes login y register -->
-            <router-view></router-view>
-
+            <router-view></router-view>      
         </div>
-    </div>
+    </div>    
   </section>
 </template>
 
@@ -45,44 +31,36 @@
 </script>
 
 <style scoped lang="css">
-
-*{
-    margin: 0%;
+* {
+  margin: 0;
 }
 
-.src-components-access{
-    width: 100vw;
-    height: 100vh;
-    background-image: url("../assets/access-background-2.jpg");
-    background-size: cover;
-    font-family: 'Montserrat', sans-serif;
+.src-components-access {
+  width: 100vw;
+  height: 100vh;
+  background-image: url("../assets/access-background-2.jpg");
+  background-size: cover;
+  font-family: "Montserrat", sans-serif;
+  display: flex;
+  align-items: center;
 }
-
+.src-components-access .container {
+  margin: 0 auto;
+}
 .access-box {
-    width: 320px;
-    background: #000000AA;
-    color: #fff;
-    padding: 70px 30px;
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    display: inline-block;
-    transform: translate(-50%, -50%);
-    box-sizing: border-box;
-
+  background: #000000aa;
+  color: #fff;
 }
 
-#options {
-    display: flex;
-    text-align: center;
-    padding: 12px 5px;
-    margin-top: -15px;
-    margin-bottom: 10px;
+.access-box form {
+  display: flex;
+  flex-direction: column;
+  flex-wrap: wrap;
 }
 
 #options button {
-    width: 120px;
-    padding: 7px;
+  width: 160px;
+  padding: 7px;
 }
 
 #options button:hover {
@@ -90,25 +68,20 @@
 }
 
 .banner {
-    height: 85px;
-    width: 87px;
-    border-radius: 50%;
-    position: absolute;
-    margin: auto;
-    left: 0;
-    right: 0;
-    text-align: center;
-    z-index: 1;
-    top: -3rem;
+  height: 85px;
+  width: 87px;
+  border-radius: 50%;
+  text-align: center;
+  z-index: 1;
+  position: relative;
+  top: -2rem;
+  left: 47%;
 }
 
-@media screen and (max-width: 1024px){
-
-
+@media (max-width: 768px) {
+  .access-box {
+    padding: 10px;
+  }
 
 }
-
-
-
-
 </style>

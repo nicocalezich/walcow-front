@@ -44,11 +44,14 @@
           :disabled="formState.$invalid"
           class="btn btn-light"
         >
-          <b>log in</b>
+          <b>Log in</b>
         </button>
         <br>
           <div class="redirect">     
             <router-link to="/access/register"><a href="#">Don't have an account? Sign up here</a></router-link>                          
+          </div>
+          <div class="redirect">     
+            <router-link to="/access/forgot"><a href="#">I forgot my password</a></router-link>                          
           </div>
         <div class="alert alert-danger error mt-3 invalid-credentials" v-if="invalidCredentials">
           {{this.errorMessage}}
@@ -149,11 +152,11 @@
 }
 
 .error {
-  text-align: center;
+  text-align: left;
   color: red;
   background-color: transparent;
   border: none;
-  padding: 0px;
+  padding: 0px 20px;
 }
 
 .redirect{
@@ -171,6 +174,14 @@
 
 .invalid-credentials{
   font-size: 21px;
+}
+
+.src-components-login .container form {
+  padding: 15px 80px;
+}
+
+.container {
+  margin-top: -2.5rem;
 }
 
 </style>
