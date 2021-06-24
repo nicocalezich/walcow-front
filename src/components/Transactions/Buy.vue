@@ -7,7 +7,9 @@
         <!-- user -->
         <div class="input-container">
           <validate tag="div">   
+          
             <label class="label-type" for="user">I want to buy</label>
+           
             <br>
             <select class="buy-inputs" name="cryptocurrency" id="cryptocurrency">
               <option selected value="1">Value 1</option>
@@ -85,4 +87,13 @@
 .input-container{
   padding: 15px;
 }
+
+.label-type{
+  width: 90%;
+  text-align: left;
+}
+
+
+
+
 </style>
