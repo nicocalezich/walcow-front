@@ -54,7 +54,7 @@
   color: #fff;
   text-align: center;
   width: 40vw;
-  height: 35vh;
+  height: 55vh;
   
 }
 

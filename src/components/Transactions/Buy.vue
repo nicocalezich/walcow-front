@@ -1,40 +1,44 @@
 <template>
 
-  <section class="src-components-buy">
+  <section>
+    <div class="buy-box">
      <vue-form :state="formState" @submit.prevent="enviar()">
         <h1>Buy</h1>
         <!-- user -->
-        <validate tag="div">
-          <label for="user">I want to buy</label>
-          <br>
-          <select
-            name="cryptocurrency"
-            id="cryptocurrency"
-            type="text"
-            placeholder="Enter username"
-            v-model.trim="formData.username"
-            required
-          />
-          
-        </validate>
+        <div class="input-container">
+          <validate tag="div">   
+            <label class="label-type" for="user">I want to buy</label>
+            <br>
+            <select class="buy-inputs" name="cryptocurrency" id="cryptocurrency">
+              <option selected value="1">Value 1</option>
+              <option value="2">Value 2</option>
+            </select>
+          </validate>
+        </div>
 
         <!-- amount -->
-        <validate tag="div">
-          <label for="amount">I want to spend</label>
-          <br>
-          <input
-            name="amount"
-            id="amount"
-            type="number"
-            placeholder="Enter amount"
-            v-model.trim="formData.amount"
-            required
-          />
-        </validate>
+        <div class="input-container">
+          <validate tag="div">
+            <label for="amount">I want to spend</label>
+            <br>
+            <input
+              class="buy-inputs"
+              name="amount"
+              id="amount"
+              type="number"
+              placeholder="Enter amount"
+              v-model.trim="formData.amount"
+              required
+            />
+          </validate>
+         </div>
+        
+        
        
-        <br>
-        <br>
+        
+       
       </vue-form>
+    </div>
   </section>
 
 </template>
@@ -66,13 +70,9 @@
 </script>
 
 <style scoped lang="css">
-  .src-components-buy {
 
-  }
-
-
-
-  .container input {
+.buy-inputs{
+  width: 90%;
   margin-bottom: 10px;
   margin-top: 10px;
   border: none;
@@ -82,5 +82,7 @@
   color: #fff;
 }
 
-
+.input-container{
+  padding: 15px;
+}
 </style>
