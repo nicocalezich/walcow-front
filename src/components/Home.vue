@@ -1,6 +1,5 @@
 <template>
   <section>
-   
     <div class="container-fluid general">
       <h1 class="my-3">Visión general</h1>
       <ul class="transactions">
@@ -49,8 +48,12 @@
           <td>{{ w.quantity }} {{ w.token.code }}</td>
           <td>${{ w.quantity * w.token.price }}</td>
           <td>
-            <a href="#" class="actions">Comprar</a>
-            <a href="#" class="actions">Depositar</a>
+            <router-link :to="{path: '/transaction/buy/' + w.token.code}">
+              <a href="#" class="actions">Comprar</a>
+            </router-link>
+             <router-link :to="{path: '/transaction/sell/' + w.token.code}">
+              <a href="#" class="actions">Vender</a>
+            </router-link>
             <a href="#" class="actions">Retirar</a>
           </td>
         </tr>
@@ -66,8 +69,7 @@
 
 export default {
   name: "Home",
-  components: {
-  },
+  components: {},
   mounted() {
     this.$store.dispatch('checkAccess')
     this.setBitcoinPrice()
