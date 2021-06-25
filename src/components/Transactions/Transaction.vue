@@ -3,8 +3,8 @@
   <section class="src-components-transaction">
         <div class="transaction-box">
           <div class="transaction-box-buttons">
-            <router-link to="/transaction/buy"><button class="btn btn-light confirm">Buy</button></router-link>
-            <router-link to="/transaction/sell"><button class="btn btn-light confirm">Sell</button></router-link>
+            <router-link to="/transaction/buy"><button id="buy" @click="selectBuy()" class="btn btn-light confirm">Buy</button></router-link>
+            <router-link to="/transaction/sell"><button id="sell" @click="selectSell()" class="btn btn-light confirm">Sell</button></router-link>
            </div>
           <router-view></router-view>      
         </div>
@@ -18,7 +18,7 @@
     name: 'src-components-transaction',
     props: [],
     mounted () {
-
+      this.checkSelectedComponent()
     },
 
     data () {
@@ -28,10 +28,33 @@
     },
     methods: {
 
+     checkSelectedComponent(){
+       if(this.$route.path === '/transaction/buy' ){
+          document.querySelector('#buy').style.borderBottom = '2px solid #ffc107'
+          document.querySelector('#sell').style.borderBottom = 'none'
+       }
+       else if(this.$route.path === '/transaction/sell'){
+          document.querySelector('#sell').style.borderBottom = '2px solid #ffc107'
+          document.querySelector('#buy').style.borderBottom = 'none'
+     }
     },
+
+    selectBuy(){
+      this.checkSelectedComponent()
+      document.querySelector('#buy').style.borderBottom = '2px solid #ffc107'
+      document.querySelector('#sell').style.borderBottom = 'none'
+    },
+
+    selectSell(){
+      this.checkSelectedComponent()
+      document.querySelector('#sell').style.borderBottom = '2px solid #ffc107'
+      document.querySelector('#buy').style.borderBottom = 'none'
+    },
+  
     computed: {
 
     }
+  }
 }
 
 </script>
@@ -82,7 +105,8 @@ button:hover{
 }
 
 .transaction-box-buttons a button{
-  width: 100% 
+  width: 100%;
+  box-shadow: none !important;
 }
 
 </style>

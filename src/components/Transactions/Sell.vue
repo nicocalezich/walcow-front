@@ -1,40 +1,52 @@
 <template>
 
   <section class="src-components-sell">
-        <vue-form :state="formState" @submit.prevent="enviar()">
+     <div class="buy-box">
+     <vue-form :state="formState" @submit.prevent="enviar()">
+       <br>
         <h1>Sell</h1>
         <!-- user -->
-        <validate tag="div">
-          <label for="user">I want to sell</label>
-          <br>
-          <select
-            name="cryptocurrency"
-            id="cryptocurrency"
-            type="text"
-            placeholder="Enter username"
-            v-model.trim="formData.username"
-            required
-          />
-          
-        </validate>
+        <div class="input-container">
+          <validate tag="div">        
+            <label class="label-type" for="user">I want to buy</label>     
+            <br>
+            <select class="buy-inputs" name="cryptocurrency" id="cryptocurrency">
+              <option selected value="1">Bitcoin</option>
+              <option value="1">Etherum</option>
+              <option value="2">ADA</option>
+              <option value="3">Dogecoin</option>
+              <option value="4">Cowcoin</option>
+            </select>
+          </validate>
+           <label class="label-type"><i>1 btc = ${{this.criptoPrice}} USD </i></label>
+        </div>
 
         <!-- amount -->
-        <validate tag="div">
-          <label for="amount">I want to spend</label>
-          <br>
-          <input
-            name="amount"
-            id="amount"
-            type="number"
-            placeholder="Enter amount"
-            v-model.trim="formData.amount"
-            required
-          />
-        </validate>
-       
+        <div class="input-container">
+          <validate tag="div">
+            <label class="label-type" for="amount">I want to spend</label>
+            <br>
+            <input
+              class="buy-inputs"
+              name="amount"
+              id="amount"
+              type="number"
+              placeholder="Enter amount"
+              v-model.trim="formData.amount"
+              required
+            />
+            <label class="label-type"><i>current balance $2,520</i></label>
+          </validate>
+        </div>
+        <div class="amount-bought">
+          <label>You will buy <b>{{calculatePurchase}}</b> Bitcoin</label>
+        </div>
         <br>
-        <br>
+        <div>
+          <button :disabled="formState.$invalid || this.formData.amount == 0" type="submit" class="btn btn-light confirm">Confirm transaction</button>
+        </div>
       </vue-form>
+    </div>
   </section>
 
 </template>
@@ -49,16 +61,37 @@
     },
     data () {
       return {
-        formData: '',
+        formData: this.getInicialData(),
         formState: {},
+        balance: 2520,
+        criptoPrice: 0,
+        cp: []
 
       }
     },
     methods: {
+   getInicialData(){
+        return {amount: 0}
+      },
+
+      enviar(){
+        console.log(this.formData.amount)
+      },
+
+      async getCryptos() {
+        let res = await fetch('https://api.coingecko.com/api/v3/coins/bitcoin')
+        let json = await res.json()
+        this.criptoPrice = json.market_data.current_price.usd
+        json.map(c => {
+          this.cp.push(c)
+        })
+      }
 
     },
     computed: {
-
+      calculatePurchase(){
+        return (this.formData.amount / this.criptoPrice).toFixed(8)
+      }
     }
 }
 
@@ -66,17 +99,52 @@
 </script>
 
 <style scoped lang="css">
-  .src-components-sell {
+.src-components-sell{
+background-color: #fff;
+box-shadow: 0px 2px 4px rgb(0 0 0 / 4%);
+}
 
-  }
+h1{
+  color:black;
+}
 
-    .container input {
-  margin-bottom: 10px;
+.amount-bought{
+  color: black;
+}
+
+.buy-inputs{
+  width: 90%;
+  margin-bottom: 0px;
   margin-top: 10px;
   border: none;
-  border-bottom: 1px solid #fff;
+  border-bottom: 1px solid black;
   background: transparent;
   outline: none;
-  color: #fff;
 }
+
+.input-container{
+  padding: 15px;
+}
+
+.label-type{
+  width: 90%;
+  text-align: left;
+  font-size: 12px;
+  color: black;
+}
+
+.confirm{
+  width: 75%;
+  margin-top: 15px;
+  border-radius: 20px;
+  border:none;
+  cursor:pointer;
+  text-align: center;
+
+}
+
+button{ 
+  background-color: #ffc107;
+}
+
 </style>
