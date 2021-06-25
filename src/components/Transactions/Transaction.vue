@@ -40,13 +40,11 @@
     },
 
     selectBuy(){
-      this.checkSelectedComponent()
       document.querySelector('#buy').style.borderBottom = '2px solid #ffc107'
       document.querySelector('#sell').style.borderBottom = 'none'
     },
 
     selectSell(){
-      this.checkSelectedComponent()
       document.querySelector('#sell').style.borderBottom = '2px solid #ffc107'
       document.querySelector('#buy').style.borderBottom = 'none'
     },
