@@ -20,7 +20,7 @@ export default new Vuex.Store({
         },
         checkAccess({commit}) {
             commit('redirect')
-        } 
+        }
     },
     mutations : {
         changeState(state,canLogin) {
@@ -31,6 +31,6 @@ export default new Vuex.Store({
                 router.push('/access')
                 alert('You must login to continue')
             }
-        }
+        },
     }
 })

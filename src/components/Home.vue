@@ -1,6 +1,6 @@
 <template>
   <section>
-    <Navbar/>
+   
     <div class="container-fluid general">
       <h1 class="my-3">Visión general</h1>
       <ul class="transactions">
@@ -64,12 +64,9 @@
 
 <script>
 
-import Navbar from './Navbar.vue'
-
 export default {
   name: "Home",
   components: {
-    Navbar
   },
   mounted() {
     this.$store.dispatch('checkAccess')

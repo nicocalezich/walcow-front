@@ -54,8 +54,7 @@
   color: #fff;
   text-align: center;
   width: 40vw;
-  height: 65vh;
-  
+  padding-bottom: 20px;
 }
 
 .transaction-box-buttons{ 

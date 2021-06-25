@@ -10,7 +10,8 @@ import RecoverPassword from './components/RecoverPassword.vue'
 import Transaction from './components/Transactions/Transaction.vue'
 import Buy from './components/Transactions/Buy.vue'
 import Sell from './components/Transactions/Sell.vue'
-import Markets from "./components/Markets";
+import Markets from "./components/Markets"
+import Deposit from "./components/Deposit";
 
 
 Vue.use(VueRouter)
@@ -56,6 +57,7 @@ export const router = new VueRouter({
         ]
         },
         {path: "/home", component: Home},
+        {path: "/deposit", component: Deposit},
         {path: "/markets", component: Markets},
         {path: "/transaction",
         component: Transaction,

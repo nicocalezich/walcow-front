@@ -2,10 +2,12 @@
 
   <section class="src-components-navbar">
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-      <a class="navbar-brand" href="#">
-        <img src="../assets/banner-3.jpg" width="30" height="30" alt="" class="d-inline-block align-top">
-        Walcow
-      </a>
+      <router-link to="/home">
+        <a class="navbar-brand" href="#">
+          <img src="../assets/banner-3.jpg" width="30" height="30" alt="" class="d-inline-block align-top">
+          Walcow
+        </a>
+      </router-link>
       <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
               aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
@@ -13,30 +15,35 @@
 
       <div class="collapse navbar-collapse" id="navbarSupportedContent">
         <ul class="navbar-nav mr-auto">
-          <li class="nav-item dropdown">
-            <a class="nav-link dropdown-toggle" href="#" id="compra" data-toggle="dropdown"
-               aria-haspopup="true" aria-expanded="false">
-              Comprar cripto
-            </a>
+          <li class="nav-item">
+            <router-link to="/transaction/buy">
+              <a class="nav-link" href="#" id="compra"
+                aria-haspopup="true" aria-expanded="false">
+                Compra
+              </a>
+            </router-link>
           </li>
-          <li class="nav-item dropdown">
+          <li class="nav-item">
+            <router-link to="/transaction/sell">
+              <a class="nav-link" href="#" id="compra" 
+                aria-haspopup="true" aria-expanded="false">
+                Venta
+              </a>
+            </router-link>
+          </li>
+          <li class="nav-item">
+            <router-link to="/deposit">
+              <a class="nav-link" href="#">
+                Depositar
+              </a>
+            </router-link>
+          </li>
+          <li class="nav-item">
             <router-link to="/markets">
               <a class="nav-link" href="#">
                 Mercados
               </a>
             </router-link>
-          </li>
-          <li class="nav-item dropdown">
-            <a class="nav-link dropdown-toggle" href="#" id="wallet" data-toggle="dropdown"
-               aria-haspopup="true" aria-expanded="false">
-              Billetera
-            </a>
-          </li>
-          <li class="nav-item dropdown">
-            <a class="nav-link dropdown-toggle" href="#" id="orders" data-toggle="dropdown"
-               aria-haspopup="true" aria-expanded="false">
-              Órdenes
-            </a>
           </li>
           <li class="nav-item">
             <a @click="logout()" class="nav-link" href="#">
@@ -79,6 +86,10 @@ export default {
 <style scoped lang="css">
 nav {
   padding: 10px;
+}
+
+nav a {
+  text-decoration: none;
 }
 
 </style>

@@ -12,10 +12,10 @@
             <br>
             <select class="buy-inputs" name="cryptocurrency" id="cryptocurrency">
               <option selected value="1">Bitcoin</option>
-              <option value="2">Etherum</option>
+              <option value="1">Etherum</option>
               <option value="2">ADA</option>
-              <option value="2">Dogecoin</option>
-              <option value="2">MAT</option>
+              <option value="3">Dogecoin</option>
+              <option value="4">Cowcoin</option>
             </select>
           </validate>
         </div>
