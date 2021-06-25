@@ -52,7 +52,7 @@
 }
 
 .transaction-box {
-  background: #000000aa;
+   background-color: #fff;
   color: #fff;
   text-align: center;
   width: 40vw;
@@ -65,6 +65,10 @@
   display: flex;
   flex-wrap: nowrap;
   flex-direction: row;
+}
+
+button:hover{
+ border-bottom: 2px solid #ffc107;
 }
 
 .transaction-box form {

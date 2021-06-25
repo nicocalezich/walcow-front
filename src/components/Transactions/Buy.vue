@@ -18,12 +18,13 @@
               <option value="4">Cowcoin</option>
             </select>
           </validate>
+           <label class="label-type"><i>1 btc = ${{this.bitcoinPrice}} USD </i></label>
         </div>
 
         <!-- amount -->
         <div class="input-container">
           <validate tag="div">
-            <label class="label-type" for="amount">I want to spend </label>
+            <label class="label-type" for="amount">I want to spend</label>
             <br>
             <input
               class="buy-inputs"
@@ -38,11 +39,11 @@
           </validate>
         </div>
         <div class="amount-bought">
-          <label>You will buy 0.2321 BITCOIN </label>
+          <label>You will buy <b>{{calculatePurchase}}</b> Bitcoin</label>
         </div>
         <br>
         <div>
-          <button class="btn btn-light confirm">Confirm transaction</button>
+          <button :disabled="formState.$invalid" type="submit" class="btn btn-light confirm">Confirm transaction</button>
         </div>
       </vue-form>
     </div>
@@ -56,19 +57,42 @@
     name: 'src-components-buy',
     props: [],
     mounted () {
-
+      this.getCryptos()
     },
     data () {
       return {
-        formData: '',
+        formData: this.getInicialData(),
         formState: {},
-
+        balance: 2520,
+        bitcoinPrice: 0,
+        cp: []
       }
     },
     methods: {
 
+      getInicialData(){
+        return {amount: 0}
+      },
+
+      enviar(){
+        console.log(this.formData.amount)
+      },
+
+      async getCryptos() {
+        let res = await fetch('https://api.coingecko.com/api/v3/coins/bitcoin')
+        let json = await res.json()
+        this.bitcoinPrice = json.market_data.current_price.usd
+        json.map(c => {
+          this.cp.push(c)
+        })
+      }
+
     },
     computed: {
+      calculatePurchase(){
+        return (this.formData.amount / this.bitcoinPrice).toFixed(8)
+      }
+
 
     }
 }
@@ -81,6 +105,10 @@
 .src-components-buy{
 background-color: #fff;
 box-shadow: 0px 2px 4px rgb(0 0 0 / 4%);
+}
+
+h1{
+  color:black;
 }
 
 .amount-bought{
@@ -116,6 +144,10 @@ box-shadow: 0px 2px 4px rgb(0 0 0 / 4%);
   cursor:pointer;
   text-align: center;
 
+}
+
+button{ 
+  background-color: #ffc107;
 }
 
 

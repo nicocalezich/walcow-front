@@ -1,6 +1,5 @@
 <template lang="html">
   <section>
-    <Navbar/>
     <div class="container-fluid general balance">
       <p class="text-black-50">Mercados</p>
       <table class="table table-hover table-responsive">
@@ -22,12 +21,12 @@
 
 <script lang="js">
 
-import Navbar from "./Navbar";
+//import Navbar from "./Navbar";
 
 export default {
   name: 'src-components-markets',
   components: {
-    Navbar
+    //Navbar
   },
   props: [],
   mounted() {
