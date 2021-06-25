@@ -7,12 +7,30 @@
         <tr>
           <th scope="col">Nombre</th>
           <th scope="col">Precio</th>
-          <th scope="col">Total</th>
-          <th scope="col">Acciones</th>
+          <th scope="col">Capitalización del mercado</th>
         </tr>
         </thead>
         <tbody>
-
+        <tr v-for="(c,i) in cryptos" :key="i">
+          <td>
+            <img :src=c.image.thumb alt="">
+            {{ c.name }}
+          </td>
+          <td>
+            {{
+              c.market_data.current_price.usd.toLocaleString('en-US', {
+                style: 'currency', currency: 'USD'
+              })
+            }}
+          </td>
+          <td>
+            {{
+              (c.market_data.market_cap.usd).toLocaleString('en-US', {
+                style: 'currency', currency: 'USD'
+              })
+            }}
+          </td>
+        </tr>
         </tbody>
       </table>
     </div>
@@ -34,7 +52,7 @@ export default {
   },
   data() {
     return {
-      cp: []
+      cryptos: []
     }
   },
   methods: {
