@@ -1,14 +1,14 @@
 <template>
 
   <section class="src-components-sell">
-     <div class="buy-box">
+       <div class="buy-box">
      <vue-form :state="formState" @submit.prevent="enviar()">
        <br>
         <h1>Sell</h1>
         <!-- user -->
         <div class="input-container">
           <validate tag="div">        
-            <label class="label-type" for="user">I want to buy</label>     
+            <label class="label-type" for="user">I want to sell</label>     
             <br>
             <select class="buy-inputs" name="cryptocurrency" id="cryptocurrency">
               <option selected value="1">Bitcoin</option>
@@ -24,7 +24,7 @@
         <!-- amount -->
         <div class="input-container">
           <validate tag="div">
-            <label class="label-type" for="amount">I want to spend</label>
+            <label class="label-type" for="amount">I want to obtain</label>
             <br>
             <input
               class="buy-inputs"
@@ -35,14 +35,13 @@
               v-model.trim="formData.amount"
               required
             />
-              <label class="label-type"><i>current balance $2,520</i></label>
           </validate>
         </div>
-        <div class="amount-bought" v-if="this.formData.amount < 0">
-          <label class="label-type"><i>Amount is invalid</i></label>
+        <div class="amount-bought-error" v-if="this.formData.amount < 0">
+          <label><b>Amount is invalid</b></label>
         </div>
         <div v-else class="amount-bought">
-          <label>You will buy <b>{{calculatePurchase}}</b> Bitcoin</label>
+          <label>You will sell <b>{{calculatePurchase}}</b> Bitcoin for U$S {{this.formData.amount}}</label>
         </div>
         <br>
         <div>
