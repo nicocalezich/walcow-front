@@ -97,6 +97,7 @@ export default {
               this.errorMessage = res.data.message
               if (res.data.success) {
                 window.localStorage.setItem('token', res.data.user.token)
+                this.$store.dispatch('setUserData', res.data.user)
                 this.$store.dispatch('access', res.data.success)
                 this.$router.push('/home')
               }
