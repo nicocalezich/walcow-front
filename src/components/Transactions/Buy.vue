@@ -3,17 +3,19 @@
   <section>
     <div class="buy-box">
      <vue-form :state="formState" @submit.prevent="enviar()">
+       <br>
         <h1>Buy</h1>
         <!-- user -->
         <div class="input-container">
-          <validate tag="div">   
-          
-            <label class="label-type" for="user">I want to buy</label>
-           
+          <validate tag="div">        
+            <label class="label-type" for="user">I want to buy</label>     
             <br>
             <select class="buy-inputs" name="cryptocurrency" id="cryptocurrency">
-              <option selected value="1">Value 1</option>
-              <option value="2">Value 2</option>
+              <option selected value="1">Bitcoin</option>
+              <option value="2">Etherum</option>
+              <option value="2">ADA</option>
+              <option value="2">Dogecoin</option>
+              <option value="2">MAT</option>
             </select>
           </validate>
         </div>
@@ -21,7 +23,7 @@
         <!-- amount -->
         <div class="input-container">
           <validate tag="div">
-            <label for="amount">I want to spend</label>
+            <label class="label-type" for="amount">I want to spend </label>
             <br>
             <input
               class="buy-inputs"
@@ -32,13 +34,16 @@
               v-model.trim="formData.amount"
               required
             />
+            <label class="label-type"><i>current balance $2,520</i></label>
           </validate>
-         </div>
-        
-        
-       
-        
-       
+        </div>
+        <div>
+          <label>You will buy 0.2321 BITCOIN </label>
+        </div>
+        <br>
+        <div>
+          <button>Confirm transaction</button>
+        </div>
       </vue-form>
     </div>
   </section>
@@ -75,7 +80,7 @@
 
 .buy-inputs{
   width: 90%;
-  margin-bottom: 10px;
+  margin-bottom: 0px;
   margin-top: 10px;
   border: none;
   border-bottom: 1px solid #fff;
@@ -91,9 +96,7 @@
 .label-type{
   width: 90%;
   text-align: left;
+  font-size: 12px;
 }
-
-
-
 
 </style>
