@@ -18,7 +18,7 @@
               <option value="4">Cowcoin</option>
             </select>
           </validate>
-           <label class="label-type"><i>1 btc = ${{this.bitcoinPrice}} USD </i></label>
+           <label class="label-type"><i>1 btc = ${{this.criptoPrice}} USD </i></label>
         </div>
 
         <!-- amount -->
@@ -43,7 +43,7 @@
         </div>
         <br>
         <div>
-          <button :disabled="formState.$invalid" type="submit" class="btn btn-light confirm">Confirm transaction</button>
+          <button :disabled="formState.$invalid || this.formData.amount == 0" type="submit" class="btn btn-light confirm">Confirm transaction</button>
         </div>
       </vue-form>
     </div>
@@ -64,7 +64,7 @@
         formData: this.getInicialData(),
         formState: {},
         balance: 2520,
-        bitcoinPrice: 0,
+        criptoPrice: 0,
         cp: []
       }
     },
@@ -81,7 +81,7 @@
       async getCryptos() {
         let res = await fetch('https://api.coingecko.com/api/v3/coins/bitcoin')
         let json = await res.json()
-        this.bitcoinPrice = json.market_data.current_price.usd
+        this.criptoPrice = json.market_data.current_price.usd
         json.map(c => {
           this.cp.push(c)
         })
@@ -90,7 +90,7 @@
     },
     computed: {
       calculatePurchase(){
-        return (this.formData.amount / this.bitcoinPrice).toFixed(8)
+        return (this.formData.amount / this.criptoPrice).toFixed(8)
       }
 
 
