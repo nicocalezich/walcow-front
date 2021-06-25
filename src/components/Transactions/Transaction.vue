@@ -3,8 +3,8 @@
   <section class="src-components-transaction">
         <div class="transaction-box">
           <div class="transaction-box-buttons">
-            <router-link to="/transaction/buy"><button>Buy</button></router-link>
-            <router-link to="/transaction/sell"><button>Sell</button></router-link>
+            <router-link to="/transaction/buy"><button class="btn btn-light confirm">Buy</button></router-link>
+            <router-link to="/transaction/sell"><button class="btn btn-light confirm">Sell</button></router-link>
            </div>
           <router-view></router-view>      
         </div>
@@ -47,6 +47,8 @@
   place-content: center;
   justify-content: center;
   align-self: center;
+  background-color: #f5f5f5 !important;
+ 
 }
 
 .transaction-box {
@@ -55,6 +57,7 @@
   text-align: center;
   width: 40vw;
   padding-bottom: 20px;
+  box-shadow: 0px 2px 4px rgb(0 0 0 / 4%);
 }
 
 .transaction-box-buttons{ 

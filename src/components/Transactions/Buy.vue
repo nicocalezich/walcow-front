@@ -1,6 +1,6 @@
 <template>
 
-  <section>
+  <section  class="src-components-buy">
     <div class="buy-box">
      <vue-form :state="formState" @submit.prevent="enviar()">
        <br>
@@ -37,12 +37,12 @@
             <label class="label-type"><i>current balance $2,520</i></label>
           </validate>
         </div>
-        <div>
+        <div class="amount-bought">
           <label>You will buy 0.2321 BITCOIN </label>
         </div>
         <br>
         <div>
-          <button>Confirm transaction</button>
+          <button class="btn btn-light confirm">Confirm transaction</button>
         </div>
       </vue-form>
     </div>
@@ -78,15 +78,23 @@
 
 <style scoped lang="css">
 
+.src-components-buy{
+background-color: #fff;
+box-shadow: 0px 2px 4px rgb(0 0 0 / 4%);
+}
+
+.amount-bought{
+  color: black;
+}
+
 .buy-inputs{
   width: 90%;
   margin-bottom: 0px;
   margin-top: 10px;
   border: none;
-  border-bottom: 1px solid #fff;
+  border-bottom: 1px solid black;
   background: transparent;
   outline: none;
-  color: #fff;
 }
 
 .input-container{
@@ -97,6 +105,18 @@
   width: 90%;
   text-align: left;
   font-size: 12px;
+  color: black;
 }
+
+.confirm{
+  width: 75%;
+  margin-top: 15px;
+  border-radius: 20px;
+  border:none;
+  cursor:pointer;
+  text-align: center;
+
+}
+
 
 </style>
