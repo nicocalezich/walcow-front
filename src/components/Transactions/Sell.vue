@@ -35,15 +35,18 @@
               v-model.trim="formData.amount"
               required
             />
-            <label class="label-type"><i>current balance $2,520</i></label>
+              <label class="label-type"><i>current balance $2,520</i></label>
           </validate>
         </div>
-        <div class="amount-bought">
+        <div class="amount-bought" v-if="this.formData.amount < 0">
+          <label class="label-type"><i>Amount is invalid</i></label>
+        </div>
+        <div v-else class="amount-bought">
           <label>You will buy <b>{{calculatePurchase}}</b> Bitcoin</label>
         </div>
         <br>
         <div>
-          <button :disabled="formState.$invalid || this.formData.amount == 0" type="submit" class="btn btn-light confirm">Confirm transaction</button>
+          <button :disabled="formState.$invalid || this.formData.amount <= 0" type="submit" class="btn btn-light confirm">Confirm transaction</button>
         </div>
       </vue-form>
     </div>
