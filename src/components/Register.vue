@@ -193,7 +193,7 @@ import axios from "axios";
           lastname: this.formData.lastname,
         }
         try {
-          axios.post(process.env.url + "/api/users/register", credentials)
+          axios.post("https://walcow-api.herokuapp.com/api/users/register", credentials)
           .then(res => {
             if(res.data.canRegister){
              this.$store.dispatch('access', res.data.canRegister)

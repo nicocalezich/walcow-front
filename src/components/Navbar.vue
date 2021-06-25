@@ -20,10 +20,11 @@
             </a>
           </li>
           <li class="nav-item dropdown">
-            <a class="nav-link dropdown-toggle" href="#" id="mercados" data-toggle="dropdown"
-               aria-haspopup="true" aria-expanded="false">
-              Mercados
-            </a>
+            <router-link to="/markets">
+              <a class="nav-link" href="#">
+                Mercados
+              </a>
+            </router-link>
           </li>
           <li class="nav-item dropdown">
             <a class="nav-link dropdown-toggle" href="#" id="wallet" data-toggle="dropdown"
@@ -51,37 +52,33 @@
 
 <script lang="js">
 
-  export default  {
-    name: 'src-components-navbar',
-    props: [],
-    mounted () {
+export default {
+  name: 'src-components-navbar',
+  props: [],
+  mounted() {
 
-    },
-    data () {
-      return {
+  },
+  data() {
+    return {}
+  },
+  methods: {
 
-      }
-    },
-    methods: {
-
-      logout(){
-        window.localStorage.removeItem('token')
-        this.$store.dispatch('access', false)
-        this.$router.push('/access')
-      }
-
-    },
-    computed: {
-
+    logout() {
+      window.localStorage.removeItem('token')
+      this.$store.dispatch('access', false)
+      this.$router.push('/access')
     }
+
+  },
+  computed: {}
 }
 
 
 </script>
 
 <style scoped lang="css">
-  nav{
-    padding: 10px;
-  }
+nav {
+  padding: 10px;
+}
 
 </style>

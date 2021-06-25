@@ -88,7 +88,7 @@
       },
       sendEmail(){
         try {
-          axios.post(process.env.url + "/api/users/otp", this.email)
+          axios.post("https://walcow-api.herokuapp.com/api/users/otp", this.email)
           .then(res => {
             console.log('Sended', res);
           })

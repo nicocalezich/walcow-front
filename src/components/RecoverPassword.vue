@@ -117,7 +117,7 @@ import axios from "axios";
         }
         
         try {
-          axios.post(process.env.url + "/api/users/recover", newPassword)
+          axios.post("https://walcow-api.herokuapp.com/api/users/recover", newPassword)
           .then(res => {
            console.log(res)
           })
