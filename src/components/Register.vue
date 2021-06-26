@@ -8,13 +8,13 @@
           <validate tag="div">
             <label for="firstname">First name</label>
             <input
-              name="firstname"
-              id="firstname"
-              type="text"
-              placeholder="Enter first name"
-              v-model.trim="formData.firstname"
-              required
-              autocomplete="off"
+                name="firstname"
+                id="firstname"
+                type="text"
+                placeholder="Enter first name"
+                v-model.trim="formData.firstname"
+                required
+                autocomplete="off"
             />
             <field-messages name="firstname" show="$dirty">
               <div slot="required" class="alert alert-danger error">
@@ -26,12 +26,12 @@
           <validate tag="div">
             <label for="lastname">Last name</label>
             <input
-              name="lastname"
-              id="lastname"
-              type="text"
-              placeholder="Enter last name"
-              v-model.trim="formData.lastname"
-              required
+                name="lastname"
+                id="lastname"
+                type="text"
+                placeholder="Enter last name"
+                v-model.trim="formData.lastname"
+                required
             />
             <field-messages name="lastname" show="$dirty">
               <div slot="required" class="alert alert-danger error">
@@ -45,12 +45,12 @@
           <validate tag="div">
             <label for="email">Email</label>
             <input
-              name="email"
-              id="email"
-              type="email"
-              placeholder="Enter email"
-              v-model.trim="formData.email"
-              required
+                name="email"
+                id="email"
+                type="email"
+                placeholder="Enter email"
+                v-model.trim="formData.email"
+                required
             />
             <field-messages name="email" show="$dirty">
               <div slot="required" class="alert alert-danger error">
@@ -65,13 +65,13 @@
           <validate tag="div">
             <label for="username">Username</label>
             <input
-              name="username"
-              id="username"
-              type="text"
-              placeholder="Enter username"
-              v-model.trim="formData.username"
-              required
-              in-between-spaces
+                name="username"
+                id="username"
+                type="text"
+                placeholder="Enter username"
+                v-model.trim="formData.username"
+                required
+                in-between-spaces
             />
             <field-messages name="username" show="$dirty">
               <div slot="required" class="alert alert-danger error">
@@ -88,15 +88,15 @@
           <validate tag="div">
             <label for="password">Password</label>
             <input
-              name="password"
-              id="password"
-              type="password"
-              placeholder="Enter password"
-              v-model.trim="formData.password"
-              required
-              minlength="8"
-              have-letter
-              have-number
+                name="password"
+                id="password"
+                type="password"
+                placeholder="Enter password"
+                v-model.trim="formData.password"
+                required
+                minlength="8"
+                have-letter
+                have-number
             />
             <field-messages name="password" show="$dirty">
               <div slot="required" class="alert alert-danger error">
@@ -120,12 +120,12 @@
           <validate tag="div">
             <label for="confirmpassword">Confirm password</label>
             <input
-              name="confirmpassword"
-              id="confirmpassword"
-              type="password"
-              placeholder="Confirm password"
-              v-model.trim="formData.confirmpassword"
-              required
+                name="confirmpassword"
+                id="confirmpassword"
+                type="password"
+                placeholder="Confirm password"
+                v-model.trim="formData.confirmpassword"
+                required
             />
             <field-messages name="confirmpassword" show="$dirty">
               <div slot="required" class="alert alert-danger error">
@@ -139,77 +139,83 @@
         </div>
         <!-- btn ingresar -->
         <button
-          type="submit"
-          :disabled="formState.$invalid || !equalPasswords()"
-          class="btn btn-light"
+            type="submit"
+            :disabled="formState.$invalid || !equalPasswords()"
+            class="btn btn-light"
         >
           <b>Sign up</b>
         </button>
         <br>
-          <div class="redirect">     
-            <router-link to="/access/login"><a href="#">Already registered? back to log in</a></router-link>                          
-          </div>
-      
+        <div class="redirect">
+          <router-link to="/access/login"><a href="#">Already registered? back to log in</a></router-link>
+        </div>
+
       </vue-form>
     </div>
   </section>
 </template>
 
 <script lang="js">
-import axios from "axios";
-  export default  {
-    name: 'src-components-register',
-    props: [],
-    mounted () {
 
-    },
-    data () {
+export default {
+  name: 'src-components-register',
+  props: [],
+  mounted() {
+
+  },
+  data() {
+    return {
+      formData: this.getInicialData(),
+      formState: {}
+    }
+  },
+  methods: {
+    getInicialData() {
       return {
-        formData: this.getInicialData(),
-        formState: {}
+        firstname: '',
+        lastname: '',
+        email: '',
+        username: '',
+        password: '',
+        confirmpassword: ''
       }
     },
-    methods: {
-      getInicialData(){
-        return{
-          firstname: '',
-          lastname: '',
-          email: '',
-          username: '',
-          password: '',
-          confirmpassword: ''
-        }
-      },
-      equalPasswords(){
-        return this.formData.password === this.formData.confirmpassword
-      },
-       enviar(){
-        console.log({...this.formData})
-        let credentials = {
-          username: this.formData.username,
-          password: this.formData.password,
-          email: this.formData.email,
-          firstname: this.formData.firstname,
-          lastname: this.formData.lastname,
-        }
-        try {
-          axios.post("https://walcow-api.herokuapp.com/api/users/register", credentials)
-          .then(res => {
-            if(res.data.canRegister){
-             this.$store.dispatch('access', res.data.canRegister)
-             this.$router.push('/home')
+    equalPasswords() {
+      return this.formData.password === this.formData.confirmpassword
+    },
+    enviar() {
+      let credentials = {
+        username: this.formData.username,
+        password: this.formData.password,
+        email: this.formData.email,
+        firstname: this.formData.firstname,
+        lastname: this.formData.lastname,
+      }
+      try {
+        fetch('http://localhost:4000/api/users/register', {
+          method: 'POST',
+          body: JSON.stringify(credentials),
+          headers: {
+            'Content-Type': 'application/json'
+          }
+        }).then(r => {
+          r.json().then(u => {
+            console.log('response')
+            console.log(u)
+            if (u.success) {
+              this.$store.dispatch('access', u.success)
+              this.$router.push('/home')
             }
           })
-        } catch (error) {
-          console.log(error)
-        }
-        this.formData = this.getInicialData()
-        this.formState._reset()
+        })
+      } catch (error) {
+        console.log(error)
       }
-    },
-    computed: {
-
+      this.formData = this.getInicialData()
+      this.formState._reset()
     }
+  },
+  computed: {}
 }
 </script>
 
@@ -264,20 +270,21 @@ import axios from "axios";
   width: 100%;
   display: flex;
 }
+
 .formRow div {
   width: 100%;
   margin: 5px 20px;
 }
 
-.redirect{
+.redirect {
   text-align: center;
 }
 
-.redirect :hover{
+.redirect :hover {
   border-bottom: 1px solid;
 }
 
-.redirect a{
+.redirect a {
   text-decoration: none;
   color: rgb(255, 255, 255);
 }

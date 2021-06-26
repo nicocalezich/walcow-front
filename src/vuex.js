@@ -42,7 +42,12 @@ export default new Vuex.Store({
                         'Content-Type': 'application/json'
                     }
                 }).then(r => {
-                    r.json().then(u => this.setUserData(state, u.message))
+                    r.json().then(u => {
+                        state.user.firstname = u.message.firstname
+                        state.user.lastname = u.message.lastname
+                        state.user.email = u.message.email
+                        state.user.username = u.message.username
+                    })
                 })
             }
         },

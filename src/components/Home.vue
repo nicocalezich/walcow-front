@@ -94,7 +94,7 @@ export default {
       let result = await fetch('https://walcow-api.herokuapp.com/api/tokens/price/bitcoin')
       let json = await result.json()
       console.log(json)
-      this.bitcoinPrice = json.result.token.price
+      this.bitcoinPrice = json.result.price
     },
     calculateTotal() {
       this.wallets.map(w => {
