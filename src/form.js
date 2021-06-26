@@ -15,7 +15,7 @@ let options = {
             const regex = /\d/; 
             let hasNumber = regex.test(value)? true : false
             return hasNumber
-        }
+        },
     }
 
 }
