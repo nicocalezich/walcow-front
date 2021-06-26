@@ -192,7 +192,7 @@ export default {
         lastname: this.formData.lastname,
       }
       try {
-        fetch('http://localhost:4000/api/users/register', {
+        fetch('https://walcow-api.herokuapp.com/api/users/register', {
           method: 'POST',
           body: JSON.stringify(credentials),
           headers: {
