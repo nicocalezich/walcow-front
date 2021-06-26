@@ -2,7 +2,7 @@
 
   <section  class="src-components-buy">
     <div class="buy-box">
-     <vue-form :state="formState" @submit.prevent="enviar()">
+     <vue-form :state="formState" @submit.prevent="send()">
        <br>
         <h1>Buy</h1>
         <!-- user -->
@@ -10,15 +10,11 @@
           <validate tag="div">        
             <label class="label-type" for="user">I want to buy</label>     
             <br>
-            <select class="buy-inputs" name="cryptocurrency" id="cryptocurrency">
-              <option selected value="1">Bitcoin</option>
-              <option value="1">Etherum</option>
-              <option value="2">ADA</option>
-              <option value="3">Dogecoin</option>
-              <option value="4">Cowcoin</option>
+            <select @click="changeData()" class="buy-inputs" name="cryptocurrency" id="cryptocurrency">
+              <option v-for="(c,i) in cryptos" :key="i" :value="i">{{c.name}}</option>
             </select>
           </validate>
-           <label class="label-type"><i>1 btc = ${{this.criptoPrice}} USD </i></label>
+           <label class="label-type"><i>{{`1 ${this.selectedCrypto} = $${this.priceselectedCrypto} USD`}}</i></label>
         </div>
 
         <!-- amount -->
@@ -42,7 +38,7 @@
           <label><b>Amount is invalid</b></label>
         </div>
         <div v-else class="amount-bought">
-          <label>You will buy <b>{{calculatePurchase}}</b> Bitcoin</label>
+          <label>You will buy <b>{{calculatePurchase}}</b> {{this.selectedCrypto}}</label>
         </div>
         <br>
         <div>
@@ -67,37 +63,61 @@
         formData: this.getInicialData(),
         formState: {},
         balance: 2520,
-        criptoPrice: 0,
-        cp: []
+        criptoPrice: 2,
+        cryptos: [],
+        cryptosNames: [],
+        selectedCrypto: '',
+        priceselectedCrypto: 0
       }
     },
+    //json.market_data.current_price.usd
     methods: {
 
       getInicialData(){
         return {amount: 0}
       },
 
-      enviar(){
-        console.log(this.formData.amount)
+      send(){
+        console.log(this.getSelectedCyrptoName(),this.formData.amount)
+      },
+
+      changeData(){
+        this.selectedCrypto = this.getSelectedCyrptoName()
+        this.priceselectedCrypto = this.getSelectedCryptoPrice()
       },
 
       async getCryptos() {
-        let res = await fetch('https://api.coingecko.com/api/v3/coins/bitcoin')
+        let res = await fetch('https://api.coingecko.com/api/v3/coins')
         let json = await res.json()
-        this.criptoPrice = json.market_data.current_price.usd
         json.map(c => {
-          this.cp.push(c)
+          this.cryptos.push(c)
+          this.cryptosNames.push(c.name)
         })
-      }
+        this.setInitialValues()
+      },
 
+      setInitialValues(){
+        this.selectedCrypto = this.cryptos[0].name
+        this.priceselectedCrypto = this.cryptos[0].market_data.current_price.usd 
+      },
+
+      getSelectedCyrptoName(){
+        let e = document.querySelector("#cryptocurrency");
+        return e.options[e.selectedIndex].text;
+      },
+
+      getSelectedCryptoPrice(){
+        let index = this.cryptosNames.indexOf(this.getSelectedCyrptoName())
+        return this.cryptos[index].market_data.current_price.usd
+        },
     },
     computed: {
       calculatePurchase(){
-        return (this.formData.amount / this.criptoPrice).toFixed(8)
+        return (this.formData.amount / this.priceselectedCrypto).toFixed(8)
       }
-
-
+       
     }
+    
 }
 
 

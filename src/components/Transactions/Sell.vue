@@ -39,8 +39,9 @@
         </div>
         <div class="amount-bought-error" v-if="this.formData.amount < 0">
           <label><b>Amount is invalid</b></label>
-        </div>
+        </div>  
         <div v-else class="amount-bought">
+          <br>
           <label>You will sell <b>{{calculatePurchase}}</b> Bitcoin for U$S {{this.formData.amount}}</label>
         </div>
         <br>
