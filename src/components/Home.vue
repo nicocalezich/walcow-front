@@ -4,7 +4,9 @@
       <h1 class="my-1">Overview</h1>
       <ul class="transactions">
         <li class="tr_li">
-          <button class="btn btn-warning">Deposit</button>
+          <router-link :to="{path: 'deposit'}">
+            <button class="btn btn-warning">Deposit</button>
+          </router-link>
         </li>
         <li class="tr_li">
           <button class="btn btn-light">Transfer</button>
@@ -51,7 +53,7 @@
             <router-link :to="{path: '/transaction/buy/' + w.token.code}">
               <a href="#" class="actions">Buy</a>
             </router-link>
-             <router-link :to="{path: '/transaction/sell/' + w.token.code}">
+            <router-link :to="{path: '/transaction/sell/' + w.token.code}">
               <a href="#" class="actions">Sell</a>
             </router-link>
             <a href="#" class="actions">Withdraw</a>
