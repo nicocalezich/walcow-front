@@ -43,6 +43,7 @@ export default new Vuex.Store({
                     }
                 }).then(r => {
                     r.json().then(u => {
+                        state.success = true
                         state.user.firstname = u.message.firstname
                         state.user.lastname = u.message.lastname
                         state.user.email = u.message.email
