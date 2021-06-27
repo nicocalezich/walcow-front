@@ -50,10 +50,10 @@
           <td>{{ w.quantity }} {{ w.token.code }}</td>
           <td>${{ w.quantity * w.token.price }}</td>
           <td>
-            <router-link :to="{path: '/transaction/buy/' + w.token.code}">
+            <router-link :to="{path: '/transaction/buy', query: {crypto: w.token.code}}">
               <a href="#" class="actions">Buy</a>
             </router-link>
-            <router-link :to="{path: '/transaction/sell/' + w.token.code}">
+            <router-link :to="{path: '/transaction/sell', query: {crypto: w.token.code}}">
               <a href="#" class="actions">Sell</a>
             </router-link>
             <a href="#" class="actions">Withdraw</a>

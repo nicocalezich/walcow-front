@@ -19,61 +19,69 @@ export const router = new VueRouter({
     mode: 'history',
     routes: [
         {path: "/", redirect: "/access"},
-        {path: "/access",
-        component: Access,
-        children: [
-            {
-                path: "",
-                name: 'login',
-                component: Login                
-            },            
-            {
-                path: "login",
-                name: 'login',
-                component: Login
-            },
-            {
-                path: "register",
-                name: "register",
-                component: Register
-            },
-            {
-                path: "forgot",
-                name: "forgot",
-                component: Forgot
-            },
-            {
-                path: "otp",
-                name: "otp",
-                component: AccessOtp,
-                props: true
-            },
-            {
-                path: "recover",
-                name: "recover",
-                component: RecoverPassword,
-                props: true
-            }
-        ]
+        {
+            path: "/access",
+            component: Access,
+            children: [
+                {
+                    path: "",
+                    name: 'login',
+                    component: Login
+                },
+                {
+                    path: "login",
+                    name: 'login',
+                    component: Login
+                },
+                {
+                    path: "register",
+                    name: "register",
+                    component: Register
+                },
+                {
+                    path: "forgot",
+                    name: "forgot",
+                    component: Forgot
+                },
+                {
+                    path: "otp",
+                    name: "otp",
+                    component: AccessOtp,
+                    props: true
+                },
+                {
+                    path: "recover",
+                    name: "recover",
+                    component: RecoverPassword,
+                    props: true
+                }
+            ]
         },
         {path: "/home", component: Home},
         {path: "/deposit", component: Deposit},
         {path: "/markets", component: Markets},
-        {path: "/transaction",
-        component: Transaction,
-        children: [     
+        {
+            path: "/transaction",
+            component: Transaction,
+            children: [
                 {
                     path: "buy",
                     name: 'buy',
-                    component: Buy                
-                },            
+                    component: Buy,
+                    props(route) {
+                        return {crypto: route.query.crypto}
+                    }
+                },
                 {
                     path: "sell",
                     name: 'sell',
-                    component: Sell
+                    component: Sell,
+                    props(route) {
+                        return {crypto: route.query.crypto}
+                    }
                 }
-            
-        ]
-    },
+
+            ]
+        },
     ]
 })
