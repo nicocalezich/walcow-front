@@ -102,7 +102,7 @@ export default {
         password: this.formData.password
       }
       try {
-        axios.post("https://walcow-api.herokuapp.com/api/users/login", credentials)
+        axios.post("http://walcow-api.herokuapp.com/api/users/login", credentials)
             .then(res => {
               this.invalidCredentials = !res.data.success;
               this.errorMessage = res.data.message

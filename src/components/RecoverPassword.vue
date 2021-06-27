@@ -85,10 +85,9 @@ import axios from "axios";
 
   export default  {
     name: 'src-components-recover-password',
-   props: ['email'],
+   props: ['username'],
     mounted () {
-      if (this.email == undefined){
-        console.log('email undefined', this.email);
+      if (!this.username) {
         this.$router.push('/access/forgot');
       }
     },
@@ -111,15 +110,20 @@ import axios from "axios";
       },
        send(){
         console.log({...this.formData})
-     
-        let newPassword = {
-          password: this.formData.password,
-        }
-        
+             
         try {
-          axios.post("https://walcow-api.herokuapp.com/api/users/recover", newPassword)
+          axios.post("http://walcow-api.herokuapp.com/api/users/changePassword", {
+            username: this.username,
+            newPassword: this.formData.password
+          })
           .then(res => {
-           console.log(res)
+            if (res.data.canChangePassword) {
+              this.$router.push('/access/login');
+            }
+            else {
+              alert(res.data.message);
+            }
+
           })
         } catch (error) {
           console.log(error)
