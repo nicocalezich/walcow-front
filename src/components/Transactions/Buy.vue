@@ -5,7 +5,7 @@
      <vue-form :state="formState" @submit.prevent="send()">
        <br>
         <h1>Buy</h1>
-        <!-- user -->
+        <!-- crypto -->
         <div class="input-container">
           <validate tag="div">        
             <label class="label-type" for="user">I want to buy</label>     
@@ -16,7 +16,6 @@
           </validate>
            <label class="label-type"><i>{{`1 ${this.selectedCrypto} = $${this.priceselectedCrypto} USD`}}</i></label>
         </div>
-
         <!-- amount -->
         <div class="input-container">
           <validate tag="div">
@@ -31,19 +30,30 @@
               v-model.trim="formData.amount"
               required
             />
-            <label class="label-type"><i>current balance $2,520</i></label>
+            <label class="label-type"><i>current balance ${{this.balance}}</i></label>
           </validate>
         </div>
-        <div class="amount-bought-error" v-if="this.formData.amount < 0">
+        <div class="amount-bought-error" v-if="negativeAmount">
           <label><b>Amount is invalid</b></label>
+        </div>
+        <div class="amount-bought-error" v-else-if="insufficientBalance">
+          <label><b>insufficient balance</b></label>
         </div>
         <div v-else class="amount-bought">
           <label>You will buy <b>{{calculatePurchase}}</b> {{this.selectedCrypto}}</label>
         </div>
-        <br>
-        <div>
-          <button :disabled="formState.$invalid || this.formData.amount <= 0" type="submit" class="btn btn-light confirm">Confirm transaction</button>
-        </div>
+        <div v-if="!purchaseSuccess">
+          <button :disabled="formState.$invalid || this.formData.amount <= 0 || insufficientBalance" type="submit" class="btn btn-light confirm">Confirm purchase</button>
+        </div> 
+        <div v-else>
+          <div class="alert alert-success" role="alert">   
+            successful purchase <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-check-circle" viewBox="0 0 16 16">
+            <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z"/>
+            <path d="M10.97 4.97a.235.235 0 0 0-.02.022L7.477 9.417 5.384 7.323a.75.75 0 0 0-1.06 1.06L6.97 11.03a.75.75 0 0 0 1.079-.02l3.992-4.99a.75.75 0 0 0-1.071-1.05z"/>
+            </svg>
+          </div>
+          <a type="button" @click="reset()" class="btn btn-light buy-again">Buy again</a>
+        </div>   
       </vue-form>
     </div>
   </section>
@@ -63,11 +73,11 @@
         formData: this.getInicialData(),
         formState: {},
         balance: 2520,
-        criptoPrice: 2,
         cryptos: [],
         cryptosNames: [],
         selectedCrypto: '',
-        priceselectedCrypto: 0
+        priceselectedCrypto: 0,
+        purchaseSuccess: false
       }
     },
     //json.market_data.current_price.usd
@@ -78,7 +88,17 @@
       },
 
       send(){
-        console.log(this.getSelectedCyrptoName(),this.formData.amount)
+        let purchase = {
+          crypto: this.getSelectedCyrptoName(),
+          amount: this.formData.amount
+        }
+        this.purchaseSuccess = true
+        console.log(purchase)
+      },
+
+      reset(){
+        this.purchaseSuccess = false
+        this.formData.amount = 0
       },
 
       changeData(){
@@ -114,12 +134,18 @@
     computed: {
       calculatePurchase(){
         return (this.formData.amount / this.priceselectedCrypto).toFixed(8)
+      },
+
+      negativeAmount(){
+        return this.formData.amount < 0
+      },
+
+      insufficientBalance(){
+        return this.formData.amount > this.balance
       }
        
-    }
-    
+    }   
 }
-
 
 </script>
 
@@ -170,12 +196,48 @@ h1{
   border:none;
   cursor:pointer;
   text-align: center;
-
-}
-
-button{ 
   background-color: #ffc107;
 }
 
+.confirm:hover{ 
+  background-color: #eec038;
+}
+
+.alert{
+   margin: 18px 0px;
+}
+
+.buy-again{
+  font-size: 15px;
+  background-color: white;
+  padding: 0px;
+  margin: 0px;
+  box-shadow: none;
+  border-bottom: 2px solid #ffc107;
+}
+
+option{
+  font-size: 17px;
+}
+
+/* width */
+*::-webkit-scrollbar {
+  width: 5px;
+}
+
+/* Track */
+*::-webkit-scrollbar-track {
+  background: #f1f1f1; 
+}
+ 
+/* Handle */
+*::-webkit-scrollbar-thumb {
+  background: #888; 
+}
+
+/* Handle on hover */
+*::-webkit-scrollbar-thumb:hover {
+  background: #555; 
+}
 
 </style>
