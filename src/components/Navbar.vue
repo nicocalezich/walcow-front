@@ -4,8 +4,8 @@
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
       <router-link to="/home">
         <a class="navbar-brand" href="#">
-          <img src="../assets/banner-3.jpg" width="30" height="30" alt="" class="d-inline-block align-top">
-          Walcow
+          <img src="../assets/banner-navbar.png" width="30" height="30" alt="" class="d-inline-block align-top">
+          Inicio
         </a>
       </router-link>
       <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
@@ -37,7 +37,7 @@
               </a>
             </router-link>
           </li>
-          <li class="nav-item">
+          <li class="nav-item logout">
             <a @click="logout()" class="nav-link" href="#">
               Log out
             </a>
@@ -71,7 +71,6 @@ export default {
   },
   computed: {}
 }
-
 
 </script>
 
