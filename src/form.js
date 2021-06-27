@@ -16,6 +16,9 @@ let options = {
             let hasNumber = regex.test(value)? true : false
             return hasNumber
         },
+        'is-positive': function(value){
+            return value > 0
+        },
     }
 
 }

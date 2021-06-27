@@ -1,36 +1,36 @@
 <template>
   <section>
     <div class="container-fluid general">
-      <h1 class="my-3">Visión general</h1>
+      <h1 class="my-1">Overview</h1>
       <ul class="transactions">
         <li class="tr_li">
-          <button class="btn btn-warning">Depositar</button>
+          <button class="btn btn-warning">Deposit</button>
         </li>
         <li class="tr_li">
-          <button class="btn btn-light">Transferir</button>
+          <button class="btn btn-light">Transfer</button>
         </li>
         <li class="tr_li">
-          <button class="btn btn-light">Retirar</button>
+          <button class="btn btn-light">Withdraw</button>
         </li>
         <li class="tr_li">
-          <a href="#" class="actions">Historial de transacciones</a>
+          <a href="#" class="actions">Transaction history</a>
         </li>
       </ul>
     </div>
     <div class="container-fluid general balance">
-      <p class="text-black-50">Balance aproximado</p>
+      <p class="text-black-50">Balance</p>
       <h2>${{ totalInUSD }}</h2>
       <pre>≈ {{ totalInUSD / bitcoinPrice }} BTC</pre>
     </div>
     <div class="container-fluid general balance">
-      <p class="text-black-50">Balance de criptomonedas</p>
+      <p class="text-black-50">My wallet</p>
       <table class="table table-hover table-responsive">
         <thead class="thead">
         <tr>
-          <th scope="col">Moneda</th>
-          <th scope="col">Cantidad</th>
+          <th scope="col">Cryptocurrency</th>
+          <th scope="col">Amount</th>
           <th scope="col">Total</th>
-          <th scope="col">Acciones</th>
+          <th scope="col">Actions</th>
         </tr>
         </thead>
         <tbody>
@@ -49,12 +49,12 @@
           <td>${{ w.quantity * w.token.price }}</td>
           <td>
             <router-link :to="{path: '/transaction/buy/' + w.token.code}">
-              <a href="#" class="actions">Comprar</a>
+              <a href="#" class="actions">Buy</a>
             </router-link>
              <router-link :to="{path: '/transaction/sell/' + w.token.code}">
-              <a href="#" class="actions">Vender</a>
+              <a href="#" class="actions">Sell</a>
             </router-link>
-            <a href="#" class="actions">Retirar</a>
+            <a href="#" class="actions">Withdraw</a>
           </td>
         </tr>
         </tbody>

@@ -3,9 +3,8 @@
   <section class="src-components-navbar">
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
       <router-link to="/home">
-        <a class="navbar-brand" href="#">
-          <img src="../assets/banner-navbar.png" width="30" height="30" alt="" class="d-inline-block align-top">
-          Inicio
+        <a class="navbar-brand banner" href="#">
+          <img src="../assets/banner-navbar-2 copia.png" width="125" height="30" alt="" class="d-inline-block align-top">     
         </a>
       </router-link>
       <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
@@ -19,21 +18,21 @@
             <router-link to="/transaction/buy">
               <a class="nav-link" href="#" id="compra"
                 aria-haspopup="true" aria-expanded="false">
-                Transacciones
+                Transactions
               </a>
             </router-link>
           </li>
           <li class="nav-item">
             <router-link to="/deposit">
               <a class="nav-link" href="#">
-                Depositar
+                Deposit
               </a>
             </router-link>
           </li>
           <li class="nav-item">
             <router-link to="/markets">
               <a class="nav-link" href="#">
-                Mercados
+                Markets
               </a>
             </router-link>
           </li>
