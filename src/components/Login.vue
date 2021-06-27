@@ -104,13 +104,14 @@ export default {
       try {
         axios.post("http://walcow-api.herokuapp.com/api/users/login", credentials)
             .then(res => {
-              this.invalidCredentials = !res.data.success;
-              this.errorMessage = res.data.message
               if (res.data.success) {
-                window.localStorage.setItem('token', res.data.user.token)
-                this.$store.dispatch('setUserData', res.data.user)
+                window.localStorage.setItem('token', res.data.result.token)
+                this.$store.dispatch('setUserData', res.data.result)
                 this.$store.dispatch('access', res.data.success)
                 this.$router.push('/home')
+              } else {
+                this.invalidCredentials = true
+                this.errorMessage = res.data.result
               }
             })
       } catch (error) {
