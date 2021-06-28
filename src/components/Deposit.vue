@@ -169,9 +169,9 @@ export default {
 
     getInicialData() {
       return {
-        card: ' ',
-        pin: ' ',
-        amount: ' ',
+        card: '',
+        pin: '',
+        amount: '',
       }
     },
     hide() {
