@@ -37,7 +37,7 @@ import axios from "axios";
           }
         };
 
-        axios.patch("http://walcow-api.herokuapp.com/api/users/validate-email", axiosConfig)
+        axios.patch("http://walcow-api.herokuapp.com/api/users/validate-email",{}, axiosConfig)
             .then(res => {
               console.log(res);
 
