@@ -37,6 +37,13 @@
               </a>
             </router-link>
           </li>
+           <li class="nav-item">
+            <router-link to="/withdraw">
+              <a class="nav-link" href="#">
+                Withdraw
+              </a>
+            </router-link>
+          </li>
           <li class="nav-item">
             <router-link to="/markets">
               <a class="nav-link" href="#">
