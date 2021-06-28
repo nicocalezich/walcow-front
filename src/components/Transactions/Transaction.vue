@@ -71,7 +71,6 @@ export default {
   justify-content: center;
   align-self: center;
   background-color: #f5f5f5 !important;
-
 }
 
 .transaction-box {
