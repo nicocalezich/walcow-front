@@ -114,9 +114,6 @@ export default {
         this.wallets.push(w)
       }
     },
-    getLogo() {
-      return ''
-    },
     async getPrice(token) {
       let result = await fetch('https://walcow-api.herokuapp.com/api/tokens/price/' + token)
       let json = await result.json()
