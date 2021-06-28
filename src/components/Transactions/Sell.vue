@@ -36,7 +36,7 @@
                 v-model.trim="formData.amount"
                 required
             />
-            <label class="label-type"><i>Current balance {{ selectedCryptoQuantity }}
+            <label class="label-type"><i>Current balance {{ selectedCryptoQuantity }} {{ selectedCryptoName }}
               (${{ selectedCryptoQuantityToUSD }})</i></label>
           </validate>
         </div>
