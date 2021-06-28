@@ -15,10 +15,16 @@
          </router-link>
       </ul>
     </div>
-    <div class="container-fluid general balance">
-      <p class="text-black-50">Balance</p>
-      <h2>${{ totalInUSD ? totalInUSD : 0 }}</h2>
-      <pre>≈ {{ totalInUSD && bitcoinPrice ? totalInUSD / bitcoinPrice : 0 }} BTC</pre>
+    <div class="container-fluid general balance fiat-balance">
+      <div>
+        <p class="text-black-50">Balance</p>
+        <h2>${{ totalInUSD ? totalInUSD : 0 }}</h2>
+        <pre>≈ {{ totalInUSD && bitcoinPrice ? totalInUSD / bitcoinPrice : 0 }} BTC</pre>
+      </div>
+      <div id="fiat">
+        <p class="text-black-50">Fiat</p>
+        <h2>${{ this.$store.state.user.fiat }}</h2>
+      </div>
     </div>
     <div class="container-fluid general balance">
       <p class="text-black-50">My wallet</p>
@@ -159,6 +165,14 @@ a {
 
 .balance {
   width: 95%;
+}
+
+.fiat-balance{
+  display: flex !important;
+}
+
+.fiat-balance #fiat{
+  padding: 0 100px;
 }
 
 .thead {

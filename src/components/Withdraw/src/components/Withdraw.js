@@ -4,7 +4,7 @@ export default {
   name: 'src-components-deposit',
   props: [],
   mounted() {
-
+    this.balance = this.$store.state.user.fiat
   },
   data() {
     return {
@@ -13,7 +13,7 @@ export default {
       showPin: false,
       depositDone: false,
       checkingCard: false,
-      balance: 2520,
+      balance: 0,
       errorMessage: ''
     }
   },
@@ -34,6 +34,7 @@ export default {
             console.log(res)
             this.checkingCard = false
             this.depositDone = true
+            this.balance = this.$store.state.user.fiat
           })
           .catch(e => console.log(e))
     } catch (error) {
