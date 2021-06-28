@@ -110,7 +110,7 @@ export default {
         amount: this.formData.amount
       }
       let myHeaders = new Headers();
-      myHeaders.append("Auth-Token", "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6Im1hdGlvbGl2ZXJhMTIiLCJwYXNzd29yZCI6IiQyYiQxMCRYYjRhRlc0TGx5c0ExenNUdmFhVjF1cXFyRmpIMHRsc2gyZmR6Uk83NW5KSWFsWjhTUGI3TyIsImlhdCI6MTYyNDkxNDkyNCwiZXhwIjoxNjI1MDAxMzI0fQ.iKp1Y5caKCZ3EDpDuno8CQv0ol0ggtHTUI-KgyVJtsQ");
+      myHeaders.append("Auth-Token", localStorage.getItem('token'));
       myHeaders.append("Content-Type", "application/json");
 
       let raw = JSON.stringify(purchase);
