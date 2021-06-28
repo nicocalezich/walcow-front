@@ -5,9 +5,9 @@
       <table class="table table-hover table-responsive">
         <thead class="thead">
         <tr>
-          <th scope="col">Nombre</th>
-          <th scope="col">Precio</th>
-          <th scope="col">Capitalización del mercado</th>
+          <th scope="col">Cryptocurrency</th>
+          <th scope="col">Price</th>
+          <th scope="col">Market cap</th>
         </tr>
         </thead>
         <tbody>
@@ -48,6 +48,7 @@ export default {
   },
   props: [],
   mounted() {
+    this.$store.dispatch('checkAccess')
     this.getCryptos()
   },
   data() {

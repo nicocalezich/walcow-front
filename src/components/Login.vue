@@ -105,6 +105,7 @@ export default {
         axios.post("http://walcow-api.herokuapp.com/api/users/login", credentials)
             .then(res => {
               if (res.data.success) {
+                console.log(res.data)
                 window.localStorage.setItem('token', res.data.result.token)
                 this.$store.dispatch('setUserData', res.data.result)
                 this.$store.dispatch('access', res.data.success)

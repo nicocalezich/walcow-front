@@ -1,7 +1,7 @@
 <template>
 
   <section class="src-components-deposit">
-    <vue-form :state="formState" @submit.prevent="enviar()">
+    <vue-form :state="formState" @submit.prevent="send()">
       <div class="depositContainer">
         <h1>Deposit</h1>
         <div class="deposit__input">
@@ -73,13 +73,13 @@
           <validate tag="div">
             <label>Amount (USD)</label>
             <input
-                type="number"
-                class="deposit-inputs"
-                name="amount"
-                id="amount"
-                required
-                is-positive
-                v-model.trim="formData.amount"
+              type="number"
+              class="deposit-inputs"
+              name="amount"
+              id="amount"
+              required
+              is-positive
+              v-model.trim="formData.amount"
             />
             <field-messages name="amount" show="$dirty">
               <div slot="required" class="alert alert-danger mt-1 error"><b>Must complete this field</b></div>
@@ -87,11 +87,16 @@
             </field-messages>
           </validate>
         </div>
-        <div v-if="!depositDone" class="deposit__button">
+        <div v-if="!depositDone && !checkingCard" class="deposit__button">
           <button :disabled="formState.$invalid" type="submit">Confirm deposit</button>
         </div>
+         <div v-else-if="checkingCard">
+            <div class="alert alert-warning mt-3" role="alert">
+              transaction in progress, please wait...
+            </div>
+        </div>
         <div v-else>
-          <div class="alert alert-success mt-3" role="alert">
+          <div class="alert alert-success mt-3 success" role="alert">
             successful deposit
             <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
                  class="bi bi-check-circle" viewBox="0 0 16 16">
@@ -100,7 +105,9 @@
                   d="M10.97 4.97a.235.235 0 0 0-.02.022L7.477 9.417 5.384 7.323a.75.75 0 0 0-1.06 1.06L6.97 11.03a.75.75 0 0 0 1.079-.02l3.992-4.99a.75.75 0 0 0-1.071-1.05z"/>
             </svg>
           </div>
-          <a type="button" @click="reset()" class="btn btn-light deposit-again">Deposit again</a>
+          <div class="container-deposit-again">
+            <a type="button" @click="reset()" class="btn btn-light deposit-again">Deposit again</a>
+          </div>
         </div>
 
       </div>
@@ -110,7 +117,7 @@
 </template>
 
 <script lang="js">
-//import axios from "axios";
+import axios from "axios";
 
 export default {
   name: 'src-components-deposit',
@@ -123,13 +130,13 @@ export default {
       formData: this.getInicialData(),
       formState: {},
       showPin: false,
-      depositDone: false
+      depositDone: false,
+      checkingCard: false
     }
   },
   methods: {
-    enviar() {
-      this.depositDone = true
-      /*
+    send() {
+      this.checkingCard = true
       try {
        let axiosConfig = {
         headers: {
@@ -137,23 +144,18 @@ export default {
             "auth-token": window.localStorage.getItem("token"),
         }
       };
-      axios.post("https://walcow-api.herokuapp.com/api/users/deposit", {
-        value:  this.formData.amount
-      }, axiosConfig)
+      axios.patch("https://walcow-api.herokuapp.com/api/users/deposit", {
+            value:  this.formData.amount
+            }, axiosConfig)
           .then(res => {
-            this.invalidCredentials = !res.data.success;
-            this.errorMessage = res.data.message
-            if (res.data.success) {
-              window.localStorage.setItem('token', res.data.user.token)
-              this.$store.dispatch('access', res.data.success)
-              this.$router.push('/home')
-            }
+            console.log(res.data)
+            this.checkingCard = false
+            this.depositDone = true
           })
+          .catch(e => console.log(e))
     } catch (error) {
       console.log(error)
     }
-    */
-
     },
     selectCredit() {
       document.querySelector('#cbox2').checked = false
@@ -204,7 +206,11 @@ export default {
   place-content: center;
   justify-content: center;
   align-self: center;
-  background-color: #f5f5f5
+  background-color: #f5f5f5;
+}
+
+.src-components-deposit a{
+  text-align: center;
 }
 
 .depositContainer {
@@ -253,11 +259,9 @@ export default {
 }
 
 .deposit__button button {
-  display: block;
   width: 100%;
-  border: none;
+  padding: 7px;
   margin-top: 15px;
-  cursor: pointer;
   border-radius: 20px;
   border: none;
   cursor: pointer;
@@ -277,12 +281,19 @@ export default {
   padding: 0px 20px;
 }
 
+.container-deposit-again{
+  text-align: center;
+}
+
 .deposit-again {
   font-size: 15px;
   background-color: white;
   padding: 0px;
-  margin: 0px;
   box-shadow: none;
   border-bottom: 2px solid #ffc107;
+}
+
+.success{
+  text-align: center;
 }
 </style>

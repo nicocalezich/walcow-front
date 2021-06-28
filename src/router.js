@@ -12,7 +12,8 @@ import Transaction from './components/Transactions/Transaction.vue'
 import Buy from './components/Transactions/Buy.vue'
 import Sell from './components/Transactions/Sell.vue'
 import Markets from "./components/Markets"
-import Deposit from "./components/Deposit";
+import Deposit from "./components/Deposit"
+import Withdraw from './components/Withdraw/index.vue'
 
 
 Vue.use(VueRouter)
@@ -66,6 +67,7 @@ export const router = new VueRouter({
         },
         {path: "/home", component: Home},
         {path: "/deposit", component: Deposit},
+        {path: "/withdraw", component: Withdraw},
         {path: "/markets", component: Markets},
         {
             path: "/transaction",

@@ -82,7 +82,7 @@ export default {
     return {
       formData: this.getInicialData(),
       formState: {},
-      balance: 2520,
+      balance: 5,
       cryptos: [],
       cryptosNames: [],
       selectedCrypto: '',
@@ -128,6 +128,7 @@ export default {
     setInitialValues() {
       this.selectedCrypto = this.cryptos[0].name
       this.priceselectedCrypto = this.cryptos[0].market_data.current_price.usd
+      this.balance = this.$store.state.user.fiat
     },
 
     getSelectedCyrptoName() {
