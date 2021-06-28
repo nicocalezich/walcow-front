@@ -50,10 +50,10 @@
           <td>{{ w.quantity }} {{ w.tokenData.symbol.toUpperCase() }}</td>
           <td>${{ w.quantity * w.tokenPrice }}</td>
           <td>
-            <router-link :to="{path: '/transaction/buy', query: {crypto: w.token.code}}">
+            <router-link :to="{path: '/transaction/buy', query: {crypto: w.token}}">
               <a href="#" class="actions">Buy</a>
             </router-link>
-            <router-link :to="{path: '/transaction/sell', query: {crypto: w.token.code}}">
+            <router-link :to="{path: '/transaction/sell', query: {crypto: w.token}}">
               <a href="#" class="actions">Sell</a>
             </router-link>
             <a href="#" class="actions">Withdraw</a>
