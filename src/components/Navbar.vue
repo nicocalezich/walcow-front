@@ -4,7 +4,8 @@
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
       <router-link to="/home">
         <a class="navbar-brand banner" href="#">
-          <img src="../assets/banner-navbar-2 copia.png" width="125" height="30" alt="" class="d-inline-block align-top">     
+          <img src="../assets/banner-navbar-2 copia.png" width="125" height="30" alt=""
+               class="d-inline-block align-top">
         </a>
       </router-link>
       <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
@@ -15,9 +16,17 @@
       <div class="collapse navbar-collapse" id="navbarSupportedContent">
         <ul class="navbar-nav mr-auto">
           <li class="nav-item">
+            <router-link to="/home">
+              <a class="nav-link" href="#" id="home"
+                 aria-haspopup="true" aria-expanded="false">
+                Overview
+              </a>
+            </router-link>
+          </li>
+          <li class="nav-item">
             <router-link to="/transaction/buy">
               <a class="nav-link" href="#" id="compra"
-                aria-haspopup="true" aria-expanded="false">
+                 aria-haspopup="true" aria-expanded="false">
                 Buy
               </a>
             </router-link>
@@ -25,7 +34,7 @@
           <li class="nav-item">
             <router-link to="/transaction/sell">
               <a class="nav-link" href="#" id="venta"
-                aria-haspopup="true" aria-expanded="false">
+                 aria-haspopup="true" aria-expanded="false">
                 Sell
               </a>
             </router-link>
@@ -37,7 +46,7 @@
               </a>
             </router-link>
           </li>
-           <li class="nav-item">
+          <li class="nav-item">
             <router-link to="/withdraw">
               <a class="nav-link" href="#">
                 Withdraw
