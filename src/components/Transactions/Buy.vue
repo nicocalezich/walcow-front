@@ -71,6 +71,8 @@
 
 <script lang="js">
 
+import axios from 'axios'
+
 export default {
   name: 'src-components-buy',
   props: {
@@ -104,12 +106,19 @@ export default {
     },
 
     send() {
+      let crypto = this.cryptos.find(c => c.id === this.selectedCrypto)
       let purchase = {
-        crypto: this.selectedCrypto,
+        token: crypto,
+        tokenUser: window.localStorage.getItem('token'),
+        quantity: this.calculatePurchase,
         amount: this.formData.amount
       }
       this.purchaseSuccess = true
-      console.log(purchase)
+       
+      axios.post('https://walcow-api.herokuapp.com/api/wallets/buy',purchase)
+      .then(r => console.log(r))
+       
+  
     },
 
     reset() {
