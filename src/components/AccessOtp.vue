@@ -60,7 +60,7 @@
       InputOtp
     },
     mounted () {
-      //this.sendEmail()
+      this.sendEmail();
       this.checkMinParameters();
 
     },
@@ -69,7 +69,9 @@
         cantOTP:  4,
         activeInput: 0,
         isIncomplete: true,
-        otpValues: []
+        otpValues: [],
+        validOtp: -1,
+        userInfo: ''
       }
     },
     methods: {
@@ -79,6 +81,7 @@
         }
       },
       checkOTP(){
+        
         this.isIncomplete = !(this.otpValues.join('').length === this.cantOTP);
       },
       clearOTP(){
@@ -88,24 +91,42 @@
       },
       sendEmail(){
         try {
-          axios.post("https://walcow-api.herokuapp.com/api/users/otp", this.email)
+          axios.post("http://localhost:4000/api/users/otp", {
+            mail: this.email
+          })
           .then(res => {
             console.log('Sended', res);
+
+            if (res.data.emailSended){
+              this.validOtp = res.data.otp;
+              this.userInfo = res.data.user.username;
+            }
+             alert('Email has been sent');
+
           })
         } catch (error) {
           console.log(error)
         }
-        alert('Email has been sent')
 
 
       },
       redirectTo(){
+        let finalOtp = this.otpValues.join('');
+        if (finalOtp == this.validOtp) {
+
         this.$router.push({
           name: this.toRouter,
           params: {
-            email: this.email
+            username: this.userInfo
           }
         });
+
+        }
+        else {
+          this.clearOTP();
+          alert('Error, invalid OTP');
+        }
+
       },
       focusInput(input) {
         this.activeInput = Math.max(Math.min(this.cantOTP - 1, input), 0);

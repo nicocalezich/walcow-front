@@ -102,7 +102,7 @@ export default {
         password: this.formData.password
       }
       try {
-        axios.post("https://walcow-api.herokuapp.com/api/users/login", credentials)
+        axios.post("http://walcow-api.herokuapp.com/api/users/login", credentials)
             .then(res => {
               if (res.data.success) {
                 window.localStorage.setItem('token', res.data.result.token)
