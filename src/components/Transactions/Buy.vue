@@ -34,14 +34,14 @@
                 v-model.trim="formData.amount"
                 required
             />
-            <label class="label-type"><i>current balance ${{ balance }}</i></label>
+            <label class="label-type"><i>Current balance ${{ balance }}</i></label>
           </validate>
         </div>
         <div class="amount-bought-error" v-if="negativeAmount">
           <label><b>Amount is invalid</b></label>
         </div>
         <div class="amount-bought-error" v-else-if="insufficientBalance">
-          <label><b>insufficient balance</b></label>
+          <label><b>Insufficient balance</b></label>
         </div>
         <div v-else class="amount-bought">
           <label>You will buy <b>{{ calculatePurchase }}</b> {{ selectedCryptoName }}</label>
@@ -53,7 +53,7 @@
         </div>
         <div v-else>
           <div class="alert alert-success" role="alert">
-            successful purchase
+            Successful purchase
             <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
                  class="bi bi-check-circle" viewBox="0 0 16 16">
               <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z"/>
@@ -109,6 +109,7 @@ export default {
         amount: this.formData.amount
       }
       this.purchaseSuccess = true
+      console.log(purchase)
     },
 
     reset() {
