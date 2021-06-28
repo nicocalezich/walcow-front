@@ -8,15 +8,11 @@
             <button class="btn btn-warning">Deposit</button>
           </router-link>
         </li>
-        <li class="tr_li">
-          <button class="btn btn-light">Transfer</button>
-        </li>
-        <li class="tr_li">
-          <button class="btn btn-light">Withdraw</button>
-        </li>
-        <li class="tr_li">
-          <a href="#" class="actions">Transaction history</a>
-        </li>
+        <router-link :to="{path: 'withdraw'}">
+          <li class="tr_li">
+            <button class="btn btn-warning">Withdraw</button>
+          </li>
+         </router-link>
       </ul>
     </div>
     <div class="container-fluid general balance">
@@ -56,7 +52,9 @@
             <router-link :to="{path: '/transaction/sell', query: {crypto: w.token}}">
               <a href="#" class="actions">Sell</a>
             </router-link>
-            <a href="#" class="actions">Withdraw</a>
+            <router-link :to="{path: '/withdraw'}">
+              <a href="#" class="actions">Withdraw</a>
+            </router-link>
           </td>
         </tr>
         </tbody>
@@ -191,5 +189,6 @@ td {
   list-style: none;
   padding: 5px;
 }
+
 
 </style>
