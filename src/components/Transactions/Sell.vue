@@ -1,7 +1,7 @@
 <template>
 
-  <section class="src-components-buy">
-    <div class="buy-box">
+  <section class="src-components-sell">
+    <div class="sell-box">
       <vue-form :state="formState" @submit.prevent="send()">
         <br>
         <h1>Sell</h1>
@@ -10,20 +10,25 @@
           <validate tag="div">
             <label class="label-type">I want to sell</label>
             <br>
-            <select @click="changeData()" class="buy-inputs" name="cryptocurrency" id="cryptocurrency">
-              <option v-for="(c,i) in cryptos" :key="i" :value="i">{{ c.name }}</option>
+            <select @change="changeData()" class="sell-inputs" name="cryptocurrency" id="cryptocurrency">
+              <option v-for="(c,i) in cryptos" :key="i" :value="c.tokenData.id" :selected="crypto === c.tokenData.id">
+                {{ c.tokenData.name }}
+              </option>
             </select>
           </validate>
-          <label class="label-type"><i>{{ `1 ${this.selectedCrypto} = $${this.priceselectedCrypto} USD` }}</i></label>
+          <label class="label-type">
+            <i>
+              1 {{ selectedCryptoName }} = ${{ selectedCryptoPrice }} USD
+            </i>
+          </label>
         </div>
-
         <!-- amount -->
         <div class="input-container">
           <validate tag="div">
-            <label class="label-type" for="amount">Fraction of {{ this.selectedCrypto }} I want to sell</label>
+            <label class="label-type" for="amount">Fraction of {{ this.selectedCryptoName }} I want to sell</label>
             <br>
             <input
-                class="buy-inputs"
+                class="sell-inputs"
                 name="amount"
                 id="amount"
                 type="number"
@@ -31,10 +36,10 @@
                 v-model.trim="formData.amount"
                 required
             />
+            <label class="label-type"><i>Current balance {{ selectedCryptoQuantity }}
+              (${{ selectedCryptoQuantityToUSD }})</i></label>
           </validate>
-          <br>
         </div>
-
         <div class="amount-bought-error" v-if="negativeAmount">
           <label><b>Amount is invalid</b></label>
         </div>
@@ -42,7 +47,7 @@
           <label><b>insufficient balance</b></label>
         </div>
         <div v-else class="amount-bought">
-          <label>You will sell <b>{{ this.formData.amount }}</b> {{ this.selectedCrypto }} for
+          <label>You will sell <b>{{ this.formData.amount }}</b> {{ this.selectedCryptoName }} for
             <b>${{ calculateSell }}</b> USD </label>
         </div>
 
@@ -53,7 +58,7 @@
         </div>
         <div v-else>
           <div class="alert alert-success" role="alert">
-            successful sale
+            Successful sale
             <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
                  class="bi bi-check-circle" viewBox="0 0 16 16">
               <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z"/>
@@ -63,7 +68,6 @@
           </div>
           <a type="button" @click="reset()" class="btn btn-light buy-again">Sell again</a>
         </div>
-
       </vue-form>
     </div>
   </section>
@@ -73,7 +77,7 @@
 <script lang="js">
 
 export default {
-  name: 'src-components-buy',
+  name: 'src-components-sell',
   props: {
     crypto: {
       type: String,
@@ -81,74 +85,116 @@ export default {
     }
   },
   mounted() {
-    this.getCryptos()
+    this.$store.dispatch('checkAccess')
+    this.getCryptos().then(() => this.setInitialValues())
   },
   data() {
     return {
       formData: this.getInicialData(),
       formState: {},
       cryptos: [],
-      cryptosNames: [],
-      selectedCrypto: '',
-      priceselectedCrypto: 0,
-      sellSuccess: false
+      selectedCrypto: this.crypto ? this.crypto : '',
+      selectedCryptoName: '',
+      sellSuccess: false,
+      selectedCryptoPrice: 0,
+      selectedCryptoQuantity: 0,
+      selectedCryptoQuantityToUSD: 0
     }
   },
-  //json.market_data.current_price.usd
   methods: {
-
+    capitalize(string) {
+      return string.charAt(0).toUpperCase() + string.slice(1)
+    },
     getInicialData() {
       return {amount: 0}
     },
 
     send() {
-      let sell = {
-        crypto: this.getSelectedCyrptoName(),
-        amount: this.formData.amount,
-        price: this.calculateSell
+      let body = {
+        token: this.selectedCrypto,
+        quantity: this.formData.amount,
+        amount: this.calculateSell
       }
-      this.sellSuccess = true
-      console.log(sell)
-    },
+      let myHeaders = new Headers();
+      myHeaders.append("Auth-Token", "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6Im1hdGlvbGl2ZXJhMTIiLCJwYXNzd29yZCI6IiQyYiQxMCRYYjRhRlc0TGx5c0ExenNUdmFhVjF1cXFyRmpIMHRsc2gyZmR6Uk83NW5KSWFsWjhTUGI3TyIsImlhdCI6MTYyNDkxNDkyNCwiZXhwIjoxNjI1MDAxMzI0fQ.iKp1Y5caKCZ3EDpDuno8CQv0ol0ggtHTUI-KgyVJtsQ");
+      myHeaders.append("Content-Type", "application/json");
 
+      let raw = JSON.stringify(body);
+
+      let requestOptions = {
+        method: 'POST',
+        headers: myHeaders,
+        body: raw,
+        redirect: 'follow'
+      };
+
+      fetch("https://walcow-api.herokuapp.com/api/wallets/sell", requestOptions)
+          .then(() => this.sellSuccess = true)
+          .catch(error => console.error(error));
+    },
     reset() {
       this.sellSuccess = false
       this.formData.amount = 0
     },
-
     changeData() {
-      this.selectedCrypto = this.getSelectedCyrptoName()
-      this.priceselectedCrypto = this.getSelectedCryptoPrice()
+      this.selectedCrypto = this.getSelectedCryptoValue()
+      this.setPrice(this.selectedCrypto)
+      this.setCryptoName(this.selectedCrypto)
+      this.setCryptoQuantity(this.selectedCrypto)
+      this.setCryptoQuantityToUsd(this.selectedCrypto)
     },
-
     async getCryptos() {
-      let res = await fetch('https://api.coingecko.com/api/v3/coins')
-      let json = await res.json()
-      json.map(c => {
-        this.cryptos.push(c)
-        this.cryptosNames.push(c.name)
+      let result = await fetch('https://walcow-api.herokuapp.com/api/wallets', {
+        headers: {
+          'auth-token': window.localStorage.token
+        }
       })
-      this.setInitialValues()
+      let json = await result.json()
+      let wallets = json.result
+      for (const w of wallets) {
+        let result = await fetch('https://walcow-api.herokuapp.com/api/tokens/' + w.token)
+        w.tokenData = await result.json()
+        w.tokenPrice = await this.getPrice(w.token)
+        this.cryptos.push(w)
+        console.log(this.cryptos)
+      }
     },
-
-    setInitialValues() {
-      this.selectedCrypto = this.cryptos[0].name
-      this.priceselectedCrypto = this.cryptos[0].market_data.current_price.usd
+    async getPrice(token) {
+      let result = await fetch('https://walcow-api.herokuapp.com/api/tokens/price/' + token)
+      let json = await result.json()
+      return json.result.price
     },
-
-    getSelectedCyrptoName() {
+    setPrice(id) {
+      let crypto = this.cryptos.find(o => o.tokenData.id === id)
+      this.selectedCryptoPrice = crypto.tokenData.market_data.current_price.usd
+    },
+    setCryptoName(id) {
+      let crypto = this.cryptos.find(o => o.tokenData.id === id)
+      this.selectedCryptoName = crypto.tokenData.name
+    },
+    setCryptoQuantity(id) {
+      let crypto = this.cryptos.find(o => o.tokenData.id === id)
+      this.selectedCryptoQuantity = crypto.quantity
+    },
+    setCryptoQuantityToUsd(id) {
+      let crypto = this.cryptos.find(o => o.tokenData.id === id)
+      this.selectedCryptoQuantityToUSD = crypto.quantity * crypto.tokenPrice
+    },
+    async setInitialValues() {
+      this.selectedCrypto = this.crypto ? this.crypto : this.cryptos[0].tokenData.id
+      this.setPrice(this.selectedCrypto)
+      this.setCryptoName(this.selectedCrypto)
+      this.setCryptoQuantity(this.selectedCrypto)
+      this.setCryptoQuantityToUsd(this.selectedCrypto)
+    },
+    getSelectedCryptoValue() {
       let e = document.querySelector("#cryptocurrency");
-      return e.options[e.selectedIndex].text;
-    },
-
-    getSelectedCryptoPrice() {
-      let index = this.cryptosNames.indexOf(this.getSelectedCyrptoName())
-      return this.cryptos[index].market_data.current_price.usd
+      return e.options[e.selectedIndex].value;
     },
   },
   computed: {
     calculateSell() {
-      return (this.formData.amount * this.priceselectedCrypto).toFixed(2)
+      return this.selectedCryptoPrice && this.formData.amount ? (this.formData.amount * this.selectedCryptoPrice).toFixed(2) : 0
     },
 
     negativeAmount() {
@@ -156,9 +202,8 @@ export default {
     },
 
     insufficientBalance() {
-      return this.formData.amount > this.balance
+      return this.formData.amount > this.selectedCryptoQuantity
     }
-
   }
 }
 
@@ -166,7 +211,7 @@ export default {
 
 <style scoped lang="css">
 
-.src-components-buy {
+.src-components-sell {
   background-color: #fff;
   box-shadow: 0px 2px 4px rgb(0 0 0 / 4%);
 }
@@ -183,7 +228,7 @@ h1 {
   color: red;
 }
 
-.buy-inputs {
+.sell-inputs {
   width: 90%;
   margin-bottom: 0px;
   margin-top: 10px;
@@ -222,7 +267,7 @@ h1 {
   margin: 18px 0px;
 }
 
-.buy-again {
+.sell-again {
   font-size: 15px;
   background-color: white;
   padding: 0px;
