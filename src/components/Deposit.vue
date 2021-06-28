@@ -158,8 +158,8 @@ export default {
     }
     },
     selectCredit() {
-      document.querySelector('#cbox2').checked = false
       document.querySelector('#cbox1').checked = true
+      document.querySelector('#cbox2').checked = false  
     },
 
     selectDebit() {
