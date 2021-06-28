@@ -1,69 +1,76 @@
 
 <section class="src-components-withdraw">
   <vue-form :state="formState" @submit.prevent="send()">
-    <div class="depositContainer">
+    <div class="withdrawContainer">
       <h1>Withdraw</h1>
-      <div class="deposit__input">
+      <!--CBU input-->
+      <div class="withdraw-input-container">
         <validate tag="div">
           <label>CBU to transfer</label>
           <input
               type="number"
-              class="deposit-inputs"
-              name="card"
+              class="withdraw-inputs"
+              name="cbu"
               required
-              maxlength="16"
+              minlength="22"
+              maxlength="22"
               is-positive
-              v-model.trim="formData.card"
+              v-model.trim="formData.cbu"
           />
-          <field-messages name="card" show="$dirty">
+          <field-messages name="cbu" show="$dirty">
             <div slot="required" class="alert alert-danger mt-1 error"><b>Must complete this field</b></div>
-            <div slot="is-positive" class="alert alert-danger mt-1 error"><b>Invalid amount</b></div>
+            <div slot="is-positive" class="alert alert-danger mt-1 error"><b>Invalid CBU</b></div>
+            <!--un cbu tiene 22 digitos-->
+            <div slot="minlength" class="alert alert-danger mt-1 error"><b>Invalid CBU</b></div>
+            <div slot="maxlength" class="alert alert-danger mt-1 error"><b>Invalid CBU</b></div>
           </field-messages>
         </validate>
       </div>
-      <div class="deposit__input">
+      <!--Amount input-->
+      <div class="withdraw-input-container">
         <validate tag="div">
           <label>Amount (USD)</label>
           <input
             type="number"
-            class="deposit-inputs"
+            class="withdraw-inputs"
             name="amount"
             id="amount"
             required
             is-positive
+            available-fiat
             v-model.trim="formData.amount"
           />
-          <label class="label-type"><i>current balance</i> <b>U$S {{this.balance}}</b></label>
           <field-messages name="amount" show="$dirty">
             <div slot="required" class="alert alert-danger mt-3 error"><b>Must complete this field</b></div>
             <div slot="is-positive" class="alert alert-danger mt-3 error"><b>Invalid amount</b></div>
-            <div v-if="this.formData.amount > this.balance" class="alert alert-danger mt-3 error"><b>Insufficient balance</b></div>
+            <div v-if="insufficientFiat" class="alert alert-danger mt-3 error"><b>Insufficient fiat</b></div>
           </field-messages>
+          <label class="label-type"><i>fiat available </i> <b>U$S {{this.balance}}</b></label>
         </validate>
       </div>
-
-      <div v-if="!depositDone && !checkingCard && this.balance" class="deposit__button">
-        <button :disabled="formState.$invalid" type="submit">Confirm withdraw</button>
+      <!--Confirm button-->
+      <div v-if="!depositDone && !checkingCard" class="withdraw-button">
+        <button class="btn btn-light" :disabled="formState.$invalid || insufficientFiat" type="submit">Confirm withdraw</button>
       </div>
-
+      <!--Loading message-->
        <div v-else-if="checkingCard">
           <div class="alert alert-warning mt-3" role="alert">
             transaction in progress, please wait...
           </div>
       </div>
+      <!--Success message-->
       <div v-else>
         <div class="alert alert-success mt-3 success" role="alert">
           successful withdraw
           <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
-               class="bi bi-check-circle" viewBox="0 0 16 16">
+            class="bi bi-check-circle" viewBox="0 0 16 16">
             <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z"/>
-            <path
-                d="M10.97 4.97a.235.235 0 0 0-.02.022L7.477 9.417 5.384 7.323a.75.75 0 0 0-1.06 1.06L6.97 11.03a.75.75 0 0 0 1.079-.02l3.992-4.99a.75.75 0 0 0-1.071-1.05z"/>
+            <path d="M10.97 4.97a.235.235 0 0 0-.02.022L7.477 9.417 5.384 7.323a.75.75 0 0 0-1.06 1.06L6.97 11.03a.75.75 0 0 0 1.079-.02l3.992-4.99a.75.75 0 0 0-1.071-1.05z"/>
           </svg>
         </div>
-
-        <div class="container-deposit-again">
-          <a type="button" @click="reset()" class="btn btn-light deposit-again">Withdraw again</a>
+        <!--Wtidhdraw again message-->
+        <div class="container-withdraw-again">
+          <a type="button" @click="reset()" class="btn btn-light withdraw-again">Withdraw again</a>
         </div>
       </div>
 

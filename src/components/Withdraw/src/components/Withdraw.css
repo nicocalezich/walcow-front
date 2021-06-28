@@ -15,7 +15,7 @@
     text-align: center;
   }
   
-  .depositContainer {
+  .withdrawContainer {
     padding: 25px;
     background-color: rgb(253, 253, 253);
     margin: 30px;
@@ -24,13 +24,13 @@
     box-shadow: 0px 2px 4px rgb(0 0 0 / 4%);
   }
   
-  .deposit__input > div {
+  .withdraw-input-container > div {
     width: 20rem;
     display: flex;
     flex-direction: column;
   }
   
-  .deposit-inputs {
+  .withdraw-inputs {
     margin-bottom: 5px;
     margin-top: 10px;
     border: none;
@@ -38,29 +38,12 @@
     background: transparent;
     outline: none;
   }
-  
-  .type-card #cbox1 {
-    margin: 0 2px;
-  }
-  
-  .type-card #cbox2 {
-    margin: 0 2px;
-  }
-  
-  .type-card #label-cbox1 {
-    font-size: 13px;
-  }
-  
-  .type-card #label-cbox2 {
-    margin: 0 20px;
-    font-size: 12px;
-  }
-  
-  .deposit__input > div label {
+
+  .withdraw-input-container > div label {
     margin: 15px 0 2px 0;
   }
   
-  .deposit__button button {
+  .withdraw-button button {
     width: 100%;
     padding: 7px;
     margin-top: 15px;
@@ -71,7 +54,7 @@
     background-color: #ffc107;
   }
   
-  .deposit__button button:hover {
+  .withdraw-button button:hover {
     background-color: #eec038;
   }
   
@@ -83,11 +66,11 @@
     padding: 0px 20px;
   }
   
-  .container-deposit-again{
+  .container-withdraw-again{
     text-align: center;
   }
   
-  .deposit-again {
+  .withdraw-again {
     font-size: 15px;
     background-color: white;
     padding: 0px;
@@ -100,7 +83,7 @@
   }
 
   .label-type {
-    width: 90%;
+    width: 100%;
     text-align: center;
     font-size: 15px;
     color: black;

@@ -88,7 +88,7 @@
           </validate>
         </div>
         <div v-if="!depositDone && !checkingCard" class="deposit__button">
-          <button :disabled="formState.$invalid" type="submit">Confirm deposit</button>
+          <button class="btn btn-light" :disabled="formState.$invalid" type="submit">Confirm deposit</button>
         </div>
          <div v-else-if="checkingCard">
             <div class="alert alert-warning mt-3" role="alert">

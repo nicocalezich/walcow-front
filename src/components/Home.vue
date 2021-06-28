@@ -23,7 +23,7 @@
       </div>
       <div id="fiat">
         <p class="text-black-50">Fiat</p>
-        <h2>${{ this.$store.state.user.fiat }}</h2>
+        <h2>${{this.$store.state.user.fiat}}</h2>
       </div>
     </div>
     <div class="container-fluid general balance">
