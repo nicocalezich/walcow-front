@@ -11,7 +11,8 @@ export default new Vuex.Store({
             firstname: '',
             lastname: '',
             email: '',
-            username: ''
+            username: '',
+            fiat: 0
         }
     },
     actions: {
@@ -61,6 +62,7 @@ export default new Vuex.Store({
             state.user.lastname = userData.lastname
             state.user.email = userData.email
             state.user.username = userData.username
+            state.user.fiat = userData.fiat
         }
     }
 })
