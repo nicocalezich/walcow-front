@@ -61,7 +61,7 @@
             </router-link>
           </li>
           <li class="nav-item logout">
-            <a @click="logout()" class="nav-link" href="#">
+            <a @click="logout()" class="nav-link" href="#" style="color: red !important">
               Log out
             </a>
           </li>
