@@ -1,0 +1,108 @@
+.src-components-withdraw {
+    width: 100vw;
+    height: 100vh;
+    background-size: cover;
+    font-family: "Montserrat", sans-serif;
+    display: flex;
+    align-items: center;
+    place-content: center;
+    justify-content: center;
+    align-self: center;
+    background-color: #f5f5f5;
+  }
+  
+  .src-components-withdraw a{
+    text-align: center;
+  }
+  
+  .depositContainer {
+    padding: 25px;
+    background-color: rgb(253, 253, 253);
+    margin: 30px;
+    display: flex;
+    flex-direction: column;
+    box-shadow: 0px 2px 4px rgb(0 0 0 / 4%);
+  }
+  
+  .deposit__input > div {
+    width: 20rem;
+    display: flex;
+    flex-direction: column;
+  }
+  
+  .deposit-inputs {
+    margin-bottom: 5px;
+    margin-top: 10px;
+    border: none;
+    border-bottom: 1px solid black;
+    background: transparent;
+    outline: none;
+  }
+  
+  .type-card #cbox1 {
+    margin: 0 2px;
+  }
+  
+  .type-card #cbox2 {
+    margin: 0 2px;
+  }
+  
+  .type-card #label-cbox1 {
+    font-size: 13px;
+  }
+  
+  .type-card #label-cbox2 {
+    margin: 0 20px;
+    font-size: 12px;
+  }
+  
+  .deposit__input > div label {
+    margin: 15px 0 2px 0;
+  }
+  
+  .deposit__button button {
+    width: 100%;
+    padding: 7px;
+    margin-top: 15px;
+    border-radius: 20px;
+    border: none;
+    cursor: pointer;
+    text-align: center;
+    background-color: #ffc107;
+  }
+  
+  .deposit__button button:hover {
+    background-color: #eec038;
+  }
+  
+  .error {
+    text-align: center;
+    color: red;
+    background-color: transparent;
+    border: none;
+    padding: 0px 20px;
+  }
+  
+  .container-deposit-again{
+    text-align: center;
+  }
+  
+  .deposit-again {
+    font-size: 15px;
+    background-color: white;
+    padding: 0px;
+    box-shadow: none;
+    border-bottom: 2px solid #ffc107;
+  }
+  
+  .success{
+    text-align: center;
+  }
+
+  .label-type {
+    width: 90%;
+    text-align: center;
+    font-size: 15px;
+    color: black;
+  }
+  

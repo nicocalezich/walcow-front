@@ -73,13 +73,13 @@
           <validate tag="div">
             <label>Amount (USD)</label>
             <input
-                type="number"
-                class="deposit-inputs"
-                name="amount"
-                id="amount"
-                required
-                is-positive
-                v-model.trim="formData.amount"
+              type="number"
+              class="deposit-inputs"
+              name="amount"
+              id="amount"
+              required
+              is-positive
+              v-model.trim="formData.amount"
             />
             <field-messages name="amount" show="$dirty">
               <div slot="required" class="alert alert-danger mt-1 error"><b>Must complete this field</b></div>
@@ -117,7 +117,7 @@
 </template>
 
 <script lang="js">
-//import axios from "axios";
+import axios from "axios";
 
 export default {
   name: 'src-components-deposit',
@@ -137,13 +137,6 @@ export default {
   methods: {
     send() {
       this.checkingCard = true
-      setTimeout(() => {
-        console.log('compra exitosa despues de 5s')
-        this.checkingCard = false
-        this.depositDone = true
-      }, 5000);
-     
-      /*
       try {
        let axiosConfig = {
         headers: {
@@ -151,23 +144,18 @@ export default {
             "auth-token": window.localStorage.getItem("token"),
         }
       };
-      axios.post("https://walcow-api.herokuapp.com/api/users/deposit", {
-        value:  this.formData.amount
-      }, axiosConfig)
+      axios.patch("https://walcow-api.herokuapp.com/api/users/deposit", {
+            value:  this.formData.amount
+            }, axiosConfig)
           .then(res => {
-            this.invalidCredentials = !res.data.success;
-            this.errorMessage = res.data.message
-            if (res.data.success) {
-              window.localStorage.setItem('token', res.data.user.token)
-              this.$store.dispatch('access', res.data.success)
-              this.$router.push('/home')
-            }
+            console.log(res.data)
+            this.checkingCard = false
+            this.depositDone = true
           })
+          .catch(e => console.log(e))
     } catch (error) {
       console.log(error)
     }
-    */
-
     },
     selectCredit() {
       document.querySelector('#cbox2').checked = false

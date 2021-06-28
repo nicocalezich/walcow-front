@@ -8,21 +8,17 @@
             <button class="btn btn-warning">Deposit</button>
           </router-link>
         </li>
-        <li class="tr_li">
-          <button class="btn btn-light">Transfer</button>
-        </li>
-        <li class="tr_li">
-          <button class="btn btn-light">Withdraw</button>
-        </li>
-        <li class="tr_li">
-          <a href="#" class="actions">Transaction history</a>
-        </li>
+        <router-link :to="{path: 'withdraw'}">
+          <li class="tr_li">
+            <button class="btn btn-warning">Withdraw</button>
+          </li>
+         </router-link>
       </ul>
     </div>
     <div class="container-fluid general balance">
       <p class="text-black-50">Balance</p>
       <h2>${{ totalInUSD }}</h2>
-      <pre>≈ {{ totalInUSD / bitcoinPrice }} BTC</pre>
+      <pre>≈ {{ totalInUSD / bitcoinPrice }} BTC</pre>  
     </div>
     <div class="container-fluid general balance">
       <p class="text-black-50">My wallet</p>
@@ -56,7 +52,9 @@
             <router-link :to="{path: '/transaction/sell', query: {crypto: w.token.code}}">
               <a href="#" class="actions">Sell</a>
             </router-link>
-            <a href="#" class="actions">Withdraw</a>
+            <router-link :to="{path: '/withdraw'}">
+              <a href="#" class="actions">Withdraw</a>
+            </router-link>
           </td>
         </tr>
         </tbody>
@@ -202,5 +200,6 @@ td {
   list-style: none;
   padding: 5px;
 }
+
 
 </style>
