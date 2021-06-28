@@ -17,8 +17,8 @@
     </div>
     <div class="container-fluid general balance">
       <p class="text-black-50">Balance</p>
-      <h2>${{ totalInUSD }}</h2>
-      <pre>≈ {{ totalInUSD / bitcoinPrice }} BTC</pre>  
+      <h2>${{ totalInUSD ? totalInUSD : 0 }}</h2>
+      <pre>≈ {{ totalInUSD && bitcoinPrice ? totalInUSD / bitcoinPrice : 0 }} BTC</pre>
     </div>
     <div class="container-fluid general balance">
       <p class="text-black-50">My wallet</p>
@@ -35,21 +35,21 @@
         <tr v-for="(w, i) in wallets" :key="i">
           <td>
             <div class="cripto">
-              <img :src="w.token.logo" style="margin-right: 5px; float: left" alt="">
+              <img :src="w.tokenData.image.thumb" style="margin-right: 5px; margin-top:2.5px; float: left" alt="">
               <div>
-                <span>{{ w.token.code }}</span>
+                <span>{{ w.tokenData.symbol.toUpperCase() }}</span>
                 <br>
-                <a href="" class="cripto-link">{{ w.token.name }}</a>
+                <a href="" class="cripto-link">{{ w.tokenData.name }}</a>
               </div>
             </div>
           </td>
-          <td>{{ w.quantity }} {{ w.token.code }}</td>
-          <td>${{ w.quantity * w.token.price }}</td>
+          <td>{{ w.quantity }} {{ w.tokenData.symbol.toUpperCase() }}</td>
+          <td>${{ w.quantity * w.tokenPrice }}</td>
           <td>
-            <router-link :to="{path: '/transaction/buy', query: {crypto: w.token.code}}">
+            <router-link :to="{path: '/transaction/buy', query: {crypto: w.token}}">
               <a href="#" class="actions">Buy</a>
             </router-link>
-            <router-link :to="{path: '/transaction/sell', query: {crypto: w.token.code}}">
+            <router-link :to="{path: '/transaction/sell', query: {crypto: w.token}}">
               <a href="#" class="actions">Sell</a>
             </router-link>
             <router-link :to="{path: '/withdraw'}">
@@ -74,64 +74,53 @@ export default {
     this.$store.dispatch('checkAccess')
     this.setBitcoinPrice()
     this.calculateTotal()
+    this.setWallets()
   },
-  props: {
-    user: {
-      token: "416c3a405ba1c59b0a3366ab31e02fe21fd1a047",
-      fiat: 1000,
-      username: "nicocalezich",
-      email: "ncalezich@gmail.com",
-      firstname: "Nicolás",
-      lastname: "Calezich",
-      wallets: [
-        "60ca9cd60d840344243c537b",
-        "60ca9cd60d840344243c537c"
-      ]
-    },
-  },
+  props: {},
   methods: {
     async setBitcoinPrice() {
       let result = await fetch('https://walcow-api.herokuapp.com/api/tokens/price/bitcoin')
       let json = await result.json()
-      console.log(json)
       this.bitcoinPrice = json.result.price
     },
-    calculateTotal() {
-      this.wallets.map(w => {
-        this.totalInUSD += w.quantity * w.token.price
+    async calculateTotal() {
+      let result = await fetch('https://walcow-api.herokuapp.com/api/wallets/total', {
+        headers: {
+          'auth-token': window.localStorage.token
+        }
       })
+      let json = await result.json()
+      this.totalInUSD = json.result
       this.totalInBTC = this.totalInUSD / this.bitcoinPrice
+    },
+    async setWallets() {
+      let result = await fetch('https://walcow-api.herokuapp.com/api/wallets', {
+        headers: {
+          'auth-token': window.localStorage.token
+        }
+      })
+      let json = await result.json()
+      let wallets = json.result
+      for (const w of wallets) {
+        let result = await fetch('https://walcow-api.herokuapp.com/api/tokens/' + w.token)
+        w.tokenData = await result.json()
+        w.tokenPrice = await this.getPrice(w.token)
+        this.wallets.push(w)
+      }
+    },
+    getLogo() {
+      return ''
+    },
+    async getPrice(token) {
+      let result = await fetch('https://walcow-api.herokuapp.com/api/tokens/price/' + token)
+      let json = await result.json()
+      return json.result.price
     }
   },
   data() {
     return {
       bitcoinPrice: 0,
-      wallets: [
-        {
-          "id": "60ca9cd60d840344243c537b",
-          "token": {
-            "id": "1289031290319023",
-            "code": "BTC",
-            "name": "Bitcoin",
-            "logo": require("../assets/btc_png.png"),
-            "btcRelation": 1,
-            "price": 25000
-          },
-          "quantity": 10
-        },
-        {
-          "id": "60ca9cd60d840344243c537c",
-          "token": {
-            "id": "1289031290319023",
-            "code": "ETH",
-            "name": "Ethereum",
-            "logo": require("../assets/eth.png"),
-            "btcRelation": 0.0647,
-            "price": 4000
-          },
-          "quantity": 40
-        }
-      ],
+      wallets: [],
       totalInUSD: 0,
       totalInBTC: 0
     }

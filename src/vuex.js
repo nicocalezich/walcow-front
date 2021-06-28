@@ -44,11 +44,15 @@ export default new Vuex.Store({
                 }).then(r => {
                     r.json().then(u => {
                         state.success = true
-                        state.user.firstname = u.message.firstname
-                        state.user.lastname = u.message.lastname
-                        state.user.email = u.message.email
-                        state.user.username = u.message.username
+                        let user = u.result
+                        state.user.firstname = user.firstname
+                        state.user.lastname = user.lastname
+                        state.user.email = user.email
+                        state.user.username = user.username
+                        state.user.fiat = user.fiat
                     })
+                }).catch(e => {
+                    console.error(e)
                 })
             }
         },
