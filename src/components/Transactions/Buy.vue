@@ -8,13 +8,17 @@
         <!-- crypto -->
         <div class="input-container">
           <validate tag="div">
-            <label class="label-type" for="user">I want to buy</label>
+            <label class="label-type">I want to buy</label>
             <br>
-            <select @click="changeData()" class="buy-inputs" name="cryptocurrency" id="cryptocurrency">
-              <option v-for="(c,i) in cryptos" :key="i" :value="i">{{ c.name }}</option>
+            <select @change="changeData()" class="buy-inputs" name="cryptocurrency" id="cryptocurrency">
+              <option v-for="(c,i) in cryptos" :key="i" :value="c.id" :selected="crypto === c.id">{{ c.name }}</option>
             </select>
           </validate>
-          <label class="label-type"><i>{{ `1 ${this.selectedCrypto} = $${this.priceselectedCrypto} USD` }}</i></label>
+          <label class="label-type">
+            <i>
+              1 {{ selectedCryptoName }} = ${{ selectedCryptoPrice }} USD
+            </i>
+          </label>
         </div>
         <!-- amount -->
         <div class="input-container">
@@ -30,7 +34,7 @@
                 v-model.trim="formData.amount"
                 required
             />
-            <label class="label-type"><i>current balance ${{ this.balance }}</i></label>
+            <label class="label-type"><i>current balance ${{ balance }}</i></label>
           </validate>
         </div>
         <div class="amount-bought-error" v-if="negativeAmount">
@@ -40,7 +44,7 @@
           <label><b>insufficient balance</b></label>
         </div>
         <div v-else class="amount-bought">
-          <label>You will buy <b>{{ calculatePurchase }}</b> {{ this.selectedCrypto }}</label>
+          <label>You will buy <b>{{ calculatePurchase }}</b> {{ selectedCryptoName }}</label>
         </div>
         <div v-if="!purchaseSuccess">
           <button :disabled="formState.$invalid || this.formData.amount <= 0 || insufficientBalance" type="submit"
@@ -76,74 +80,75 @@ export default {
     }
   },
   mounted() {
-    this.getCryptos()
+    this.$store.dispatch('checkAccess')
+    this.getCryptos().then(() => this.setInitialValues())
   },
   data() {
     return {
       formData: this.getInicialData(),
       formState: {},
-      balance: 5,
+      balance: this.$store.state.user.fiat,
       cryptos: [],
-      cryptosNames: [],
-      selectedCrypto: '',
-      priceselectedCrypto: 0,
-      purchaseSuccess: false
+      selectedCrypto: this.crypto ? this.crypto : '',
+      selectedCryptoName: '',
+      purchaseSuccess: false,
+      selectedCryptoPrice: 0
     }
   },
-  //json.market_data.current_price.usd
   methods: {
+    capitalize(string) {
+      return string.charAt(0).toUpperCase() + string.slice(1)
+    },
     getInicialData() {
       return {amount: 0}
     },
 
     send() {
       let purchase = {
-        crypto: this.getSelectedCyrptoName(),
+        crypto: this.selectedCrypto,
         amount: this.formData.amount
       }
       this.purchaseSuccess = true
-      console.log(purchase)
     },
 
     reset() {
       this.purchaseSuccess = false
       this.formData.amount = 0
     },
-
     changeData() {
-      this.selectedCrypto = this.getSelectedCyrptoName()
-      this.priceselectedCrypto = this.getSelectedCryptoPrice()
+      this.selectedCrypto = this.getSelectedCryptoValue()
+      this.setPrice(this.selectedCrypto)
+      this.setCryptoName(this.selectedCrypto)
     },
-
     async getCryptos() {
-      let res = await fetch('https://api.coingecko.com/api/v3/coins')
-      let json = await res.json()
-      json.map(c => {
-        this.cryptos.push(c)
-        this.cryptosNames.push(c.name)
+      let res = await fetch('https://walcow-api.herokuapp.com/api/tokens', {
+        headers: {
+          mode: 'cors'
+        }
       })
-      this.setInitialValues()
+      this.cryptos = await res.json()
     },
-
-    setInitialValues() {
-      this.selectedCrypto = this.cryptos[0].name
-      this.priceselectedCrypto = this.cryptos[0].market_data.current_price.usd
-      this.balance = this.$store.state.user.fiat
+    setPrice(id) {
+      let crypto = this.cryptos.find(o => o.id === id)
+      this.selectedCryptoPrice = crypto.market_data.current_price.usd
     },
-
-    getSelectedCyrptoName() {
+    setCryptoName(id) {
+      let crypto = this.cryptos.find(o => o.id === id)
+      this.selectedCryptoName = crypto.name
+    },
+    async setInitialValues() {
+      this.selectedCrypto = this.crypto ? this.crypto : this.cryptos[0].id
+      this.setPrice(this.selectedCrypto)
+      this.setCryptoName(this.selectedCrypto)
+    },
+    getSelectedCryptoValue() {
       let e = document.querySelector("#cryptocurrency");
-      return e.options[e.selectedIndex].text;
-    },
-
-    getSelectedCryptoPrice() {
-      let index = this.cryptosNames.indexOf(this.getSelectedCyrptoName())
-      return this.cryptos[index].market_data.current_price.usd
+      return e.options[e.selectedIndex].value;
     },
   },
   computed: {
     calculatePurchase() {
-      return (this.formData.amount / this.priceselectedCrypto).toFixed(8)
+      return this.selectedCryptoPrice && this.formData.amount ? (this.formData.amount / this.selectedCryptoPrice).toFixed(8) : 0
     },
 
     negativeAmount() {
@@ -153,7 +158,6 @@ export default {
     insufficientBalance() {
       return this.formData.amount > this.balance
     }
-
   }
 }
 

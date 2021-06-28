@@ -8,7 +8,7 @@
         <!-- crypto -->
         <div class="input-container">
           <validate tag="div">
-            <label class="label-type" for="user">I want to sell</label>
+            <label class="label-type">I want to sell</label>
             <br>
             <select @click="changeData()" class="buy-inputs" name="cryptocurrency" id="cryptocurrency">
               <option v-for="(c,i) in cryptos" :key="i" :value="i">{{ c.name }}</option>
