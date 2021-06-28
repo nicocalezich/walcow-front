@@ -111,8 +111,16 @@ export default {
                 this.$store.dispatch('access', res.data.success)
                 this.$router.push('/home')
               } else {
+
                 this.invalidCredentials = true
-                this.errorMessage = res.data.result
+
+                if (res.data.result.token) {
+                  this.errorMessage = 'The email is not validated'
+                }
+                else {
+                  this.errorMessage = res.data.result
+                }
+
               }
             })
       } catch (error) {

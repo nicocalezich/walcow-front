@@ -136,6 +136,9 @@
               </div>
             </field-messages>
           </validate>
+
+
+
         </div>
         <!-- btn ingresar -->
         <button
@@ -145,7 +148,15 @@
         >
           <b>Sign up</b>
         </button>
+
         <br>
+
+        <div v-if="canContinue" class="alert alert-success success">
+          Register successfuly!, sended a confirmation to the email.
+        </div>
+
+
+
         <div class="redirect">
           <router-link to="/access/login"><a href="#">Already registered? back to log in</a></router-link>
         </div>
@@ -166,7 +177,8 @@ export default {
   data() {
     return {
       formData: this.getInicialData(),
-      formState: {}
+      canContinue: false,
+      formState: {},
     }
   },
   methods: {
@@ -177,7 +189,8 @@ export default {
         email: '',
         username: '',
         password: '',
-        confirmpassword: ''
+        confirmpassword: '',
+
       }
     },
     equalPasswords() {
@@ -202,10 +215,15 @@ export default {
           r.json().then(u => {
             console.log('response')
             console.log(u)
-            if (u.success) {
-              this.$store.dispatch('access', u.success)
-              this.$router.push('/home')
+            this.canContinue = u.success;
+
+            if (this.canContinue) {
+              setTimeout(() => {
+                this.$router.push('/access/login');
+              }, 3000);
             }
+
+
           })
         })
       } catch (error) {

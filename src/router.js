@@ -7,6 +7,7 @@ import Home from './components/Home'
 import Forgot from './components/ForgotPassword.vue'
 import AccessOtp from './components/AccessOtp.vue'
 import RecoverPassword from './components/RecoverPassword.vue'
+import ConfirmEmail from './components/ConfirmEmail.vue'
 import Transaction from './components/Transactions/Transaction.vue'
 import Buy from './components/Transactions/Buy.vue'
 import Sell from './components/Transactions/Sell.vue'
@@ -54,6 +55,12 @@ export const router = new VueRouter({
                     path: "recover",
                     name: "recover",
                     component: RecoverPassword,
+                    props: true
+                },
+                {
+                    path: "confirm-email/:token",
+                    name: 'confirmEmail',
+                    component: ConfirmEmail,
                     props: true
                 }
             ]
