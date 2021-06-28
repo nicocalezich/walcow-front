@@ -138,7 +138,6 @@
           </validate>
 
 
-
         </div>
         <!-- btn ingresar -->
         <button
@@ -156,7 +155,6 @@
         </div>
 
 
-
         <div class="redirect">
           <router-link to="/access/login"><a href="#">Already registered? back to log in</a></router-link>
         </div>
@@ -167,6 +165,8 @@
 </template>
 
 <script lang="js">
+
+import axios from "axios";
 
 export default {
   name: 'src-components-register',
@@ -205,26 +205,13 @@ export default {
         lastname: this.formData.lastname,
       }
       try {
-        fetch('https://walcow-api.herokuapp.com/api/users/register', {
-          method: 'POST',
-          body: JSON.stringify(credentials),
-          headers: {
-            'Content-Type': 'application/json'
+        axios.post('https://walcow-api.herokuapp.com/api/users/register', credentials).then(r => {
+          this.canContinue = r.data.success;
+          if (this.canContinue) {
+            setTimeout(() => {
+              this.$router.push('/access/login');
+            }, 3000);
           }
-        }).then(r => {
-          r.json().then(u => {
-            console.log('response')
-            console.log(u)
-            this.canContinue = u.success;
-
-            if (this.canContinue) {
-              setTimeout(() => {
-                this.$router.push('/access/login');
-              }, 3000);
-            }
-
-
-          })
         })
       } catch (error) {
         console.log(error)

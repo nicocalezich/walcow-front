@@ -18,7 +18,15 @@
             <router-link to="/transaction/buy">
               <a class="nav-link" href="#" id="compra"
                 aria-haspopup="true" aria-expanded="false">
-                Transactions
+                Buy
+              </a>
+            </router-link>
+          </li>
+          <li class="nav-item">
+            <router-link to="/transaction/sell">
+              <a class="nav-link" href="#" id="venta"
+                aria-haspopup="true" aria-expanded="false">
+                Sell
               </a>
             </router-link>
           </li>

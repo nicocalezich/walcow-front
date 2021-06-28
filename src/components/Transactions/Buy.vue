@@ -71,8 +71,6 @@
 
 <script lang="js">
 
-import axios from 'axios'
-
 export default {
   name: 'src-components-buy',
   props: {
@@ -106,21 +104,28 @@ export default {
     },
 
     send() {
-      let crypto = this.cryptos.find(c => c.id === this.selectedCrypto)
       let purchase = {
-        token: crypto,
-        tokenUser: window.localStorage.getItem('token'),
-        quantity: this.calculatePurchase,
-        amount: this.formData.amount
+        token: this.selectedCrypto,
+        quantity: this.formData.amount,
+        amount: this.calculatePurchase
       }
-      this.purchaseSuccess = true
-       
-      axios.post('https://walcow-api.herokuapp.com/api/wallets/buy',purchase)
-      .then(r => console.log(r))
-       
-  
-    },
+      let myHeaders = new Headers();
+      myHeaders.append("Auth-Token", "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6Im1hdGlvbGl2ZXJhMTIiLCJwYXNzd29yZCI6IiQyYiQxMCRYYjRhRlc0TGx5c0ExenNUdmFhVjF1cXFyRmpIMHRsc2gyZmR6Uk83NW5KSWFsWjhTUGI3TyIsImlhdCI6MTYyNDkxNDkyNCwiZXhwIjoxNjI1MDAxMzI0fQ.iKp1Y5caKCZ3EDpDuno8CQv0ol0ggtHTUI-KgyVJtsQ");
+      myHeaders.append("Content-Type", "application/json");
 
+      let raw = JSON.stringify(purchase);
+
+      let requestOptions = {
+        method: 'POST',
+        headers: myHeaders,
+        body: raw,
+        redirect: 'follow'
+      };
+
+      fetch("https://walcow-api.herokuapp.com/api/wallets/buy", requestOptions)
+          .then(() => this.purchaseSuccess = true)
+          .catch(error => console.error(error));
+    },
     reset() {
       this.purchaseSuccess = false
       this.formData.amount = 0
