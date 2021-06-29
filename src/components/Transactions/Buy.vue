@@ -34,7 +34,7 @@
                 v-model.trim="formData.amount"
                 required
             />
-            <label class="label-type"><i>Current balance ${{ balance }}</i></label>
+            <label class="label-type"><i>Current balance ${{ balance.toFixed(2) }}</i></label>
           </validate>
         </div>
         <div class="amount-bought-error" v-if="negativeAmount">

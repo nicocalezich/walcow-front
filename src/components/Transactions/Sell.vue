@@ -36,8 +36,8 @@
                 v-model.trim="formData.amount"
                 required
             />
-            <label class="label-type"><i>Current balance {{ selectedCryptoQuantity }} {{ selectedCryptoName }}
-              (${{ selectedCryptoQuantityToUSD }})</i></label>
+            <label class="label-type"><i>You own {{ selectedCryptoQuantity }} {{ selectedCryptoName }}
+              (${{ selectedCryptoQuantityToUSD.toFixed(2) }})</i></label>
           </validate>
         </div>
         <div class="amount-bought-error" v-if="negativeAmount">
