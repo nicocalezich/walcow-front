@@ -20,7 +20,7 @@
           <td>
             {{
               c.market_data.current_price.usd.toLocaleString('en-US', {
-                style: 'currency', currency: 'USD'
+                style: 'currency', currency: 'USD', minimumFractionDigits: 6
               })
             }}
           </td>
@@ -32,7 +32,7 @@
           <td>
             {{
               (c.market_data.market_cap.usd).toLocaleString('en-US', {
-                style: 'currency', currency: 'USD'
+                style: 'currency', currency: 'USD', minimumFractionDigits: 6
               })
             }}
           </td>
