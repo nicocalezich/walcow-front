@@ -7,6 +7,7 @@
         <tr>
           <th scope="col">Cryptocurrency</th>
           <th scope="col">Price</th>
+          <th scope="col">Variation</th>
           <th scope="col">Market cap</th>
         </tr>
         </thead>
@@ -23,6 +24,11 @@
               })
             }}
           </td>
+          <td :style="checkVariation(c.market_data.price_change_24h)">
+            {{
+              c.market_data.price_change_24h.toFixed(4)
+            }}%
+          </td>
           <td>
             {{
               (c.market_data.market_cap.usd).toLocaleString('en-US', {
@@ -38,8 +44,6 @@
 </template>
 
 <script lang="js">
-
-//import Navbar from "./Navbar";
 
 export default {
   name: 'src-components-markets',
@@ -63,6 +67,18 @@ export default {
       json.map(c => {
         this.cryptos.push(c)
       })
+    },
+
+    checkVariation(value){
+      if(value > 0){
+        return {color: '#1D9D3A'}
+      }
+      else if(value < 0){
+         return {color: '#DA3113'}
+      }
+      else{
+        return {color: 'black'}
+      }
     }
   },
   computed: {}

@@ -43,7 +43,7 @@
             <div class="cripto">
               <img :src="w.tokenData.image.thumb" style="margin-right: 5px; margin-top:2.5px; float: left" alt="">
               <div>
-                <span>{{ w.tokenData.symbol.toUpperCase() }}</span>
+                <span>{{w.tokenData.symbol.toUpperCase()}}</span>
                 <br>
                 <a href="" class="cripto-link">{{ w.tokenData.name }}</a>
               </div>
