@@ -18,12 +18,12 @@
     <div class="container-fluid general balance fiat-balance">
       <div>
         <p class="text-black-50">Balance</p>
-        <h2>${{ totalInUSD ? totalInUSD : 0 }}</h2>
+        <h2>${{ totalInUSD ? totalInUSD.toFixed(2) : 0 }}</h2>
         <pre>≈ {{ totalInUSD && bitcoinPrice ? totalInUSD / bitcoinPrice : 0 }} BTC</pre>
       </div>
       <div id="fiat">
         <p class="text-black-50">Fiat</p>
-        <h2>${{this.$store.state.user.fiat}}</h2>
+        <h2>${{this.$store.state.user.fiat.toFixed(2)}}</h2>
       </div>
     </div>
     <div class="container-fluid general balance">
@@ -50,7 +50,7 @@
             </div>
           </td>
           <td>{{ w.quantity }} {{ w.tokenData.symbol.toUpperCase() }}</td>
-          <td>${{ w.quantity * w.tokenPrice }}</td>
+          <td>${{ (w.quantity * w.tokenPrice).toFixed(2) }}</td>
           <td>
             <router-link :to="{path: '/transaction/buy', query: {crypto: w.token}}">
               <a href="#" class="actions">Buy</a>
