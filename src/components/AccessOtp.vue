@@ -91,7 +91,7 @@
       },
       sendEmail(){
         try {
-          axios.post("http://localhost:4000/api/users/otp", {
+          axios.post("https://walcow-api.herokuapp.com/api/users/otp", {
             mail: this.email
           })
           .then(res => {
