@@ -1,7 +1,7 @@
 <template lang="html">
   <section>
     <div class="container-fluid general balance">
-      <p class="text-black-50">Mercados</p>
+      <p class="text-black-50">Markets</p>
       <table class="table table-hover table-responsive">
         <thead class="thead">
         <tr>
@@ -25,9 +25,7 @@
             }}
           </td>
           <td :style="checkVariation(c.market_data.price_change_percentage_24h)">
-            {{
-              c.market_data.price_change_percentage_24h.toFixed(4)
-            }}%
+            {{addPlus(c.market_data.price_change_percentage_24h)}}{{c.market_data.price_change_percentage_24h.toFixed(4)}}%
           </td>
           <td>
             {{
@@ -79,8 +77,17 @@ export default {
       else{
         return {color: 'black'}
       }
+    },
+
+  addPlus(value){
+    let simbol = ''
+      if (value > 0){
+        simbol =  '+'
+      }
+    return simbol
     }
   },
+
   computed: {}
 }
 
