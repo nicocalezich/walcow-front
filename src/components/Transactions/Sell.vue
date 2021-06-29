@@ -25,7 +25,7 @@
         <!-- amount -->
         <div class="input-container">
           <validate tag="div">
-            <label class="label-type" for="amount">Fraction of {{ this.selectedCryptoName }} I want to sell</label>
+            <label class="label-type" for="amount">Amount of {{ this.selectedCryptoName }} I want to sell</label>
             <br>
             <input
                 class="sell-inputs"
@@ -44,7 +44,7 @@
           <label><b>Amount is invalid</b></label>
         </div>
         <div class="amount-bought-error" v-else-if="insufficientBalance">
-          <label><b>insufficient balance</b></label>
+          <label><b>Invalid amount of {{selectedCryptoName}}</b></label>
         </div>
         <div v-else class="amount-bought">
           <label>You will sell <b>{{ this.formData.amount }}</b> {{ this.selectedCryptoName }} for

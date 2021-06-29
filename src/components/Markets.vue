@@ -7,7 +7,7 @@
         <tr>
           <th scope="col">Cryptocurrency</th>
           <th scope="col">Price</th>
-          <th scope="col">Variation</th>
+          <th scope="col">Variation 24h</th>
           <th scope="col">Market cap</th>
         </tr>
         </thead>

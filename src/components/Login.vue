@@ -7,6 +7,7 @@
         <validate tag="div">
           <label for="user">Username</label>
           <input
+              :class="{'invalid-credential-inputs': this.invalidCredentials}"
               name="username"
               id="username"
               type="text"
@@ -35,6 +36,7 @@
 
           </label>
           <input
+              :class="{'invalid-credential-inputs': this.invalidCredentials}"
               name="password"
               id="password"
               type="password"
@@ -215,6 +217,12 @@ export default {
 
 .forgot-pass {
   font-size: 13px;
+}
+
+.invalid-credential-inputs{
+  border: 1px solid red !important;
+  border-radius: 15px;
+  padding: 6px;
 }
 
 </style>
