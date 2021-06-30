@@ -5,7 +5,7 @@
       <router-link to="/home">
         <a class="navbar-brand banner" href="#">
           <img src="../assets/banner-navbar-2 copia.png" width="125" height="30" alt=""
-               class="d-inline-block align-top">
+          class="d-inline-block align-top">
         </a>
       </router-link>
       <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
@@ -60,13 +60,19 @@
               </a>
             </router-link>
           </li>
-          <li class="nav-item logout">
-            <a @click="logout()" class="nav-link" href="#" style="color: #d40101 !important">
-              Log out
-            </a>
-          </li>
+          
         </ul>
       </div>
+       <span class="navbar-text">
+          <a href="#" class="right-li">
+              Welcome, {{this.$store.state.user.firstname.charAt(0).toUpperCase() + this.$store.state.user.firstname.slice(1)}}
+          </a>
+        </span>
+        <span class="navbar-text">
+            <a @click="logout()" class="right-li"  href="#" style="color: #d40101 !important">
+              Log out
+            </a>
+        </span> 
     </nav>
   </section>
 
@@ -104,6 +110,10 @@ nav {
 
 nav a {
   text-decoration: none;
+}
+
+.right-li{
+  padding: 0 15px;
 }
 
 </style>
