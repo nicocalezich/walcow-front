@@ -46,11 +46,17 @@
         <div v-else class="amount-bought">
           <label>You will buy <b>{{ calculatePurchase }}</b> {{ selectedCryptoName }}</label>
         </div>
-        <div v-if="!purchaseSuccess">
+        
+        <div v-if="!purchaseSuccess && !waitingResponse">
           <button :disabled="formState.$invalid || this.formData.amount <= 0 || insufficientBalance" type="submit"
                   class="btn btn-light confirm">Confirm purchase
           </button>
         </div>
+        
+        <div v-else-if="!purchaseSuccess && waitingResponse" class="preloader-container">
+          <Preloader/>
+        </div>
+        
         <div v-else>
           <div class="alert alert-success" role="alert">
             Successful purchase
@@ -61,8 +67,10 @@
                   d="M10.97 4.97a.235.235 0 0 0-.02.022L7.477 9.417 5.384 7.323a.75.75 0 0 0-1.06 1.06L6.97 11.03a.75.75 0 0 0 1.079-.02l3.992-4.99a.75.75 0 0 0-1.071-1.05z"/>
             </svg>
           </div>
+           
           <a type="button" @click="reset()" class="btn btn-light buy-again">Buy again</a>
         </div>
+        
       </vue-form>
     </div>
   </section>
@@ -71,6 +79,8 @@
 
 <script lang="js">
 
+import Preloader from '../Preloader.vue'
+
 export default {
   name: 'src-components-buy',
   props: {
@@ -78,6 +88,9 @@ export default {
       type: String,
       default: ''
     }
+  },
+  components: {
+    Preloader
   },
   mounted() {
     this.$store.dispatch('checkAccess')
@@ -91,8 +104,9 @@ export default {
       cryptos: [],
       selectedCrypto: this.crypto ? this.crypto : '',
       selectedCryptoName: '',
+      selectedCryptoPrice: 0,
       purchaseSuccess: false,
-      selectedCryptoPrice: 0
+      waitingResponse: false
     }
   },
   methods: {
@@ -104,6 +118,7 @@ export default {
     },
 
     send() {
+      this.waitingResponse = true
       let purchase = {
         token: this.selectedCrypto,
         quantity: this.calculatePurchase,
@@ -123,7 +138,9 @@ export default {
       };
 
       fetch("https://walcow-api.herokuapp.com/api/wallets/buy", requestOptions)
-          .then(() => this.purchaseSuccess = true)
+          .then(() => 
+          this.purchaseSuccess = true,
+          this.waitingResponse = false)
           .catch(error => console.error(error));
     },
     reset() {
@@ -267,6 +284,10 @@ option {
 /* Handle on hover */
 *::-webkit-scrollbar-thumb:hover {
   background: #555;
+}
+
+.preloader-container{
+  width: 94%;
 }
 
 </style>
