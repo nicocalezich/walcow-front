@@ -64,11 +64,17 @@
         </ul>
       </div>
        <span class="navbar-text">
+<<<<<<< HEAD
           <router-link to="/profile">
             <a href="#" class="right-li">
                 Welcome, {{this.$store.state.user.firstname.charAt(0).toUpperCase() + this.$store.state.user.firstname.slice(1)}}
             </a>
           </router-link>
+=======
+          <a href="#" class="right-li">
+              Welcome, {{ username | capitalize }}
+          </a>
+>>>>>>> 7065cffe856f8eba7847c7d5b40d183fa6b15b60
         </span>
         <span class="navbar-text">
             <a @click="logout()" class="right-li"  href="#" style="color: #d40101 !important">
@@ -100,7 +106,11 @@ export default {
     }
 
   },
-  computed: {}
+  computed: {
+    username(){
+      return this.$store.state.user.firstname || '';
+    }
+  }
 }
 
 </script>

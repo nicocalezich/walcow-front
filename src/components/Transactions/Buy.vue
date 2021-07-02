@@ -34,7 +34,7 @@
                 v-model.trim="formData.amount"
                 required
             />
-            <label class="label-type"><i>Current balance ${{ balance.toFixed(2) }}</i></label>
+            <label class="label-type"><i>Current balance ${{ balance || globalFixed }}</i></label>
           </validate>
         </div>
         <div class="amount-bought-error" v-if="negativeAmount">
@@ -93,7 +93,7 @@ export default {
     Preloader
   },
   mounted() {
-    this.$store.dispatch('checkAccess')
+    this.checkAccess()
     this.getCryptos().then(() => this.setInitialValues())
   },
   data() {
@@ -110,9 +110,6 @@ export default {
     }
   },
   methods: {
-    capitalize(string) {
-      return string.charAt(0).toUpperCase() + string.slice(1)
-    },
     getInicialData() {
       return {amount: 0}
     },

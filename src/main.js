@@ -9,6 +9,9 @@ import 'bootstrap/dist/css/bootstrap.min.css'
 import { router } from './router'
 import './form'
 import store from './vuex'
+import './globalFilters'
+import './globalMixin'
+
 
 Vue.config.productionTip = false
 
