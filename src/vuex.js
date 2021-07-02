@@ -12,7 +12,9 @@ export default new Vuex.Store({
             email: '',
             username: '',
             fiat: 0
-        }
+        },
+        cbus: [],
+        cards: []
     },
     actions: {
         access({commit}, canLogin) {
