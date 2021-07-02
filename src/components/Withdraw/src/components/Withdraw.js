@@ -4,7 +4,7 @@ export default {
   name: 'src-components-deposit',
   props: [],
   mounted() {
-    this.$store.dispatch('checkAccess')
+    this.checkAccess()
     this.balance = this.getFiat()
   },
   data() {

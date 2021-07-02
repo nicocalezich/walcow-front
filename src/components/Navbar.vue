@@ -65,7 +65,7 @@
       </div>
        <span class="navbar-text">
           <a href="#" class="right-li">
-              Welcome, {{this.$store.state.user.firstname.charAt(0).toUpperCase() + this.$store.state.user.firstname.slice(1)}}
+              Welcome, {{ username | capitalize }}
           </a>
         </span>
         <span class="navbar-text">
@@ -98,7 +98,11 @@ export default {
     }
 
   },
-  computed: {}
+  computed: {
+    username(){
+      return this.$store.state.user.firstname || '';
+    }
+  }
 }
 
 </script>

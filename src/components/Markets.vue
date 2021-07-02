@@ -50,7 +50,7 @@ export default {
   },
   props: [],
   mounted() {
-    this.$store.dispatch('checkAccess')
+    this.checkAccess()
     this.getCryptos()
   },
   data() {

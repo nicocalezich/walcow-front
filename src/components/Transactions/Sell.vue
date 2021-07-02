@@ -85,7 +85,7 @@ export default {
     }
   },
   mounted() {
-    this.$store.dispatch('checkAccess')
+    this.checkAccess()
     this.getCryptos().then(() => this.setInitialValues())
   },
   data() {
@@ -102,9 +102,6 @@ export default {
     }
   },
   methods: {
-    capitalize(string) {
-      return string.charAt(0).toUpperCase() + string.slice(1)
-    },
     getInicialData() {
       return {amount: 0}
     },
