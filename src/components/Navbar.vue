@@ -64,9 +64,11 @@
         </ul>
       </div>
        <span class="navbar-text">
-          <a href="#" class="right-li">
-              Welcome, {{this.$store.state.user.firstname.charAt(0).toUpperCase() + this.$store.state.user.firstname.slice(1)}}
-          </a>
+          <router-link to="/profile">
+            <a href="#" class="right-li">
+                Welcome, {{this.$store.state.user.firstname.charAt(0).toUpperCase() + this.$store.state.user.firstname.slice(1)}}
+            </a>
+          </router-link>
         </span>
         <span class="navbar-text">
             <a @click="logout()" class="right-li"  href="#" style="color: #d40101 !important">
