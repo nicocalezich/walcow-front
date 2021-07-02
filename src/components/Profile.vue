@@ -60,7 +60,7 @@
     name: 'src-components-profile',
     props: [],
     mounted () {
-
+      this.checkAccess()
     },
     data () {
       return {
