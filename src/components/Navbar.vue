@@ -64,9 +64,11 @@
         </ul>
       </div>
        <span class="navbar-text">
+         <router-link to="/profile">
           <a href="#" class="right-li">
               Welcome, {{ username | capitalize }}
           </a>
+           </router-link>
         </span>
         <span class="navbar-text">
             <a @click="logout()" class="right-li"  href="#" style="color: #d40101 !important">
