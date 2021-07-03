@@ -7,18 +7,11 @@
         <div class="deposit__input">
           <validate tag="div">
             <label>Card number</label>
-            <input
-                type="number"
-                class="deposit-inputs"
-                name="card"
-                required
-                maxlength="16"
-                is-positive
-                v-model.trim="formData.card"
-            />
+            <select class="deposit-inputs" name="card">            
+              <option v-for="(card,i) in this.$store.state.cards" :key="i">{{card}}</option>          
+            </select>
             <field-messages name="card" show="$dirty">
               <div slot="required" class="alert alert-danger mt-1 error"><b>Must complete this field</b></div>
-              <div slot="is-positive" class="alert alert-danger mt-1 error"><b>Invalid amount</b></div>
             </field-messages>
           </validate>
         </div>

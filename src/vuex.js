@@ -23,6 +23,18 @@ export default new Vuex.Store({
         setUserData({commit}, userData) {
             commit('setUserData', userData)
         },
+        addNewCbu({commit}, cbu){
+            commit('pushCbu', cbu)
+        },
+        addNewCard({commit}, card){
+            commit('pushCard', card)
+        },
+        deleteCbu({commit}, index){
+            commit('deleteCbu', index)
+        },
+        deleteCard({commit}, index){
+            commit('deleteCard', index)
+        },
     },
     mutations: {
         access(state, canLogin) {
@@ -34,6 +46,24 @@ export default new Vuex.Store({
             state.user.email = userData.email
             state.user.username = userData.username
             state.user.fiat = userData.fiat
+        },
+
+        pushCbu(state,cbu){
+            state.cbus.push(cbu)
+        },
+
+        pushCard(state,card){
+            state.cards.push(card)
+        },
+
+        deleteCbu(state,index){
+            state.cbus.splice(index,1)
+        },
+
+        deleteCard(state,index){
+            state.cards.splice(index,1)
         }
+
+
     }
 })

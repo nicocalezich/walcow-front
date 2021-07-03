@@ -27,8 +27,8 @@
             <path d="M8 0a1 1 0 0 1 1 1v6h6a1 1 0 1 1 0 2H9v6a1 1 0 1 1-2 0V9H1a1 1 0 0 1 0-2h6V1a1 1 0 0 1 1-1z"/></svg>
           </button>
             <div v-show="!validCBU && this.inputCbu.length > 0" class="alert alert-danger error" role="alert">CBU must contains 22 digits</div>
-            <div v-show="!this.cbus.length" class="alert alert-danger no-data" role="alert"><i>No CBUs added</i></div>
-            <div class="cbu" v-for="(cbu,i) in this.cbus" :key="i">{{cbu}}<button class="delete-cbu" @click="deleteCbu(i)"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-x-lg" viewBox="0 0 16 16">
+            <div v-show="!this.$store.state.cbus.length" class="alert alert-danger no-data" role="alert"><i>No CBUs added</i></div>
+            <div class="cbu" v-for="(cbu,i) in this.$store.state.cbus" :key="i">{{cbu}}<button class="delete-cbu" @click="deleteCbu(i)"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-x-lg" viewBox="0 0 16 16">
               <path d="M1.293 1.293a1 1 0 0 1 1.414 0L8 6.586l5.293-5.293a1 1 0 1 1 1.414 1.414L9.414 8l5.293 5.293a1 1 0 0 1-1.414 1.414L8 9.414l-5.293 5.293a1 1 0 0 1-1.414-1.414L6.586 8 1.293 2.707a1 1 0 0 1 0-1.414z"/>
               </svg>
               </button>
@@ -37,12 +37,12 @@
         <div class="data">
           <h6 class="data-title">Yours credit & debit cards</h6>
           <input type="number" id="input" v-model="inputCards" placeholder="Add new card">
-          <button class="add-cbu" @click="addCard()" :disabled="!validCard"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-plus-lg" viewBox="0 0 16 16">
+          <button class="add-cbu" @click="addCard()" :disabled="!validCard || !this.inputCards > 0"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-plus-lg" viewBox="0 0 16 16">
             <path d="M8 0a1 1 0 0 1 1 1v6h6a1 1 0 1 1 0 2H9v6a1 1 0 1 1-2 0V9H1a1 1 0 0 1 0-2h6V1a1 1 0 0 1 1-1z"/></svg>
           </button>
             <div v-show="!validCard" class="alert alert-danger error" role="alert">Invalid card number</div>
-            <div v-show="!this.cards.length" class="alert alert-danger no-data" role="alert"><i>No cards added</i></div>
-            <div class="cbu" v-for="(cbu,i) in this.cards" :key="i">{{cbu}}<button class="delete-cbu" @click="deleteCard(i)"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-x-lg" viewBox="0 0 16 16">
+            <div v-show="!this.$store.state.cards.length" class="alert alert-danger no-data" role="alert"><i>No cards added</i></div>
+            <div class="cbu" v-for="(cbu,i) in this.$store.state.cards" :key="i">{{cbu}}<button class="delete-cbu" @click="deleteCard(i)"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-x-lg" viewBox="0 0 16 16">
               <path d="M1.293 1.293a1 1 0 0 1 1.414 0L8 6.586l5.293-5.293a1 1 0 1 1 1.414 1.414L9.414 8l5.293 5.293a1 1 0 0 1-1.414 1.414L8 9.414l-5.293 5.293a1 1 0 0 1-1.414-1.414L6.586 8 1.293 2.707a1 1 0 0 1 0-1.414z"/>
               </svg>
               </button>
@@ -51,7 +51,6 @@
       </div>
     </div>
   </section>
-
 </template>
 
 <script lang="js">
@@ -73,19 +72,23 @@
     methods: {
 
       addCbu(){
-        this.cbus.push(this.inputCbu)
+        this.$store.dispatch('addNewCbu',this.inputCbu)
+      //this.cbus.push(this.inputCbu)
       },
 
       deleteCbu(id){
-        this.cbus.splice(id,1)
+        this.$store.dispatch('deleteCbu',id)
+      //this.cbus.splice(id,1)
       },
 
       addCard(){
-        this.cards.push(this.inputCards)
+        this.$store.dispatch('addNewCard',this.inputCards)
+      //this.cards.push(this.inputCards)
       },
 
       deleteCard(id){
-        this.cards.splice(id,1)
+        this.$store.dispatch('deleteCard',id)
+      //this.cards.splice(id,1)
       },
 
     },
@@ -181,8 +184,5 @@
 #input{
   border: none;
   border-bottom: 1px solid black;
-  
 }
-
-
 </style>

@@ -7,22 +7,11 @@
       <div class="withdraw-input-container">
         <validate tag="div">
           <label>CBU to transfer</label>
-          <input
-              type="number"
-              class="withdraw-inputs"
-              name="cbu"
-              required
-              minlength="22"
-              maxlength="22"
-              is-positive
-              v-model.trim="formData.cbu"
-          />
+          <select class="withdraw-inputs" name="cbu">
+            <option v-for="(cbu,i) in this.$store.state.cbus" :key="i">{{cbu}}</option>  
+          </select>  
           <field-messages name="cbu" show="$dirty">
             <div slot="required" class="alert alert-danger mt-1 error"><b>Must complete this field</b></div>
-            <div slot="is-positive" class="alert alert-danger mt-1 error"><b>Invalid CBU</b></div>
-            <!--un cbu tiene 22 digitos-->
-            <div slot="minlength" class="alert alert-danger mt-1 error"><b>CBU must have 22 digits</b></div>
-            <div slot="maxlength" class="alert alert-danger mt-1 error"><b>CBU must have 22 digits</b></div>
           </field-messages>
         </validate>
       </div>
