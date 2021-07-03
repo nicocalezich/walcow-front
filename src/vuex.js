@@ -17,23 +17,27 @@ export default new Vuex.Store({
         cards: []
     },
     actions: {
-        access({commit}, canLogin) {
+        access({ commit }, canLogin) {
             commit('access', canLogin)
         },
-        setUserData({commit}, userData) {
+        setUserData({ commit }, userData) {
             commit('setUserData', userData)
         },
-        addNewCbu({commit}, cbu){
+        addNewCbu({ commit }, cbu) {
             commit('pushCbu', cbu)
         },
-        addNewCard({commit}, card){
+        addNewCard({ commit }, card) {
             commit('pushCard', card)
         },
-        deleteCbu({commit}, index){
+        deleteCbu({ commit }, index) {
             commit('deleteCbu', index)
         },
-        deleteCard({commit}, index){
+        deleteCard({ commit }, index) {
             commit('deleteCard', index)
+        },
+
+        getCbus({ commit }) {
+            commit('deleteCard')
         },
     },
     mutations: {
@@ -48,21 +52,32 @@ export default new Vuex.Store({
             state.user.fiat = userData.fiat
         },
 
-        pushCbu(state,cbu){
+        pushCbu(state, cbu) {
             state.cbus.push(cbu)
         },
 
-        pushCard(state,card){
+        pushCard(state, card) {
             state.cards.push(card)
         },
 
-        deleteCbu(state,index){
-            state.cbus.splice(index,1)
+        deleteCbu(state, index) {
+            state.cbus.splice(index, 1)
         },
 
-        deleteCard(state,index){
-            state.cards.splice(index,1)
-        }
+        deleteCard(state, index) {
+            state.cards.splice(index, 1)
+        },
+
+        async getCbus(state) {
+            let res = await fetch('https://walcow-api.herokuapp.com/?', {
+                headers: {
+                    mode: 'cors'
+                }
+            })
+            state.cbus = await res.json()
+        },
+
+
 
 
     }
