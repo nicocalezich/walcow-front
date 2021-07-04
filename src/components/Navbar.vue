@@ -60,7 +60,7 @@
               </a>
             </router-link>
           </li>
-          
+
         </ul>
       </div>
        <span class="navbar-text">
@@ -71,10 +71,10 @@
            </router-link>
         </span>
         <span class="navbar-text">
-            <a @click="logout()" class="right-li"  href="#" style="color: #d40101 !important">
+            <a @click="logout()" class="right-li"  href="#" style="color: #d91818 !important">
               Log out
             </a>
-        </span> 
+        </span>
     </nav>
   </section>
 
