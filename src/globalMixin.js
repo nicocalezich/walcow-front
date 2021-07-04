@@ -7,7 +7,7 @@ var accesMixin = {
         //console.log('mounted -> Mixin global')
     },
     methods: {
-        checkAccess() {
+        checkAccess() { 
 
             let token = window.localStorage.getItem('token');
             if (!token) {
@@ -27,7 +27,10 @@ var accesMixin = {
                 }).then(r => {
                     r.json().then(u => {
 
+                        console.log('Response: ', u);
+
                         if (u.success){
+                            this.$store.dispatch('access', u.success);
                             this.$store.dispatch('setUserData', u.result);
                         }
                         else {
