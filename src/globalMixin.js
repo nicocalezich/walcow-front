@@ -1,14 +1,11 @@
 import Vue from 'vue';
 
-
-
 var accesMixin = {
     mounted () {
         //console.log('mounted -> Mixin global')
     },
     methods: {
         checkAccess() { 
-
             let token = window.localStorage.getItem('token');
             if (!token) {
                 this.$router.push('/access').then(() => alert('You must login to continue'));
