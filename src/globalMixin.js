@@ -1,11 +1,12 @@
 import Vue from 'vue';
 
 var accesMixin = {
+
     mounted () {
         //console.log('mounted -> Mixin global')
     },
     methods: {
-        checkAccess() { 
+        checkAccess() {         
             let token = window.localStorage.getItem('token');
             if (!token) {
                 this.$router.push('/access').then(() => alert('You must login to continue'));
@@ -38,11 +39,15 @@ var accesMixin = {
                     })
                 }).catch(e => {
                     console.log('Error: ', e);
-                    window.localStorage.removeItem('token');
-                    this.$router.push('/access').then(() => alert('You must login to continue'));
                 })
             }
         },
+    },
+
+    computed: {
+        getBalance(){
+            return this.$store.state.user.fiat
+        }
     }
 }
 

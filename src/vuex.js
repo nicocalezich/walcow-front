@@ -39,6 +39,14 @@ export default new Vuex.Store({
         getCbus({ commit }) {
             commit('deleteCard')
         },
+
+        incrementBalance({commit}, amount){
+            commit('incrementBalance', amount)
+        },
+
+        decrementBalance({commit}, amount){
+            commit('decrementBalance', amount)
+        }
     },
     mutations: {
         access(state, canLogin) {
@@ -77,8 +85,13 @@ export default new Vuex.Store({
             state.cbus = await res.json()
         },
 
+        incrementBalance(state,amount){
+            state.user.fiat += amount
+        },
 
-
-
+        decrementBalance(state,amount){
+            state.user.fiat -= amount
+            console.log(state.user.fiat)
+        }
     }
 })

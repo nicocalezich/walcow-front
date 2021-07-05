@@ -66,7 +66,7 @@
                   d="M10.97 4.97a.235.235 0 0 0-.02.022L7.477 9.417 5.384 7.323a.75.75 0 0 0-1.06 1.06L6.97 11.03a.75.75 0 0 0 1.079-.02l3.992-4.99a.75.75 0 0 0-1.071-1.05z"/>
             </svg>
           </div>
-          <a type="button" @click="reset()" class="btn btn-light buy-again">Sell again</a>
+          <a type="button" @click="reset()" class="btn btn-light sell-again">Go home</a>
         </div>
       </vue-form>
     </div>
@@ -126,12 +126,14 @@ export default {
       };
 
       fetch("https://walcow-api.herokuapp.com/api/wallets/sell", requestOptions)
-          .then(() => this.sellSuccess = true)
+          .then(() => this.sellSuccess = true,
+          )
           .catch(error => console.error(error));
     },
     reset() {
       this.sellSuccess = false
       this.formData.amount = 0
+      this.$router.push('/home')
     },
     changeData() {
       this.selectedCrypto = this.getSelectedCryptoValue()

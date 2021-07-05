@@ -7,6 +7,6 @@ Vue.filter('capitalize', function(value) {
 });
 
 Vue.filter('globalFixed', function(value) {
-    if (!value) return 0;
+    if (!value || value === 0) return 0;
     return Number(value).toFixed(2);
 });

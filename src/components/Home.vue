@@ -23,7 +23,7 @@
       </div>
       <div id="fiat">
         <p class="text-black-50">Fiat</p>
-        <h2>${{this.$store.state.user.fiat | globalFixed}}</h2>
+        <h2>${{getBalance | globalFixed}}</h2>
       </div>
     </div>
     <div class="container-fluid general balance">

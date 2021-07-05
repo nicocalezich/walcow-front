@@ -34,13 +34,13 @@
                 v-model.trim="formData.amount"
                 required
             />
-            <label class="label-type"><i>Current balance ${{ balance || globalFixed }}</i></label>
+            <label class="label-type"><i>Current balance ${{ getBalance | globalFixed }}</i></label>
           </validate>
         </div>
         <div class="amount-bought-error" v-if="negativeAmount">
           <label><b>Amount is invalid</b></label>
         </div>
-        <div class="amount-bought-error" v-else-if="insufficientBalance">
+        <div class="amount-bought-error" v-else-if="insufficientBalance && !purchaseSuccess">
           <label><b>Insufficient balance</b></label>
         </div>
         <div v-else class="amount-bought">
@@ -100,7 +100,6 @@ export default {
     return {
       formData: this.getInicialData(),
       formState: {},
-      balance: this.$store.state.user.fiat,
       cryptos: [],
       selectedCrypto: this.crypto ? this.crypto : '',
       selectedCryptoName: '',
@@ -135,9 +134,11 @@ export default {
       };
 
       fetch("https://walcow-api.herokuapp.com/api/wallets/buy", requestOptions)
-          .then(() => 
+          .then((r) => 
+          console.log(r),
           this.purchaseSuccess = true,
-          this.waitingResponse = false)
+          this.waitingResponse = false,
+          this.$store.dispatch('decrementBalance',purchase.amount))
           .catch(error => console.error(error));
     },
     reset() {
@@ -185,7 +186,11 @@ export default {
     },
 
     insufficientBalance() {
-      return this.formData.amount > this.balance
+      return this.formData.amount > this.getBalance
+    },
+
+    currentBalance(){
+        return 0
     }
   }
 }
