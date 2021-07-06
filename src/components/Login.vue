@@ -121,23 +121,21 @@ export default {
                 this.$store.dispatch('access', res.data.success)
                 this.$router.push('/home')          
               } else {
-                this.waitingResponse = false
                 this.invalidCredentials = true
-
                 if (res.data.result.token) {
                   this.errorMessage = 'The email is not validated'
                 }
                 else {
                   this.errorMessage = res.data.result
                 }
-
+                this.formData = this.getInicialData()
+                this.formState._reset()
               }
             })
       } catch (error) {
         console.log(error)
       }
-      this.formData = this.getInicialData()
-      this.formState._reset()
+      
     },
   showPassword(){
     this.isHidden = false
