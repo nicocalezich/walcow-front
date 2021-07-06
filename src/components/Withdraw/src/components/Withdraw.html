@@ -4,16 +4,19 @@
     <div class="withdrawContainer">
       <h1>Withdraw</h1>
       <!--CBU input-->
-      <div class="withdraw-input-container">
+      <div v-if="this.$store.state.cbus.length" class="withdraw-input-container">
         <validate tag="div">
-          <label>CBU to transfer</label>
-          <select class="withdraw-inputs" name="cbu">
-            <option v-for="(cbu,i) in this.$store.state.cbus" :key="i">{{cbu}}</option>  
-          </select>  
+          <label>CBU to transfer</label>       
+            <select class="withdraw-inputs" name="cbu">
+              <option v-for="(cbu,i) in this.$store.state.cbus" :key="i">{{cbu}}</option>  
+            </select>      
           <field-messages name="cbu" show="$dirty">
             <div slot="required" class="alert alert-danger mt-1 error"><b>Must complete this field</b></div>
           </field-messages>
         </validate>
+      </div>
+      <div v-else>
+        <i>No CBUs registered,</i> add <router-link to="/profile"><b>here</b></router-link>
       </div>
       <!--Amount input-->
       <div class="withdraw-input-container">
@@ -39,7 +42,7 @@
       </div>
       <!--Confirm button-->
       <div v-if="!depositDone && !checkingCard" class="withdraw-button">
-        <button class="btn btn-light" :disabled="formState.$invalid || insufficientFiat" type="submit">Confirm withdraw</button>
+        <button class="btn btn-light" :disabled="formState.$invalid || insufficientFiat || !this.$store.state.cbus.length" type="submit">Confirm withdraw</button>
       </div>
       <!--Loading message-->
        <div v-else-if="checkingCard">

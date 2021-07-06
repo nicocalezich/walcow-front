@@ -4,7 +4,7 @@
     <vue-form :state="formState" @submit.prevent="send()">
       <div class="depositContainer">
         <h1>Deposit</h1>
-        <div class="deposit__input">
+        <div v-if="this.$store.state.cards.length" class="deposit__input">
           <validate tag="div">
             <label>Card number</label>
             <select class="deposit-inputs" name="card">            
@@ -14,14 +14,18 @@
               <div slot="required" class="alert alert-danger mt-1 error"><b>Must complete this field</b></div>
             </field-messages>
           </validate>
-        </div>
-        <div>
+          <div>
           <div class="type-card">
             <label @click="selectCredit()" id="label-cbox1"><input type="checkbox" checked=true id="cbox1">Credit
               card</label>
             <label @click="selectDebit()" id="label-cbox2"><input type="checkbox" id="cbox2">Debit card</label>
           </div>
         </div>
+        </div>
+        <div v-else>
+          <i>No credit o debit card registered,</i> add <router-link to="/profile"><b>here</b></router-link>
+        </div>
+        
         <div class="deposit__input">
           <div>
             <label>Card expiration date</label>
@@ -81,7 +85,7 @@
           </validate>
         </div>
         <div v-if="!depositDone && !checkingCard" class="deposit__button">
-          <button class="btn btn-light" :disabled="formState.$invalid" type="submit">Confirm deposit</button>
+          <button class="btn btn-light" :disabled="formState.$invalid || !this.$store.state.cards.length" type="submit">Confirm deposit</button>
         </div>
          <div v-else-if="checkingCard">
             <div class="alert alert-warning mt-3" role="alert">
@@ -228,6 +232,10 @@ export default {
   border-bottom: 1px solid black;
   background: transparent;
   outline: none;
+}
+
+.type-card{
+  margin-top: -10px;
 }
 
 .type-card #cbox1 {
