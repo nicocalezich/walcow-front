@@ -41,6 +41,23 @@ var accesMixin = {
                     console.log('Error: ', e);
                 })
             }
+            
+        },
+
+        updateData(){
+            fetch('https://walcow-api.herokuapp.com/api/users/data', {
+                method: 'POST',
+                body: JSON.stringify({
+                    "token": window.localStorage.getItem('token')
+                }),
+                headers: {
+                    'Content-Type': 'application/json'
+                }
+            }).then(r => {
+                r.json().then(u =>  this.$store.dispatch('setUserData', u.result))
+            }).catch(e => {
+                console.log('Error: ', e);
+            })
         },
     },
 

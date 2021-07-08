@@ -42,6 +42,7 @@ export default {
       }
       this.checkingCard = false
       this.depositDone = true
+      this.updateData()
     },
 
     getFiat(){

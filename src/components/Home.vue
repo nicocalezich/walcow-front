@@ -78,6 +78,7 @@ export default {
   components: {},
   mounted() {
     this.checkAccess()
+    this.updateData()
     this.setBitcoinPrice()
     this.calculateTotal()
     this.setWallets()
@@ -140,8 +141,7 @@ section {
   background-color: white;
   line-height: 1.25;
   box-shadow: 0px 2px 4px rgb(0 0 0 / 4%);
-  margin-top: 2rem;
-  margin-bottom: 2rem;
+  margin-bottom: 0rem;
   padding: 24px;
 }
 
