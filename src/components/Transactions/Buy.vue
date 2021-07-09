@@ -187,10 +187,6 @@ export default {
 
     insufficientBalance() {
       return this.formData.amount > this.getBalance
-    },
-
-    currentBalance(){
-        return 0
     }
   }
 }

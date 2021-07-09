@@ -52,8 +52,6 @@ export default {
       document.querySelector('#sell').style.borderBottom = '2px solid #ffc107'
       document.querySelector('#buy').style.borderBottom = 'none'
     },
-
-    computed: {}
   }
 }
 

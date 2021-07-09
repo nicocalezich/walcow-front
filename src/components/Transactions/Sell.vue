@@ -155,7 +155,6 @@ export default {
         w.tokenData = await result.json()
         w.tokenPrice = await this.getPrice(w.token)
         this.cryptos.push(w)
-        console.log(this.cryptos)
       }
     },
     async getPrice(token) {
