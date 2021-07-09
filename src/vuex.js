@@ -12,9 +12,7 @@ export default new Vuex.Store({
             email: '',
             username: '',
             fiat: 0
-        },
-        cbus: [],
-        cards: []
+        }
     },
     actions: {
         access({ commit }, canLogin) {
@@ -23,23 +21,6 @@ export default new Vuex.Store({
         setUserData({ commit }, userData) {
             commit('setUserData', userData)
         },
-        addNewCbu({ commit }, cbu) {
-            commit('pushCbu', cbu)
-        },
-        addNewCard({ commit }, card) {
-            commit('pushCard', card)
-        },
-        deleteCbu({ commit }, index) {
-            commit('deleteCbu', index)
-        },
-        deleteCard({ commit }, index) {
-            commit('deleteCard', index)
-        },
-
-        getCbus({ commit }) {
-            commit('deleteCard')
-        },
-
         incrementBalance({commit}, amount){
             commit('incrementBalance', amount)
         },
@@ -59,36 +40,9 @@ export default new Vuex.Store({
             state.user.username = userData.username
             state.user.fiat = userData.fiat
         },
-
-        pushCbu(state, cbu) {
-            state.cbus.push(cbu)
-        },
-
-        pushCard(state, card) {
-            state.cards.push(card)
-        },
-
-        deleteCbu(state, index) {
-            state.cbus.splice(index, 1)
-        },
-
-        deleteCard(state, index) {
-            state.cards.splice(index, 1)
-        },
-
-        async getCbus(state) {
-            let res = await fetch('https://walcow-api.herokuapp.com/?', {
-                headers: {
-                    mode: 'cors'
-                }
-            })
-            state.cbus = await res.json()
-        },
-
         incrementBalance(state,amount){
             state.user.fiat += amount
         },
-
         decrementBalance(state,amount){
             state.user.fiat -= amount
             console.log(state.user.fiat)
