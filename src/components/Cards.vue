@@ -43,7 +43,7 @@
       {{
         card
       }}
-      <button class="delete-cbu" @click="deleteCard">
+      <button class="delete-cbu" @click="deleteCard(card)">
         <svg
             xmlns="http://www.w3.org/2000/svg"
             width="16"
@@ -89,6 +89,7 @@ export default {
       let data = {
         number: this.inputCards
       }
+      this.inputCards = ''
       try {
         axios.post("https://walcow-api.herokuapp.com/api/users/cards", data, {
           headers: {
@@ -101,8 +102,14 @@ export default {
         console.log(error)
       }
     },
-    deleteCard() {
-      console.log('delete card')
+    deleteCard(number) {
+      axios.delete("https://walcow-api.herokuapp.com/api/users/cards/" + number, {
+        headers: {
+          'auth-token': localStorage.getItem('token')
+        }
+      }).then((d) => {
+        this.cards = d.data.result
+      })
     }
   },
   computed: {

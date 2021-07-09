@@ -39,7 +39,7 @@
       {{
         cbu
       }}
-      <button class="delete-cbu" @click="deleteCbu">
+      <button class="delete-cbu" @click="deleteCbu(cbu)">
         <svg
             xmlns="http://www.w3.org/2000/svg"
             width="16"
@@ -85,6 +85,7 @@ export default {
       let data = {
         number: this.inputCbu
       }
+      this.inputCbu = ''
       try {
         axios.post("https://walcow-api.herokuapp.com/api/users/cbus", data, {
           headers: {
@@ -97,8 +98,14 @@ export default {
         console.log(error)
       }
     },
-    deleteCbu() {
-      console.log('delete cbu')
+    deleteCbu(number) {
+      axios.delete("https://walcow-api.herokuapp.com/api/users/cbus/" + number, {
+        headers: {
+          'auth-token': localStorage.getItem('token')
+        }
+      }).then((d) => {
+        this.cbus = d.data.result
+      })
     }
   },
   computed: {
