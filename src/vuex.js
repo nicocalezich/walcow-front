@@ -11,7 +11,9 @@ export default new Vuex.Store({
             lastname: '',
             email: '',
             username: '',
-            fiat: 0
+            fiat: 0,
+            cbus: [],
+            cards: []
         }
     },
     actions: {
@@ -39,6 +41,8 @@ export default new Vuex.Store({
             state.user.email = userData.email
             state.user.username = userData.username
             state.user.fiat = userData.fiat
+            state.user.cbus = userData.cbus
+            state.user.cards = userData.cards
         },
         incrementBalance(state,amount){
             state.user.fiat += amount

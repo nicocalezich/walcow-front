@@ -6,6 +6,7 @@ export default {
   mounted() {
     this.checkAccess()
     this.balance = this.getFiat()
+    this.getCbusAndCards()
   },
   data() {
     return {

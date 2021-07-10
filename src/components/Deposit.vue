@@ -4,11 +4,11 @@
     <vue-form :state="formState" @submit.prevent="send()">
       <div class="depositContainer">
         <h1>Deposit</h1>
-        <div v-if="this.$store.state.cards.length" class="deposit__input">
+        <div v-if="this.$store.state.user.cards.length" class="deposit__input">
           <validate tag="div">
             <label>Card number</label>
             <select class="deposit-inputs" name="card">            
-              <option v-for="(card,i) in this.$store.state.cards" :key="i">{{card}}</option>          
+              <option v-for="(card,i) in this.$store.state.user.cards" :key="i">{{card}}</option>          
             </select>
             <field-messages name="card" show="$dirty">
               <div slot="required" class="alert alert-danger mt-1 error"><b>Must complete this field</b></div>
@@ -85,7 +85,7 @@
           </validate>
         </div>
         <div v-if="!depositDone && !checkingCard" class="deposit__button">
-          <button class="btn btn-light" :disabled="formState.$invalid || !this.$store.state.cards.length" type="submit">Confirm deposit</button>
+          <button class="btn btn-light" :disabled="formState.$invalid || !this.$store.state.user.cards.length" type="submit">Confirm deposit</button>
         </div>
          <div v-else-if="checkingCard">
             <div class="alert alert-warning mt-3" role="alert">
@@ -121,6 +121,7 @@ export default {
   props: [],
   mounted() {
     this.checkAccess()
+    this.getCbusAndCards()
   },
   data() {
     return {

@@ -1,4 +1,5 @@
 import Vue from 'vue';
+import axios from "axios"
 
 var accesMixin = {
 
@@ -59,6 +60,22 @@ var accesMixin = {
                 console.log('Error: ', e);
             })
         },
+
+        async getCbusAndCards(){
+            let res = await axios.get("https://walcow-api.herokuapp.com/api/users/cbus", {
+                headers: {
+                  'auth-token': localStorage.getItem('token')
+                }
+              })
+              this.$store.state.user.cbus = res.data.result
+
+              let res2 = await axios.get("https://walcow-api.herokuapp.com/api/users/cards", {
+                headers: {
+                  'auth-token': localStorage.getItem('token')
+                }
+              })
+              this.$store.state.user.cards = res2.data.result
+        }
     },
 
     computed: {
