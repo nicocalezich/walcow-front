@@ -81,7 +81,7 @@ export default {
     this.updateData()
     this.setBitcoinPrice()
     this.calculateTotal()
-    this.setWallets()
+    //this.setWallets()
   },
   props: {},
   methods: {
@@ -96,9 +96,20 @@ export default {
           'auth-token': window.localStorage.token
         }
       })
-      let json = await result.json()
-      this.totalInUSD = json.result
+      let response = await result.json()
+      console.log(response);
+      this.totalInUSD = response.result
       this.totalInBTC = this.totalInUSD / this.bitcoinPrice
+
+
+      for(const rawWallet of response.detail) {
+
+        let newWallet = rawWallet.wallet;
+        newWallet.tokenData = rawWallet.token;
+        newWallet.tokenPrice = rawWallet.token.market_data.current_price.usd
+        this.wallets.push(newWallet);
+      }/***/
+
     },
     async setWallets() {
       let result = await fetch('https://walcow-api.herokuapp.com/api/wallets', {
