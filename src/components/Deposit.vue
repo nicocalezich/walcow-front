@@ -4,28 +4,29 @@
     <vue-form :state="formState" @submit.prevent="send()">
       <div class="depositContainer">
         <h1>Deposit</h1>
-        <div v-if="this.$store.state.cards.length" class="deposit__input">
+        <div v-if="this.cards.length" class="deposit__input">
           <validate tag="div">
             <label>Card number</label>
-            <select class="deposit-inputs" name="card">            
-              <option v-for="(card,i) in this.$store.state.cards" :key="i">{{card}}</option>          
+            <select class="deposit-inputs" name="card">
+              <option v-for="(card,i) in this.cards" :key="i">{{ card }}</option>
             </select>
             <field-messages name="card" show="$dirty">
               <div slot="required" class="alert alert-danger mt-1 error"><b>Must complete this field</b></div>
             </field-messages>
           </validate>
           <div>
-          <div class="type-card">
-            <label @click="selectCredit()" id="label-cbox1"><input type="checkbox" checked=true id="cbox1">Credit
-              card</label>
-            <label @click="selectDebit()" id="label-cbox2"><input type="checkbox" id="cbox2">Debit card</label>
+            <div class="type-card">
+              <label @click="selectCredit()" id="label-cbox1"><input type="checkbox" checked=true id="cbox1">Credit
+                card</label>
+              <label @click="selectDebit()" id="label-cbox2"><input type="checkbox" id="cbox2">Debit card</label>
+            </div>
           </div>
         </div>
-        </div>
         <div v-else>
-          <i>No credit o debit card registered,</i> add <router-link to="/profile"><b>here</b></router-link>
+          <i>No credit o debit card registered,</i> add
+          <router-link to="/profile"><b>here</b></router-link>
         </div>
-        
+
         <div class="deposit__input">
           <div>
             <label>Card expiration date</label>
@@ -41,7 +42,8 @@
                     d="M16 8s-3-5.5-8-5.5S0 8 0 8s3 5.5 8 5.5S16 8 16 8zM1.173 8a13.133 13.133 0 0 1 1.66-2.043C4.12 4.668 5.88 3.5 8 3.5c2.12 0 3.879 1.168 5.168 2.457A13.133 13.133 0 0 1 14.828 8c-.058.087-.122.183-.195.288-.335.48-.83 1.12-1.465 1.755C11.879 11.332 10.119 12.5 8 12.5c-2.12 0-3.879-1.168-5.168-2.457A13.134 13.134 0 0 1 1.172 8z"/>
                 <path d="M8 5.5a2.5 2.5 0 1 0 0 5 2.5 2.5 0 0 0 0-5zM4.5 8a3.5 3.5 0 1 1 7 0 3.5 3.5 0 0 1-7 0z"/>
               </svg>
-              <svg @click="show()" v-show="!showPin" xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+              <svg @click="show()" v-show="!showPin" xmlns="http://www.w3.org/2000/svg" width="16" height="16"
+                   fill="currentColor"
                    class="bi bi-eye-slash" viewBox="0 0 16 16">
                 <path
                     d="M13.359 11.238C15.06 9.72 16 8 16 8s-3-5.5-8-5.5a7.028 7.028 0 0 0-2.79.588l.77.771A5.944 5.944 0 0 1 8 3.5c2.12 0 3.879 1.168 5.168 2.457A13.134 13.134 0 0 1 14.828 8c-.058.087-.122.183-.195.288-.335.48-.83 1.12-1.465 1.755-.165.165-.337.328-.517.486l.708.709z"/>
@@ -70,13 +72,13 @@
           <validate tag="div">
             <label>Amount (USD)</label>
             <input
-              type="number"
-              class="deposit-inputs"
-              name="amount"
-              id="amount"
-              required
-              is-positive
-              v-model.trim="formData.amount"
+                type="number"
+                class="deposit-inputs"
+                name="amount"
+                id="amount"
+                required
+                is-positive
+                v-model.trim="formData.amount"
             />
             <field-messages name="amount" show="$dirty">
               <div slot="required" class="alert alert-danger mt-1 error"><b>Must complete this field</b></div>
@@ -85,12 +87,14 @@
           </validate>
         </div>
         <div v-if="!depositDone && !checkingCard" class="deposit__button">
-          <button class="btn btn-light" :disabled="formState.$invalid || !this.$store.state.cards.length" type="submit">Confirm deposit</button>
+          <button class="btn btn-light" :disabled="formState.$invalid || !this.cards.length" type="submit">
+            Confirm deposit
+          </button>
         </div>
-         <div v-else-if="checkingCard">
-            <div class="alert alert-warning mt-3" role="alert">
-              transaction in progress, please wait...
-            </div>
+        <div v-else-if="checkingCard">
+          <div class="alert alert-warning mt-3" role="alert">
+            transaction in progress, please wait...
+          </div>
         </div>
         <div v-else>
           <div class="alert alert-success mt-3 success" role="alert">
@@ -121,6 +125,8 @@ export default {
   props: [],
   mounted() {
     this.checkAccess()
+    this.getCards()
+    this.getCbus()
   },
   data() {
     return {
@@ -128,35 +134,53 @@ export default {
       formState: {},
       showPin: false,
       depositDone: false,
-      checkingCard: false
+      checkingCard: false,
+      cards: [],
+      cbus: []
     }
   },
   methods: {
+    async getCards() {
+      let res = await axios.get("https://walcow-api.herokuapp.com/api/users/cards", {
+        headers: {
+          'auth-token': localStorage.getItem('token')
+        }
+      })
+      this.cards = res.data.result
+    },
+    async getCbus() {
+      let res = await axios.get("https://walcow-api.herokuapp.com/api/users/cbus", {
+        headers: {
+          'auth-token': localStorage.getItem('token')
+        }
+      })
+      this.cbus = res.data.result
+    },
     send() {
       this.checkingCard = true
       try {
-       let axiosConfig = {
-        headers: {
+        let axiosConfig = {
+          headers: {
             'Content-Type': 'application/json;charset=UTF-8',
             "auth-token": window.localStorage.getItem("token"),
-        }
-      };
-      axios.patch("https://walcow-api.herokuapp.com/api/users/deposit", {
-            value:  this.formData.amount
-            }, axiosConfig)
-          .then(res => {
-            console.log(res.data)
-            this.checkingCard = false
-            this.depositDone = true
-          })
-          .catch(e => console.log(e))
-    } catch (error) {
-      console.log(error)
-    }
+          }
+        };
+        axios.patch("https://walcow-api.herokuapp.com/api/users/deposit", {
+          value: this.formData.amount
+        }, axiosConfig)
+            .then(res => {
+              console.log(res.data)
+              this.checkingCard = false
+              this.depositDone = true
+            })
+            .catch(e => console.log(e))
+      } catch (error) {
+        console.log(error)
+      }
     },
     selectCredit() {
       document.querySelector('#cbox1').checked = true
-      document.querySelector('#cbox2').checked = false  
+      document.querySelector('#cbox2').checked = false
     },
 
     selectDebit() {
@@ -206,7 +230,7 @@ export default {
   background-color: #f5f5f5;
 }
 
-.src-components-deposit a{
+.src-components-deposit a {
   text-align: center;
 }
 
@@ -234,7 +258,7 @@ export default {
   outline: none;
 }
 
-.type-card{
+.type-card {
   margin-top: -10px;
 }
 
@@ -282,7 +306,7 @@ export default {
   padding: 0px 20px;
 }
 
-.container-deposit-again{
+.container-deposit-again {
   text-align: center;
 }
 
@@ -294,7 +318,7 @@ export default {
   border-bottom: 2px solid #ffc107;
 }
 
-.success{
+.success {
   text-align: center;
 }
 </style>
