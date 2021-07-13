@@ -154,6 +154,10 @@
           Register successfuly!, sended a confirmation to the email.
         </div>
 
+        <div v-if="hasError" class="alert alert-error error">
+          {{ errorMessage }}
+        </div>
+
 
         <div class="redirect">
           <router-link to="/access/login"><a href="#">Already registered? back to log in</a></router-link>
@@ -178,6 +182,8 @@ export default {
     return {
       formData: this.getInicialData(),
       canContinue: false,
+      hasError: false,
+      errorMessage: "",
       formState: {},
     }
   },
@@ -204,6 +210,9 @@ export default {
         firstname: this.formData.firstname,
         lastname: this.formData.lastname,
       }
+
+      this.hasError = false;
+
       try {
         axios.post('https://walcow-api.herokuapp.com/api/users/register', credentials).then(r => {
           this.canContinue = r.data.success;
@@ -211,6 +220,11 @@ export default {
             setTimeout(() => {
               this.$router.push('/access/login');
             }, 3000);
+          }
+          else {
+            console.log(r.data);
+            this.hasError = true;
+            this.errorMessage = r.data.message;
           }
         })
       } catch (error) {
