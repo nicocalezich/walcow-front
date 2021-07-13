@@ -209,7 +209,6 @@ export default {
       this.depositDone = false
       this.formData.amount = 0
     },
-    computed: {}
   }
 }
 

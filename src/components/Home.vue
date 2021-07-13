@@ -58,9 +58,6 @@
             <router-link :to="{path: '/transaction/sell', query: {crypto: w.token}}">
               <a href="#" class="actions">Sell</a>
             </router-link>
-            <router-link :to="{path: '/withdraw'}">
-              <a href="#" class="actions">Withdraw</a>
-            </router-link>
           </td>
         </tr>
         </tbody>
