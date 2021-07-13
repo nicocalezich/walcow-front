@@ -80,6 +80,7 @@ export default {
         }
       })
       this.cbus = res.data.result
+      this.$store.state.user.cbus = res.data.result
     },
     addCbu() {
       let data = {
@@ -105,6 +106,7 @@ export default {
         }
       }).then((d) => {
         this.cbus = d.data.result
+         this.$store.state.user.cbus = d.data.result
       })
     }
   },

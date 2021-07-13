@@ -76,6 +76,7 @@ export default {
   mounted() {
     this.getCards()
   },
+
   methods: {
     async getCards() {
       let res = await axios.get("https://walcow-api.herokuapp.com/api/users/cards", {
@@ -84,6 +85,7 @@ export default {
         }
       })
       this.cards = res.data.result
+      this.$store.state.user.cards =  res.data.result
     },
     addCard() {
       let data = {
@@ -109,6 +111,7 @@ export default {
         }
       }).then((d) => {
         this.cards = d.data.result
+        this.$store.state.user.cards =  d.data.result
       })
     }
   },
