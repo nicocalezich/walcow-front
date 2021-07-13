@@ -86,8 +86,7 @@ export default {
   },
   mounted() {
     this.checkAccess()
-    this.getCryptosV2().then(() => this.setInitialValues())
-    //this.getCryptos().then(() => this.setInitialValues())
+    this.getCryptos().then(() => this.setInitialValues())
   },
   data() {
     return {
@@ -143,7 +142,7 @@ export default {
       this.setCryptoQuantity(this.selectedCrypto)
       this.setCryptoQuantityToUsd(this.selectedCrypto)
     },
-    async getCryptosV2(){
+    async getCryptos(){
       let result = await fetch('https://walcow-api.herokuapp.com/api/wallets/total', {
         headers: {
           'auth-token': window.localStorage.token
@@ -161,27 +160,6 @@ export default {
         this.cryptos.push(newWallet);
       }/** */
 
-    },
-    async getCryptos() {
-      let result = await fetch('https://walcow-api.herokuapp.com/api/wallets', {
-        headers: {
-          'auth-token': window.localStorage.token
-        }
-      })
-      let json = await result.json()
-      let wallets = json.result
-
-      for (const w of wallets) {
-        let result = await fetch('https://walcow-api.herokuapp.com/api/tokens/' + w.token)
-        w.tokenData = await result.json()
-        w.tokenPrice = await this.getPrice(w.token)
-        this.cryptos.push(w)
-      }/** */
-    },
-    async getPrice(token) {
-      let result = await fetch('https://walcow-api.herokuapp.com/api/tokens/price/' + token)
-      let json = await result.json()
-      return json.result.price
     },
     setPrice(id) {
       let crypto = this.cryptos.find(o => o.tokenData.id === id)

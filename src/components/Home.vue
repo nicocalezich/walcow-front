@@ -77,56 +77,41 @@ export default {
     this.checkAccess()
     this.updateData()
     this.setBitcoinPrice()
-    this.calculateTotal()
-    //this.setWallets()
+    this.fetchUserInformation()
   },
   props: {},
+
   methods: {
     async setBitcoinPrice() {
       let result = await fetch('https://walcow-api.herokuapp.com/api/tokens/price/bitcoin')
       let json = await result.json()
       this.bitcoinPrice = json.result.price
     },
-    async calculateTotal() {
+    async fetchUserInformation() {
       let result = await fetch('https://walcow-api.herokuapp.com/api/wallets/total', {
         headers: {
           'auth-token': window.localStorage.token
         }
       })
       let response = await result.json()
-      console.log(response);
-      this.totalInUSD = response.result
-      this.totalInBTC = this.totalInUSD / this.bitcoinPrice
 
+      this.setUserWallets(response.detail);
+      this.setUserTotal(response.result);
 
-      for(const rawWallet of response.detail) {
+    },/***/
+    setUserWallets(wallets){
+      for(const rawWallet of wallets) {
 
         let newWallet = rawWallet.wallet;
         newWallet.tokenData = rawWallet.token;
         newWallet.tokenPrice = rawWallet.token.market_data.current_price.usd
         this.wallets.push(newWallet);
+        
       }/***/
-
     },
-    async setWallets() {
-      let result = await fetch('https://walcow-api.herokuapp.com/api/wallets', {
-        headers: {
-          'auth-token': window.localStorage.token
-        }
-      })
-      let json = await result.json()
-      let wallets = json.result
-      for (const w of wallets) {
-        let result = await fetch('https://walcow-api.herokuapp.com/api/tokens/' + w.token)
-        w.tokenData = await result.json()
-        w.tokenPrice = await this.getPrice(w.token)
-        this.wallets.push(w)
-      }
-    },
-    async getPrice(token) {
-      let result = await fetch('https://walcow-api.herokuapp.com/api/tokens/price/' + token)
-      let json = await result.json()
-      return json.result.price
+    setUserTotal(total){
+      this.totalInUSD = total
+      this.totalInBTC = this.totalInUSD / this.bitcoinPrice
     }
   },
   data() {
